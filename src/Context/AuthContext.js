@@ -11,12 +11,14 @@ export function AuthProvider({ children }) {
     // const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    
+
     const http = axios.create({
         baseURL: `http://localhost:8000`,
         withCredentials:true,
         headers:{'Access-Control-Allow-Origin':'*', 'Content-Type':'application/json'}
     })  
+
+    //hihihi
 
 
 
