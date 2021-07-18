@@ -7,7 +7,7 @@ import CenteredContainer from './CenteredContainer';
 export default function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    const { login } = useAuth()
+    const { login, getGoogleAccount } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory() 
@@ -32,6 +32,16 @@ export default function Login() {
             setError("Failed to log in")
         }
         setLoading(false)
+    }
+
+    async function handleLogInWithGoogle(){
+        try{ 
+            await getGoogleAccount()
+            console.log('logging in with google')
+        }catch(err){
+            console.log(err)
+        }
+        
     }
 
 
@@ -70,7 +80,7 @@ export default function Login() {
             <Card.Body>
                 <h5 className="text-center mb-4">Or</h5>
                 <Button variant="success" type="button" block>Log In with Facebook</Button>
-                <Button variant="secondary" type="button" block>Log In with Google</Button>
+                <Button variant="secondary" type="button" onClick={handleLogInWithGoogle} block>Log In with Google</Button>
             </Card.Body>
         </Card>
         </CenteredContainer>

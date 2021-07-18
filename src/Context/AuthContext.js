@@ -25,6 +25,7 @@ export function AuthProvider({ children }) {
     const createUser = user => http.post(`/register`, user)
     const login = user => http.post(`/login`, user)
     const getUser = () => http.get(`/account`)
+    const getGoogleAccount = () => http.get(`/google`)
     
     
 
@@ -81,6 +82,7 @@ export function AuthProvider({ children }) {
         createUser,
         login,
         getUser,
+        getGoogleAccount,
         
         
     }
