@@ -1,5 +1,5 @@
 import React from 'react';
-import homepage from './homepage.png';
+import homepage from '../image/homepage.png';
 import NavBar from './NavBar';
 import SearchArea from './SearchArea';
 

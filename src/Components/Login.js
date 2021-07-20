@@ -65,7 +65,11 @@ export default function Login() {
    
 
     return (
+        
         <CenteredContainer>
+
+        <Link to="/">Homepage</Link>
+
         <div className="card">
             <div className="card-body">
                 <h2 className="text-center mb-4">Log In</h2>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CenteredContainer from './CenteredContainer';
-import profile from './default-profile.jpg';
+import profile from '../image/default-profile.jpg';
 import { Link, useHistory } from "react-router-dom";
 import { Button, Modal, Form } from 'react-bootstrap';
 import { FilePond, registerPlugin } from 'react-filepond'
@@ -45,6 +45,9 @@ export default function Profile(){
     return(
         <>
         <CenteredContainer>
+
+            <Link to="/">Homepage</Link>
+
             <div className="card">
                 <div className="card-body">
                     <h2 className="text-center mb-4">Your Profile</h2>

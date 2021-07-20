@@ -16,6 +16,9 @@ export default function NavBar(){
                 <li className="nav-item">
                     <a className="nav-link" href="/signup">Sign up</a>
                 </li>
+                <li className="nav-item">
+                    <a className="nav-link" href="/profile">Profile</a>
+                </li>
             </ul>
 
         </nav>
