@@ -24,7 +24,7 @@ export default function Login() {
             }
             let result = await login(user)
             console.log(result.data)
-            if (result.data == 'log in successfully'){
+            if (result.data === 'log in successfully'){
                 history.push('/profile') 
             }
            
@@ -32,29 +32,12 @@ export default function Login() {
                 setError("Failed to log in")
             }
         setLoading(false)
-    // }
-        // setError("")
-        // setLoading(true)
-        // const newUser = {
-        //     email: emailRef.current.value,
-        //     password: passwordRef.current.value
-        // }
-        // login(newUser).then((req, res) => {
-        //     // if (res.data === 'log in successfully'){
-        //     //     history.push('/profile')
-        //     // }
-        //     console.log(res.json())
-        // }).catch(err => {
-        //     console.log(err)
-        //     setError('Failed to log in')
-        // })
-        // setLoading(false)
     }
 
     function handleLogInWithGoogle(){
         getGoogleAccount().then((req, res) => {
             console.log(res.data)
-            if (res.data == 'success'){
+            if (res.data === 'success'){
                 history.push('/profile')
             }
             
