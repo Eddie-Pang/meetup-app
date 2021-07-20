@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CenteredContainer from './CenteredContainer';
 import profile from './default-profile.jpg';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Button, Modal, Form } from 'react-bootstrap';
 import { FilePond, registerPlugin } from 'react-filepond'
 import { useAuth } from '../Context/AuthContext';
@@ -11,9 +11,17 @@ export default function Profile(){
     const [show, setShow] = useState(false)
     const [file, setFile] = useState("")
     const [currentUser, setCurrentUser ] = useState(null)
-    const {  getUser } = useAuth()
+    const {  getUser, logout } = useAuth()
+    const history = useHistory() 
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
+
+    async function handleLogOut(){
+        let result = await logout()
+        if (result.data === 'log out successfully'){
+            history.push('/')
+        }
+    }
 
     useEffect(() => {
         let isMounted = true; 
@@ -80,6 +88,7 @@ export default function Profile(){
                         <button type="submit" className="btn btn-primary mt-2">Confirm</button>
                     </form>
                     <Link to="#">Reset password</Link>
+                    <Button variant="secondary" onClick={handleLogOut}>Log out</Button>
                 </div>
             </div>
         </CenteredContainer>

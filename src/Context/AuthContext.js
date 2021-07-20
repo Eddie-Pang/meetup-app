@@ -15,7 +15,10 @@ export function AuthProvider({ children }) {
     const http = axios.create({
         baseURL: `http://localhost:8000`,
         withCredentials:true,
-        headers:{'Access-Control-Allow-Origin':'*', 'Content-Type':'application/json'}
+        headers:{
+            'Access-Control-Allow-Origin':'*', 
+            'Content-Type':'application/json'
+        }
     })  
 
     //hihihi
@@ -26,6 +29,7 @@ export function AuthProvider({ children }) {
     const login = user => http.post(`/login`, user)
     const getUser = () => http.get(`/account`)
     const getGoogleAccount = () => http.get(`/google`)
+    const logout = () => http.get(`/logout`)
     
     
 
@@ -83,6 +87,7 @@ export function AuthProvider({ children }) {
         login,
         getUser,
         getGoogleAccount,
+        logout,
         
         
     }

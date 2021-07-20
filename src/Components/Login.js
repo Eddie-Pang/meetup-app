@@ -22,27 +22,44 @@ export default function Login() {
                 email: emailRef.current.value,
                 password: passwordRef.current.value
             }
-            
-            await login(user)
-            
-            history.push('/profile') 
-
-        }catch{
-         
-            setError("Failed to log in")
-        }
+            let result = await login(user)
+            console.log(result.data)
+            if (result.data == 'log in successfully'){
+                history.push('/profile') 
+            }
+           
+            }catch{
+                setError("Failed to log in")
+            }
         setLoading(false)
+    // }
+        // setError("")
+        // setLoading(true)
+        // const newUser = {
+        //     email: emailRef.current.value,
+        //     password: passwordRef.current.value
+        // }
+        // login(newUser).then((req, res) => {
+        //     // if (res.data === 'log in successfully'){
+        //     //     history.push('/profile')
+        //     // }
+        //     console.log(res.json())
+        // }).catch(err => {
+        //     console.log(err)
+        //     setError('Failed to log in')
+        // })
+        // setLoading(false)
     }
 
-    async function handleLogInWithGoogle(){
-        try{ 
-            await getGoogleAccount()
-            console.log('logging in with google')
-        }catch(err){
-            console.log(err)
-        }
-        
-    }
+    function handleLogInWithGoogle(){
+        getGoogleAccount().then((req, res) => {
+            console.log(res.data)
+            if (res.data == 'success'){
+                history.push('/profile')
+            }
+            
+        }).catch((err) => console.log(err))
+     }
 
 
    
@@ -80,7 +97,9 @@ export default function Login() {
             <Card.Body>
                 <h5 className="text-center mb-4">Or</h5>
                 <Button variant="success" type="button" block>Log In with Facebook</Button>
-                <Button variant="secondary" type="button" onClick={handleLogInWithGoogle} block>Log In with Google</Button>
+                <a href="http://localhost:8000/google">
+                    <Button variant="secondary" type="button" block>Log In with Google</Button>
+                </a>
             </Card.Body>
         </Card>
         </CenteredContainer>
