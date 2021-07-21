@@ -10,8 +10,8 @@ import { useAuth } from '../Context/AuthContext';
 export default function Profile(){
     const [show, setShow] = useState(false)
     const [file, setFile] = useState("")
-    const [currentUser, setCurrentUser ] = useState(null)
-    const {  getUser, logout } = useAuth()
+    // const [currentUser, setCurrentUser ] = useState(null)
+    const {  logout, currentUser } = useAuth()
     const history = useHistory() 
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
@@ -23,23 +23,23 @@ export default function Profile(){
         }
     }
 
-    useEffect(() => {
-        let isMounted = true; 
-         getUser()
-        .then(res => {
-            if (isMounted) {
-                 console.log(res)
-                 setCurrentUser(res.data)
+    // useEffect(() => {
+    //     let isMounted = true; 
+    //      getUser()
+    //     .then(res => {
+    //         if (isMounted) {
+    //              console.log(res)
+    //              setCurrentUser(res.data)
                  
-            }
-         })
-        .catch(err => { 
-            console.log(err)
-         })
-         return ()=>{
-             isMounted = false;
-         }
-     }, [])
+    //         }
+    //      })
+    //     .catch(err => { 
+    //         console.log(err)
+    //      })
+    //      return ()=>{
+    //          isMounted = false;
+    //      }
+    //  }, [])
 
 
     return(

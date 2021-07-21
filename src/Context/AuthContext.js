@@ -8,7 +8,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-    // const [currentUser, setCurrentUser] = useState(null)
+    const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
 
@@ -21,37 +21,31 @@ export function AuthProvider({ children }) {
         }
     })  
 
-    //hihihi
-
-
-
     const createUser = user => http.post(`/register`, user)
     const login = user => http.post(`/login`, user)
-    const getUser = () => http.get(`/account`)
-    const getGoogleAccount = () => http.get(`/google`)
+    // const getUser = () => http.get(`/account`)
     const logout = () => http.get(`/logout`)
     
     
 
 
-    // useEffect(() => {
-    //    let isMounted = true; 
-    //     http.get(`/account`)
-    //    .then(res => {
-
-    //         if (isMounted) {
-    //             console.log(res)
-    //             setCurrentUser(res.data)
-    //             setLoading(false)
-    //        }
-    //     })
-    //    .catch(err => { 
-    //        console.log(err)
-    //     })
-    //     return ()=>{
-    //         isMounted = false;
-    //     }
-    // }, [])
+    useEffect(() => {
+       let isMounted = true; 
+        http.get(`/account`)
+       .then(res => {
+            if (isMounted) {
+                console.log(res)
+                setCurrentUser(res.data)
+                setLoading(false)
+           }
+        })
+       .catch(err => { 
+           console.log(err)
+        })
+        return ()=>{
+            isMounted = false;
+        }
+    }, [])
 
     // useEffect(()=>{
     //     let isMounted = true;
@@ -82,11 +76,10 @@ export function AuthProvider({ children }) {
     
 
     const value = {
-        // currentUser,
+        currentUser,
         createUser,
         login,
-        getUser,
-        getGoogleAccount,
+        // getUser,
         logout,
         
         

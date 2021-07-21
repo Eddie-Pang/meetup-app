@@ -7,7 +7,7 @@ import CenteredContainer from './CenteredContainer';
 export default function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    const { login, getGoogleAccount } = useAuth()
+    const { login } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory() 
@@ -33,19 +33,6 @@ export default function Login() {
             }
         setLoading(false)
     }
-
-    function handleLogInWithGoogle(){
-        getGoogleAccount().then((req, res) => {
-            console.log(res.data)
-            if (res.data === 'success'){
-                history.push('/profile')
-            }
-            
-        }).catch((err) => console.log(err))
-     }
-
-
-   
 
     return (
         
