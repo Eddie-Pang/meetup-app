@@ -4,7 +4,7 @@ import { useAuth } from '../Context/AuthContext';
 
 
 export default function NavBar(){
-    const { currentUser } = useAuth()
+    const { currentUser, handleLogOut } = useAuth()
 
     return (
         <>
@@ -21,7 +21,7 @@ export default function NavBar(){
                         <a className="nav-link" href="/profile">Profile</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/logout">Log out</a>
+                        <button type="button" className="btn btn-dark" onClick={handleLogOut}>Log out</button>
                     </li>
                 </> :
                 <>

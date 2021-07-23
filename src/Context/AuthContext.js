@@ -10,7 +10,9 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null)
-    const [loading, setLoading] = useState(true)
+    // const [loading, setLoading] = useState(true)
+    const history = useHistory() 
+
 
 
     // const http = axios.create({
@@ -24,32 +26,49 @@ export function AuthProvider({ children }) {
 
     const createUser = user => http.post(`/register`, user)
     const login = user => http.post(`/login`, user)
-    // const getUser = () => http.get(`/account`)
+    const getUser = () => http.get(`/account`)
     const logout = () => http.get(`/logout`)
-
+    const createEvent = event => http.post(`/new-events`, event)
     
-    
-    
-
-
-    useEffect(() => {
-       let isMounted = true; 
-        http.get(`/account`)
-       .then(res => {
-            if (isMounted) {
-                console.log(res)
-                setCurrentUser(res.data)
-                setLoading(false)
-           }
-        })
-       .catch(err => { 
-           console.log(err)
-        })
-        return ()=>{
-            isMounted = false;
+    async function handleLogOut(){
+        let result = await logout()
+        if (result.data === 'log out successfully'){
+            history.push('/')
         }
-    }, [])
+    }
 
+
+    // useEffect(() => {
+    //    let isMounted = true; 
+    //     getUser()
+    //    .then(res => {
+    //         if (isMounted) {
+    //             console.log(res)
+    //             setCurrentUser(res.data)
+    //             // setLoading(false)
+    //        }
+    //     })
+    //    .catch(err => { 
+    //        console.log(err)
+    //     })
+    //     return ()=>{
+    //         isMounted = false;
+    //     }
+    // }, [])
+    
+    useEffect(()=>{
+        let isMounted = true
+        function getLoginUser(){
+             getUser().then((res) => {
+                if (isMounted) {
+                    console.log(res)
+                    setCurrentUser(res.data)
+                }
+            }).catch(err => console.log(err))
+        }
+        getLoginUser()
+        return () => { isMounted = false}
+    }, [])
     // useEffect(()=>{
     //     let isMounted = true;
 
@@ -59,7 +78,8 @@ export function AuthProvider({ children }) {
     //             if(isMounted){
     //                 let res = await http.get(`/account`);
     //                 // console.log(res)
-    //                 setCurrentUser(res)
+    //                 setCurrentUser(res.data)
+                
     //                 setLoading(false)
     //             }else{
     //                 setLoading(true)
@@ -83,7 +103,8 @@ export function AuthProvider({ children }) {
         createUser,
         login,
         // getUser,
-        logout,
+        handleLogOut,
+        createEvent,
         
         
     }
