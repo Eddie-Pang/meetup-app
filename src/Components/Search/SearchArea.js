@@ -1,19 +1,33 @@
-import React, { useRef, Component } from 'react';
+import React, { useRef, useState, Component } from 'react';
 import {searching} from '../../services/userService';
+import { Link, useHistory } from "react-router-dom"
+import Result from './Result';
 
 export default function SearchArea(){
 
     const keywordRef = useRef();
     const locationRef = useRef();
+    const [error, setError] = useState("");
+    const history = useHistory() 
    
-    function handleSearch(e){
+    async function handleSearch(e){
         e.preventDefault()
-        const query = {
-            keyword: keywordRef.current.value,
-            location: locationRef.current.value
+        try{
+            setError("")
+            const query = {
+                keyword: keywordRef.current.value,
+                location: locationRef.current.value
+            }
+            let result = await searching(query);
+
+            history.push({
+                pathname : '/result',
+                data: result.data
+            });
+            
+        }catch{
+            setError('failed to search')
         }
-        searching(query);
-        
     }
 
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const http = axios.create({
+axios.create({
     baseURL: `http://localhost:8000`,
     withCredentials:true,
     headers:{
@@ -8,6 +8,15 @@ const http = axios.create({
         'Content-Type':'application/json'
     }
 })  
+
+// const http = axios.create({
+//     baseURL: `http://localhost:8000`,
+//     withCredentials:true,
+//     headers:{
+//         'Access-Control-Allow-Origin':'*', 
+//         'Content-Type':'application/json'
+//     }
+// })  
 
 export default {
     get: axios.get, 
