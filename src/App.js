@@ -8,6 +8,7 @@ import Homepage from './Components/Homepage';
 import Profile from './Components/Profile';
 import { AuthProvider } from './Context/AuthContext';
 import PrivateRoute from './Components/PrivateRoute';
+import CreateGroups from './Components/CreateGroups';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Route exact path="/" component={Homepage}/>
           <Route path="/signup" component={Signup}/>
           <Route path="/login" component={Login}/>
-          <Route path="/profile" component={Profile} />
+          <PrivateRoute path="/profile" component={Profile} />
+          <Route path="/newgroup" component={CreateGroups}/>
         </Switch>
       </AuthProvider>
     </Router>
