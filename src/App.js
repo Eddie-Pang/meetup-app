@@ -6,7 +6,7 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Homepage from './Components/Homepage';
 import Profile from './Components/Profile';
-import Result from './Components/Result';
+import Result from './Components/Search/Result';
 import { AuthProvider } from './Context/AuthContext';
 import PrivateRoute from './Components/PrivateRoute';
 import CreateGroups from './Components/CreateGroups';

@@ -1,7 +1,7 @@
 import React from 'react';
 import homepage from '../image/homepage.png';
 import NavBar from './NavBar';
-import SearchArea from './SearchArea';
+import SearchArea from './Search/SearchArea';
 
 export default function Homepage(){
     return(

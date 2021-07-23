@@ -1,5 +1,5 @@
 import React, { useRef, Component } from 'react';
-import {searching} from '../services/userService';
+import {searching} from '../../services/userService';
 
 export default function SearchArea(){
 
