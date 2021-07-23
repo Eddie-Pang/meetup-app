@@ -14,10 +14,8 @@ export default function SearchArea(){
         }
         searching(query);
         
-
     }
 
-   
 
     return(
         <div style={{width: '500px', marginLeft: '100px'}}>
