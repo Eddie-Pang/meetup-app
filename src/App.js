@@ -6,6 +6,7 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Homepage from './Components/Homepage';
 import Profile from './Components/Profile';
+import Result from './Components/Result';
 import { AuthProvider } from './Context/AuthContext';
 import PrivateRoute from './Components/PrivateRoute';
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/signup" component={Signup}/>
           <Route path="/login" component={Login}/>
           <Route path="/profile" component={Profile} />
+          <Route path="/result" component={Result} />
         </Switch>
       </AuthProvider>
     </Router>

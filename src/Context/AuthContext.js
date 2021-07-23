@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios'
+// import axios from 'axios'
+import http from '../services/httpService'
 
 const AuthContext = React.createContext()
 
@@ -12,19 +13,21 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(true)
 
 
-    const http = axios.create({
-        baseURL: `http://localhost:8000`,
-        withCredentials:true,
-        headers:{
-            'Access-Control-Allow-Origin':'*', 
-            'Content-Type':'application/json'
-        }
-    })  
+    // const http = axios.create({
+    //     baseURL: `http://localhost:8000`,
+    //     withCredentials:true,
+    //     headers:{
+    //         'Access-Control-Allow-Origin':'*', 
+    //         'Content-Type':'application/json'
+    //     }
+    // })  
 
     const createUser = user => http.post(`/register`, user)
     const login = user => http.post(`/login`, user)
     // const getUser = () => http.get(`/account`)
     const logout = () => http.get(`/logout`)
+
+    
     
     
 
