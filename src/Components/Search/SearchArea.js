@@ -43,7 +43,7 @@ export default function SearchArea(){
                     <input type="text" name="location" className="form-control" placeholder="Location" ref={locationRef}/>
                 </div>
             </div>
-            <button type="submit" className="btn btn-success mt-2 btn-block" onClick={handleSearch}>Search</button>
+            <button type="submit" className="btn btn-success mt-2 btn-block" >Search</button>
         </form>
     
         

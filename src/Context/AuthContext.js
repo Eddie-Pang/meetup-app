@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 // import axios from 'axios'
 import http from '../services/httpService'
 import { Link, useHistory } from "react-router-dom"
@@ -11,7 +11,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null)
-    // const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
     const history = useHistory() 
 
 
@@ -27,85 +27,84 @@ export function AuthProvider({ children }) {
 
     const createUser = user => http.post(`/register`, user)
     const login = user => http.post(`/login`, user)
-    const getUser = () => http.get(`/account`)
+    // const getUser = () => http.get(`/account`)
     const logout = () => http.get(`/logout`)
     const createEvent = event => http.post(`/new-events`, event)
     
     async function handleLogOut(){
         let result = await logout()
-        if (result.data === 'log out successfully'){
+        getUser();
+        if (result.status === 200){
             history.push('/')
         }
     }
-
-
-    // useEffect(() => {
-    //    let isMounted = true; 
-    //     getUser()
-    //    .then(res => {
-    //         if (isMounted) {
-    //             console.log(res)
-    //             setCurrentUser(res.data)
-    //             // setLoading(false)
-    //        }
-    //     })
-    //    .catch(err => { 
-    //        console.log(err)
-    //     })
-    //     return ()=>{
-    //         isMounted = false;
-    //     }
-    // }, [])
-    
-    useEffect(()=>{
-        let isMounted = true
-        function getLoginUser(){
-             getUser().then((res) => {
-                if (isMounted) {
-                    console.log(res)
-                    setCurrentUser(res.data)
-                }
-            }).catch(err => console.log(err))
-        }
-        getLoginUser()
-        return () => { isMounted = false}
-    }, [])
-    // useEffect(()=>{
-    //     let isMounted = true;
-
-    //     async function requestUser(){
-           
-    //         try{
-    //             if(isMounted){
-    //                 let res = await http.get(`/account`);
-    //                 // console.log(res)
-    //                 setCurrentUser(res.data)
-                
-    //                 setLoading(false)
-    //             }else{
-    //                 setLoading(true)
+    // const useFetch = () => {
+    //     const [data, setData] = useState(null)
+    //     useEffect(() => {
+    //         const fetchData = async function() {
+    //             try{
+    //                 const res = await http.get(`/account`)
+    //                 if (res.status === 200){
+    //                     setCurrentUser(res.data)
+    //                 }
+    //             }catch(err){
+    //                 console.log(err)
     //             }
-    //         }catch(error){
-    //             console.log(error);
     //         }
-    //     }
-    //     requestUser();
-    //     return()=>{
-    //         isMounted=false;
-    //     }
+    //         fetchData()
+    //     }, [])
+    //     return data
+    // }
 
-    // },[]);
+    
+    // useEffect(()=>{console.log(currentUser?.name)}, [loading])
+    useEffect(() => {
+          getUser()
+    }, [])
 
+    async function getUser(){
+        try {
+            setLoading(true)
+            const res = await http.get(`/account`)
+            if (res.status === 200){
+                // setCurrentUser(()=>(res.data))
+                setCurrentUser(res.data)
+            }
+        }catch(err){
+            console.log(err)
+        }finally{
+            setLoading(false)
+        }
+    }
+      
+      
+    
+    // useEffect(()=>{
+    //     let isMounted = true
+    //     function getLoginUser(){
+    //          getUser().then((res) => {
+    //             if (isMounted) {
+    //                 console.log(res)
+    //                 setCurrentUser(res.data)
+    //             }
+    //         }).catch(err => console.log(err))
+    //     }
+    //     getLoginUser()
+    //     return () => { isMounted = false}
+    // }, [currentUser])
+   
 
     
 
     const value = {
         currentUser,
+        loading,
         createUser,
         login,
-        // getUser,
         handleLogOut,
         createEvent,
+        getUser
+        // useFetch,
         
         
     }
