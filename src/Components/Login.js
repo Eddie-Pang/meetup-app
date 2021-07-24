@@ -42,8 +42,6 @@ export default function Login() {
         
         <CenteredContainer>
 
-        
-
         <div className="card">
             <div className="card-body">
                 <h2 className="text-center mb-4">Log In</h2>
