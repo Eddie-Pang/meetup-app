@@ -29,20 +29,23 @@ export default function Result(){
         <br/>
             {events?.map((event, index) => {
                 return(
-                    <>
+                    <div key = {index}>
                     <Card className = 'result-card' key = {index} type="submit" onClick = {()=>handleClick(event)}>
-                        <Card.Body>
+                        <Card.Body key = {index}>
                             <ul><Card.Title>{event.groupName}</Card.Title></ul>
                             <ul><Card.Text>{event.description}</Card.Text></ul>
                             <ul><b>Location: </b>{event.location}</ul>
                             <ul><b>Host: </b>{event.host}</ul>      
                             <ul><b>Date: </b>{event.date}, {event.time}</ul>          
                         </Card.Body>
-                    </Card>
-                    <br/>
-                    </>
+                    </Card><br/>
+                    </div>
+                   
+                    
                 )
+                
             })}
+            
 
         </div></>
 
