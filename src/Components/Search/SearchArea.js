@@ -12,7 +12,9 @@ export default function SearchArea(){
             keyword: keywordRef.current.value,
             location: locationRef.current.value
         }
-        searching(query);
+        searching(query).then(res => {
+            console.log(res.data)
+        });
         
     }
 
@@ -20,7 +22,7 @@ export default function SearchArea(){
     return(
         <div style={{width: '500px', marginLeft: '100px'}}>
         <h2>What do you want to do?</h2>
-        <form>
+        <form onSubmit={handleSearch}>
             <div className="form-row">
                 <div className="col">
                     <input type="texct" name="keyword" className="form-control" placeholder="Search for ..." ref={keywordRef}/>
@@ -29,7 +31,7 @@ export default function SearchArea(){
                     <input type="text" name="location" className="form-control" placeholder="Location" ref={locationRef}/>
                 </div>
             </div>
-            <button type="submit" className="btn btn-success mt-2 btn-block" onClick={handleSearch}>Search</button>
+            <button type="submit" className="btn btn-success mt-2 btn-block" >Search</button>
         </form>
         
         </div>

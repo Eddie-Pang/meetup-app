@@ -11,11 +11,11 @@ export default function Profile(){
     const [show, setShow] = useState(false)
     const [file, setFile] = useState("")
     // const [currentUser, setCurrentUser ] = useState(null)
-    const {  handleLogOut, currentUser } = useAuth()
+    const {  handleLogOut, currentUser, loading } = useAuth()
     const history = useHistory() 
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
-
+    
     // async function handleLogOut(){
     //     let result = await logout()
     //     if (result.data === 'log out successfully'){
@@ -40,6 +40,7 @@ export default function Profile(){
     //          isMounted = false;
     //      }
     //  }, [])
+    // useEffect(() => {console.log(currentUser?.name)}, [loading])
 
 
     return(

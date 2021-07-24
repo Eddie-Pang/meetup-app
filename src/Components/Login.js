@@ -7,7 +7,7 @@ import CenteredContainer from './CenteredContainer';
 export default function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    const { login } = useAuth()
+    const { login, getUser } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory() 
@@ -23,6 +23,7 @@ export default function Login() {
                 password: passwordRef.current.value
             }
             let result = await login(user)
+            getUser();
             console.log(result.data)
             if (result.data === 'log in successfully'){
                 history.push('/profile') 
