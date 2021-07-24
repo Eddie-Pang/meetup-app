@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Button, Modal, Form } from 'react-bootstrap';
 import { FilePond, registerPlugin } from 'react-filepond'
 import { useAuth } from '../Context/AuthContext';
+import NavBar from './NavBar';
 
 
 export default function Profile(){
@@ -44,9 +45,10 @@ export default function Profile(){
 
     return(
         <>
+        <NavBar/>
         <CenteredContainer>
 
-            <Link to="/">Homepage</Link>
+            
 
             <div className="card">
                 <div className="card-body">

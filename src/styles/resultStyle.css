@@ -1,0 +1,9 @@
+.results {
+  padding-top: 20px;
+  margin: Auto;
+  width: 600px;
+}
+.result-card:hover {
+  border-width: medium;
+  pointer-events: painted;
+}

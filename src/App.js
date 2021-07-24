@@ -10,6 +10,7 @@ import Result from './Components/Search/Result';
 import { AuthProvider } from './Context/AuthContext';
 import PrivateRoute from './Components/PrivateRoute';
 import CreateGroups from './Components/CreateGroups';
+import EventViewer from './Components/EventViewer/EventViewer';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/result" component={Result} />
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/newgroup" component={CreateGroups}/>
+          <Route path="/event-viewer" component={EventViewer}/>
         </Switch>
       </AuthProvider>
     </Router>

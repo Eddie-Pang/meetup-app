@@ -18,6 +18,9 @@ export default function NavBar(){
 
                 <>
                     <li className="nav-item">
+                        <a className="nav-link" href="/newGroup">Start a new group</a>
+                    </li>
+                    <li className="nav-item">
                         <a className="nav-link" href="/profile">Profile</a>
                     </li>
                     <li className="nav-item">
@@ -31,6 +34,7 @@ export default function NavBar(){
                     <li className="nav-item">
                         <a className="nav-link" href="/signup">Sign up</a>
                     </li>
+                    
                 </>
                 }
             </ul>

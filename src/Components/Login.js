@@ -3,6 +3,7 @@ import { Card, Button } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom"
 import { useAuth } from '../Context/AuthContext';
 import CenteredContainer from './CenteredContainer';
+import NavBar from './NavBar';
 
 export default function Login() {
     const emailRef = useRef()
@@ -35,10 +36,12 @@ export default function Login() {
     }
 
     return (
+        <>
+        <NavBar/>
         
         <CenteredContainer>
 
-        <Link to="/">Homepage</Link>
+        
 
         <div className="card">
             <div className="card-body">
@@ -77,5 +80,6 @@ export default function Login() {
             </Card.Body>
         </Card>
         </CenteredContainer>
+        </>
     )
 }

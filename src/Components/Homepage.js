@@ -14,7 +14,10 @@ export default function Homepage(){
             </div>
             <div className="col"><img src={homepage} alt="together" style={{width:'600px', height:'500px'}}></img></div>
         </div>
+        <div style={{width: '500px', marginLeft: '100px'}}>
+        <h2>What do you want to do?</h2>
         <SearchArea/>
+        </div>
         </>
     )
 }

@@ -32,8 +32,8 @@ export default function SearchArea(){
 
 
     return(
-        <div style={{width: '500px', marginLeft: '100px'}}>
-        <h2>What do you want to do?</h2>
+      
+        
         <form>
             <div className="form-row">
                 <div className="col">
@@ -45,7 +45,8 @@ export default function SearchArea(){
             </div>
             <button type="submit" className="btn btn-success mt-2 btn-block" onClick={handleSearch}>Search</button>
         </form>
+    
         
-        </div>
+        
     )
 }

@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import CenteredContainer from './CenteredContainer';
 import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../Context/AuthContext';
+import NavBar from './NavBar';
 
 
 export default function CreateGroups(){
@@ -9,17 +10,23 @@ export default function CreateGroups(){
     const descriptionRef = useRef()
     const locationRef = useRef()
     const interestRef = useRef()
+    const datetimeRef = useRef()
     const { createEvent, currentUser } = useAuth()
 
     async function handleOnSubmit(e){
         e.preventDefault()
+        let date = datetimeRef.current.value.substring(0,10)
+        let time = datetimeRef.current.value.substring(11)
+       
         try {
             const event ={
                 groupName: groupNameRef.current.value,
                 description: descriptionRef.current.value,
                 location: locationRef.current.value,
                 interest: interestRef.current.value,
-                host: currentUser.name
+                host: currentUser.name,
+                date: date,
+                time: time
             }
             await createEvent(event)
             console.log('create an event successfully')
@@ -29,6 +36,8 @@ export default function CreateGroups(){
 
     }
     return(
+        <>
+        <NavBar/>
         <CenteredContainer>
         <h2 className="text-center mb-4">Set Up A New Group</h2>
         <Form onSubmit={handleOnSubmit}>
@@ -49,10 +58,15 @@ export default function CreateGroups(){
                 <Form.Label>Interest: </Form.Label>
                     <Form.Control type="text" name="interest" placeholder="make new friends.." ref={interestRef} required/>
             </Form.Group>
+            <Form.Group className="mb-3" controlId="interest">
+                <Form.Label>Date and time: </Form.Label>
+                    <Form.Control type="datetime-local" name="datetime" ref={datetimeRef} required/>
+            </Form.Group>
             
             <Button variant="danger" type="submit">Submit</Button>
            
         </Form>
         </CenteredContainer>
+        </>
     )
 }

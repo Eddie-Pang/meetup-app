@@ -1,0 +1,22 @@
+.event-container {
+  padding: 20px;
+  width: 600px;
+  text-align: center;
+  margin: auto;
+}
+
+.groupname {
+  padding: 20px;
+  line-height: 2.375rem;
+  font-size: 1.9814rem;
+  position: relative;
+  margin: 40px;
+}
+
+.event-content {
+  line-height: 1.625rem;
+  font-size: 0.9907rem;
+  position: relative;
+  word-wrap: break-word;
+  text-align: left;
+}
