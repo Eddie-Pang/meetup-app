@@ -15,8 +15,8 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(true)
     const history = useHistory() 
 
-    const createUser = user => http.post(`/register`, user)
-    const login = user => http.post(`/login`, user)
+    // const createUser = user => http.post(`/register`, user)
+    // const login = user => http.post(`/login`, user)
     const logout = () => http.get(`/logout`)
     const createEvent = event => http.post(`/new-events`, event)
     
@@ -60,8 +60,8 @@ export function AuthProvider({ children }) {
     const value = {
         currentUser,
         loading,
-        createUser,
-        login,
+        // createUser,
+        // login,
         handleLogOut,
         createEvent,
         getUser,
