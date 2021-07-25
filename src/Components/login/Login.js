@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom"
-import { useAuth } from '../Context/AuthContext';
-import CenteredContainer from './CenteredContainer';
-import NavBar from './NavBar';
+import { useAuth } from '../../Context/AuthContext';
+import CenteredContainer from '../CenteredContainer';
+import NavBar from '../NavBar';
 
 export default function Login() {
     const emailRef = useRef()
@@ -63,7 +63,7 @@ export default function Login() {
                 
                 </form>
                 <div className="w-100 text-center mt-3">
-                    <Link to="#">Forget Password?</Link>
+                    <Link to="/ForgotPassword">Forget Password?</Link>
                 </div>
             
             </div>
