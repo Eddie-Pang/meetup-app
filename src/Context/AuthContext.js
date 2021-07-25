@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 // import axios from 'axios'
 import http from '../services/httpService'
 import { Link, useHistory } from "react-router-dom"
+import { getUserObject } from '../services/authService'
 
 const AuthContext = React.createContext()
 
@@ -21,11 +22,18 @@ export function AuthProvider({ children }) {
     
     async function handleLogOut(){
         let result = await logout()
+        localStorage.removeItem("token");
         getUser();
         if (result.status === 200){
             history.push('/')
         }
     }
+
+    useEffect(()=>{
+        console.log(currentUser)
+        setCurrentUser(currentUser);
+
+    },[currentUser])
    
     useEffect(() => {
           getUser()
@@ -45,6 +53,9 @@ export function AuthProvider({ children }) {
             setLoading(false)
         }
     }
+
+    const isAuth = getUserObject() != null ? true : false;
+    console.log(getUserObject())
       
     const value = {
         currentUser,
@@ -53,7 +64,8 @@ export function AuthProvider({ children }) {
         login,
         handleLogOut,
         createEvent,
-        getUser
+        getUser,
+        isAuth
     }
 
     return (

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Link, useHistory } from "react-router-dom"
-import { useAuth } from '../Context/AuthContext';
-import CenteredContainer from './CenteredContainer';
+import { useAuth } from '../../Context/AuthContext';
+import CenteredContainer from '../CenteredContainer';
 
 export default function Signup() {
     const nameRef = useRef()

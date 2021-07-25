@@ -17,12 +17,7 @@ export default function Profile(){
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
     
-    // async function handleLogOut(){
-    //     let result = await logout()
-    //     if (result.data === 'log out successfully'){
-    //         history.push('/')
-    //     }
-    // }
+    
 
     // useEffect(() => {
     //     let isMounted = true; 

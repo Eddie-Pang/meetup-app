@@ -1,14 +1,15 @@
 import React, { useRef, useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom"
-import { useAuth } from '../../Context/AuthContext';
+import { useAuth } from '../../Context/AuthContext.js';
 import CenteredContainer from '../CenteredContainer';
 import NavBar from '../NavBar';
+import {login} from '../../services/authService'
 
 export default function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    const { login, getUser } = useAuth()
+    const { getUser } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory() 
@@ -25,8 +26,8 @@ export default function Login() {
             }
             let result = await login(user)
             getUser();
-            console.log(result.data)
-            if (result.data === 'log in successfully'){
+            console.log(result)
+            if (result === 'log in successfully'){
                 history.push('/profile') 
             }
            
