@@ -6,10 +6,11 @@ import CenteredContainer from '../CenteredContainer';
 import NavBar from '../NavBar';
 import {login} from '../../services/authService'
 
+
 export default function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    const { getUser } = useAuth()
+    const { getUser, loginGoogle } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory() 
@@ -75,7 +76,7 @@ export default function Login() {
                 <h5 className="text-center mb-4">Or</h5>
                 <Button variant="success" type="button" block>Log In with Facebook</Button>
                 <a href="http://localhost:8000/google">
-                    <Button variant="secondary" type="button" block>Log In with Google</Button>
+                    <Button variant="secondary" type="button" onClick={loginGoogle} block>Log In with Google</Button>
                 </a>
             </Card.Body>
         </Card>
