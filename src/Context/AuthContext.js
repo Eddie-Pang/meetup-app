@@ -14,7 +14,6 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const history = useHistory() 
-    const [isGoogle, setIsGoogle] = useState(false)
 
     // const createUser = user => http.post(`/register`, user)
     // const login = user => http.post(`/login`, user)
@@ -44,6 +43,7 @@ export function AuthProvider({ children }) {
         try {
             setLoading(true)
             const res = await http.get(`/account`)
+            console.log(res);
             if (res.status === 200){
                 // setCurrentUser(()=>(res.data))
                 setCurrentUser(res.data)
@@ -55,19 +55,7 @@ export function AuthProvider({ children }) {
         }
     }
 
-    const isAuth = ()=>{
-        if (getUserObject() != null || isGoogle){
-            return true
-        }else{
-            return false
-        }}
-    console.log(isAuth())
-    
-
-    function loginGoogle(){
-        setIsGoogle(true)
-
-    }
+    const isAuth = getUserObject() != null? true: false
       
     const value = {
         currentUser,
@@ -78,7 +66,6 @@ export function AuthProvider({ children }) {
         createEvent,
         getUser,
         isAuth,
-        loginGoogle
     }
 
     return (

@@ -18,6 +18,14 @@ export async function login(user){
     return result.data;
 }
 
+export async function googleLogin(email){
+    const result = await http.get(`/googleLogin/${email}`)
+    console.log(result)
+    const { headers: {'x-auth-token':token} } = result;
+    localStorage.setItem( "token" , token);
+    return result.data;
+}
+
 
 
 export function getUserObject() {

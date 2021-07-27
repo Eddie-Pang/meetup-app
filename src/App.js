@@ -10,6 +10,7 @@ import { AuthProvider } from './Context/AuthContext';
 import PrivateRoute from './Components/PrivateRoute';
 import CreateGroups from './Components/CreateGroups';
 import EventViewer from './Components/EventViewer/EventViewer';
+import GoogleRedirect from './Components/GoogleRedirect';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/newgroup" component={CreateGroups}/>
           <Route path="/event-viewer" component={EventViewer}/>        
+          <Route path = '/google' component = {GoogleRedirect}/>
         </Switch>
       </AuthProvider>
     </Router>
