@@ -17,8 +17,12 @@ export default function NavBar(){
                 { currentUser ? 
 
                 <>
+                    
                     <li className="nav-item">
                         <a className="nav-link" href="/newGroup">Start a new group</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/myEvents">My events</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/profile">Profile</a>
@@ -26,6 +30,7 @@ export default function NavBar(){
                     <li className="nav-item">
                         <button type="button" className="btn btn-dark" onClick={handleLogOut}>Log out</button>
                     </li>
+
                 </> :
                 <>
                     <li className="nav-item">

@@ -12,6 +12,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null)
+    const [user, setUser]= useState(null)
     const [loading, setLoading] = useState(true)
     const history = useHistory() 
 
@@ -47,6 +48,7 @@ export function AuthProvider({ children }) {
             if (res.status === 200){
                 // setCurrentUser(()=>(res.data))
                 setCurrentUser(res.data)
+                setUser(res.data)
             }
         }catch(err){
             console.log(err)
@@ -60,12 +62,11 @@ export function AuthProvider({ children }) {
     const value = {
         currentUser,
         loading,
-        // createUser,
-        // login,
         handleLogOut,
         createEvent,
         getUser,
         isAuth,
+        user
     }
 
     return (

@@ -13,10 +13,12 @@ export default function Result(){
     const events = location.data
 
     function handleClick(event){
-        history.push({  
-            pathname : '/event-viewer',
-            data: event
-        })
+
+        // history.push({  
+        //     pathname : `/event-viewer/id=${event._id}`,
+        //     data: event
+        // })
+        history.push(`/event-viewer/?&event=${event._id}`)
     }
 
     return(

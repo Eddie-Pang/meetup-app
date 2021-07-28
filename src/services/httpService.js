@@ -17,6 +17,10 @@ axios.create({
 //         'Content-Type':'application/json'
 //     }
 // })  
+export function getCancelToken(){
+    return axios.CancelToken.source(); 
+  
+}
 
 export default {
     get: axios.get, 

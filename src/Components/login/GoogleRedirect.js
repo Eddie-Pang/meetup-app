@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import { googleLogin } from "../services/authService";
-import {useAuth} from '../Context/AuthContext';
+import { googleLogin } from "../../services/authService";
+import {useAuth} from '../../Context/AuthContext';
 
 
 export default function GoogleRedirect(){
@@ -17,7 +17,7 @@ export default function GoogleRedirect(){
 
             let result = await googleLogin(email)
             await getUser();
-            console.log(result)
+            // console.log(result)
             if (result){
                 history.push('/profile') 
             }
