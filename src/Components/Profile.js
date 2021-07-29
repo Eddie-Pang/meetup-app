@@ -6,63 +6,83 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import { FilePond, registerPlugin } from 'react-filepond'
 import { useAuth } from '../Context/AuthContext';
 import NavBar from './NavBar';
+import axios from 'axios';
 
 
 export default function Profile(){
     const [show, setShow] = useState(false)
-    const [file, setFile] = useState("")
+    const [photo, setPhoto] = useState()
+    const [ profiles, setProfiles ]  = useState(profile)
+    
     // const [currentUser, setCurrentUser ] = useState(null)
     const {  handleLogOut, currentUser, loading } = useAuth()
+    const userName = currentUser?.name
+   
+   
+    const [name, setName] = useState(userName)
+    // console.log('name', name)
+    const userEmail = currentUser?.email
+  
+    console.log(currentUser?.img?.data?.data)
+
+
+
     const history = useHistory() 
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
+
+    console.log(currentUser)
+
+    const arrayBufferToBase64 = buffer => {
+        var binary = ''
+        var bytes = [].slice.call(new Uint8Array(buffer))
+        bytes.forEach(b => binary += String.fromCharCode(b))
+        return window.btoa(binary)
+    }
+
+    const imgStr = arrayBufferToBase64(currentUser?.img?.data?.data)
+    const userProfile = (`data:${currentUser?.img?.contentType};base64,`+ imgStr )
+    console.log(userProfile)
+
+
+    const handleUpload = (e) => {
+        e.preventDefault()
+        if (photo && photo.length > 0){
+            let formData = new FormData()
+            formData.append('photo', photo[0].file)
+            formData.append('userId', currentUser._id)
+            console.log(photo[0].file)
+            console.log(currentUser._id)
+            axios.put(`http://localhost:8000/upload`, formData, {}).then(res =>{
+                console.log(res.data)
+                // const encoded = `data: image/${res.data.img.contentType};base64, ${res.data.img.data.toString('base64')}`
+                // setProfiles(encoded)
+            }).catch(err => console.log(err))
+        }
+    }
     
-    
-
-    // useEffect(() => {
-    //     let isMounted = true; 
-    //      getUser()
-    //     .then(res => {
-    //         if (isMounted) {
-    //              console.log(res)
-    //              setCurrentUser(res.data)
-                 
-    //         }
-    //      })
-    //     .catch(err => { 
-    //         console.log(err)
-    //      })
-    //      return ()=>{
-    //          isMounted = false;
-    //      }
-    //  }, [])
-    // useEffect(() => {console.log(currentUser?.name)}, [loading])
-
-
     return(
         <>
         <NavBar/>
         <CenteredContainer>
-
-            
 
             <div className="card">
                 <div className="card-body">
                     <h2 className="text-center mb-4">Your Profile</h2>
                     {currentUser? <h5>Hi, {currentUser.name}</h5>: null}
                     <div style = {{ textAlign:'center'}}>
-                    <img src={profile} className="rounded-circle" alt="default" style={{width: '120px', height: '120px'}}></img><br/>
-                    <Button variant="link" >change your photo</Button>
+                    <img src={ userProfile || profile} className="rounded-circle" alt="default" style={{width: '120px', height: '120px'}}></img><br/>
+                    <Button variant="link" onClick={handleShow}>change your photo</Button>
                     </div>
            
                     <form>
                         <div className="form-group">
                             <label htmlFor="name">Name:</label>
-                            <input type="text" className="form-control" id="name" name="name" placeholder="Enter your name" required/>
+                            <input type="text" className="form-control" id="name" name="name" value={currentUser?.name|| ''} onChange={e => setName(e.target.value)} placeholder="Enter your name"  required/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="email">Email:</label>
-                            <input type="email" className="form-control" id="email" name="email" readOnly/>
+                            <input type="email" className="form-control" id="email" name="email" value={ userEmail || ''} readOnly/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="location">Location: </label>
@@ -98,23 +118,28 @@ export default function Profile(){
         <Modal.Header closeButton>
           <Modal.Title>Set Your Profile Photo</Modal.Title>
         </Modal.Header>
+        <Form onSubmit={handleUpload}>
         <Modal.Body>
-            {/* <Form>
-                <Form.Group>
-                    <Form.File id="photo-file" name="photo" accept="image/*" label="Please add a photo" />
-                </Form.Group>
-            </Form> */}
-            <FilePond allowMultiple={false} files={file} onupdatefiles={setFile} server="/account" name="photo"/>
+        
+            
+            <FilePond 
+            allowMultiple={false} 
+            files={photo} 
+            onupdatefiles={(fileItems) => setPhoto(fileItems)} 
+            instantUpload ={false}
+            name="photo"/>
+            
             
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary">
+          <Button variant="primary" type="submit">
             Save Changes
           </Button>
         </Modal.Footer>
+        </Form>
       </Modal>
         
         </>
