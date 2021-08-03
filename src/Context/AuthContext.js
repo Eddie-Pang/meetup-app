@@ -36,6 +36,7 @@ export function AuthProvider({ children }) {
     useEffect(()=>{
         console.log(currentUser)
         setCurrentUser(currentUser);
+        
 
     },[currentUser])
    

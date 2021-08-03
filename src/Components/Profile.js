@@ -7,10 +7,11 @@ import { FilePond, registerPlugin } from 'react-filepond'
 import { useAuth } from '../Context/AuthContext';
 import NavBar from './NavBar';
 import { updateProfileImg } from '../services/userService';
+import { loadingIcon } from '../util/imgPicker'
 
 
 export default function Profile(){
-    const { getUser, handleLogOut, currentUser } = useAuth()
+    const { getUser, handleLogOut, currentUser, loading } = useAuth()
     const [show, setShow] = useState(false)
     const [photo, setPhoto] = useState()
     
@@ -52,88 +53,90 @@ export default function Profile(){
             getUser();
         }
     }
+
+    
     
     return(
         <>
-        <NavBar/>
-        <CenteredContainer>
+            {loading
+            ?
+                    <div style = {{width: '600px', margin:'auto', textAlign: 'center'}}>{loadingIcon()}</div>
+            :
+                <>
+                    <NavBar/>
+                    <CenteredContainer>
 
-            <div className="card">
-                <div className="card-body">
-                    <h2 className="text-center mb-4">Your Profile</h2>
-                    {currentUser? <h5>Hi, {currentUser.name}</h5>: null}
-                    <div style = {{ textAlign:'center'}}>
-                    <img src={ currentUser?.img? userProfile: profile } className="rounded-circle" alt="default" style={{width: '120px', height: '120px'}}></img><br/>
-                    <Button variant="link" onClick={handleShow}>change your photo</Button>
-                    </div>
-           
-                    <form>
-                        <div className="form-group">
-                            <label htmlFor="name">Name:</label>
-                            <input type="text" className="form-control" id="name" name="name" value={currentUser?.name|| ''} onChange={e => setName(e.target.value)} placeholder="Enter your name"  required/>
+                        <div className="card">
+                            <div className="card-body">
+                                <h2 className="text-center mb-4">Your Profile</h2>
+                                {currentUser? <h5>Hi, {currentUser.name}</h5>: null}
+                                <div style = {{ textAlign:'center'}}>
+                                <img src={ currentUser?.img? userProfile: profile } className="rounded-circle" alt="default" style={{width: '120px', height: '120px'}}></img><br/>
+                                <Button variant="link" onClick={handleShow}>change your photo</Button>
+                                </div>
+                    
+                                <form>
+                                    <div className="form-group">
+                                        <label htmlFor="name">Name:</label>
+                                        <input type="text" className="form-control" id="name" name="name" value={currentUser?.name|| ''} onChange={e => setName(e.target.value)} placeholder="Enter your name"  required/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="email">Email:</label>
+                                        <input type="email" className="form-control" id="email" name="email" value={ userEmail || ''} readOnly/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="location">Location: </label>
+                                        <select className="form-control" id="location" name="location" required>
+                                            <option value="">Please select</option>
+                                            <option value="macau">Macau</option>
+                                            <option value="hk">Hong Kong</option>
+                                            <option value="taiwan">Taiwan</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="gender">Gender: </label>
+                                        <select className="form-control" id="gender" name="gender" required>
+                                            <option value="">Please select</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Pefer not to say</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="bio">Bio:</label>
+                                        <textarea className="form-control" rows="5" id="bio" name="bio"></textarea>
+                                    </div>
+                                    <button type="submit" className="btn btn-primary mt-2">Confirm</button>
+                                </form>
+                                <Link to="#">Reset password</Link>
+                                <Button variant="secondary" onClick={handleLogOut}>Log out</Button>
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="email">Email:</label>
-                            <input type="email" className="form-control" id="email" name="email" value={ userEmail || ''} readOnly/>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="location">Location: </label>
-                            <select className="form-control" id="location" name="location" required>
-                                <option value="">Please select</option>
-                                <option value="macau">Macau</option>
-                                <option value="hk">Hong Kong</option>
-                                <option value="taiwan">Taiwan</option>
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="gender">Gender: </label>
-                            <select className="form-control" id="gender" name="gender" required>
-                                <option value="">Please select</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Pefer not to say</option>
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="bio">Bio:</label>
-                            <textarea className="form-control" rows="5" id="bio" name="bio"></textarea>
-                        </div>
-                        <button type="submit" className="btn btn-primary mt-2">Confirm</button>
-                    </form>
-                    <Link to="#">Reset password</Link>
-                    <Button variant="secondary" onClick={handleLogOut}>Log out</Button>
-                </div>
-            </div>
-        </CenteredContainer>
-        {/* Modal */}
-        <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>Set Your Profile Photo</Modal.Title>
-        </Modal.Header>
-        <Form onSubmit={handleUpload}>
-        <Modal.Body>
-        
-            
-            <FilePond 
-            allowMultiple={false} 
-            files={photo} 
-            onupdatefiles={(fileItems) => setPhoto(fileItems)} 
-            instantUpload ={false}
-            name="photo"/>
-            
-            
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant="primary" type="submit">
-            Save Changes
-          </Button>
-        </Modal.Footer>
-        </Form>
-      </Modal>
-        
+                    </CenteredContainer>
+                    
+                    {/* Modal */}
+                    <Modal show={show} onHide={handleClose} animation={false}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Set Your Profile Photo</Modal.Title>
+                        </Modal.Header>
+                        <Form onSubmit={handleUpload}>
+                            <Modal.Body>
+                                <FilePond 
+                                allowMultiple={false} 
+                                files={photo} 
+                                onupdatefiles={(fileItems) => setPhoto(fileItems)} 
+                                instantUpload ={false}
+                                name="photo"/>
+                            </Modal.Body>
+
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+                                <Button variant="primary" type="submit">Save Changes</Button>
+                            </Modal.Footer>
+                        </Form>
+                    </Modal>
+                </>
+            }
         </>
     )
 }

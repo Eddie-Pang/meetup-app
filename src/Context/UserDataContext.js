@@ -11,6 +11,7 @@ const UserDataContextProvider = props => {
 
     const [ currentUser, setCurrentUser ] = useState(getUserObject());
     const { user, isAuth } = useAuth();
+   
     
     useEffect(()=>{
       console.log(user);
@@ -31,7 +32,9 @@ const UserDataContextProvider = props => {
     async function requestUserData () {
 
       try {
-        // setStatus('requesting');
+      
+      
+
         let currentUser = getUserObject();
         console.log(currentUser)
         if (!isMounted) return
