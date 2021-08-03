@@ -9,13 +9,7 @@ function MyEventsPage(props) {
     const { history } = props;
   
     function handleRenderEventViewer(event){
-        // history.push({  
-        //     pathname : '/event-viewer',
-        //     data: event
-        // })
         history.push(`/event-viewer/?&event=${event._id}`)
- 
-       
     };
 
     return (

@@ -1,37 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import CenteredContainer from './CenteredContainer';
 import profile from '../image/default-profile.jpg';
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Modal, Form } from 'react-bootstrap';
 import { FilePond, registerPlugin } from 'react-filepond'
 import { useAuth } from '../Context/AuthContext';
 import NavBar from './NavBar';
-import axios from 'axios';
+import { updateProfileImg } from '../services/userService';
 
 
 export default function Profile(){
+    const { getUser, handleLogOut, currentUser } = useAuth()
     const [show, setShow] = useState(false)
     const [photo, setPhoto] = useState()
-    const [ profiles, setProfiles ]  = useState(profile)
     
-    // const [currentUser, setCurrentUser ] = useState(null)
-    const {  handleLogOut, currentUser, loading } = useAuth()
     const userName = currentUser?.name
-   
-   
-    const [name, setName] = useState(userName)
-    // console.log('name', name)
     const userEmail = currentUser?.email
-  
-    console.log(currentUser?.img?.data?.data)
 
-
-
-    const history = useHistory() 
+    const [name, setName] = useState(userName)
+    
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
-
-    console.log(currentUser)
 
     const arrayBufferToBase64 = buffer => {
         var binary = ''
@@ -41,11 +30,11 @@ export default function Profile(){
     }
 
     const imgStr = arrayBufferToBase64(currentUser?.img?.data?.data)
-    const userProfile = (`data:${currentUser?.img?.contentType};base64,`+ imgStr )
-    console.log(userProfile)
+    const userProfile = (`data:${currentUser?.img?.contentType};base64,`+ imgStr ) 
+    
 
 
-    const handleUpload = (e) => {
+    const handleUpload = async(e) => {
         e.preventDefault()
         if (photo && photo.length > 0){
             let formData = new FormData()
@@ -53,11 +42,14 @@ export default function Profile(){
             formData.append('userId', currentUser._id)
             console.log(photo[0].file)
             console.log(currentUser._id)
-            axios.put(`http://localhost:8000/upload`, formData, {}).then(res =>{
+
+            await updateProfileImg(formData).then(res =>{
                 console.log(res.data)
-                // const encoded = `data: image/${res.data.img.contentType};base64, ${res.data.img.data.toString('base64')}`
-                // setProfiles(encoded)
+                console.log('upload successfully')
+                handleClose()
             }).catch(err => console.log(err))
+
+            getUser();
         }
     }
     
@@ -71,7 +63,7 @@ export default function Profile(){
                     <h2 className="text-center mb-4">Your Profile</h2>
                     {currentUser? <h5>Hi, {currentUser.name}</h5>: null}
                     <div style = {{ textAlign:'center'}}>
-                    <img src={ userProfile || profile} className="rounded-circle" alt="default" style={{width: '120px', height: '120px'}}></img><br/>
+                    <img src={ currentUser?.img? userProfile: profile } className="rounded-circle" alt="default" style={{width: '120px', height: '120px'}}></img><br/>
                     <Button variant="link" onClick={handleShow}>change your photo</Button>
                     </div>
            

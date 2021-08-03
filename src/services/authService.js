@@ -26,10 +26,13 @@ export async function googleLogin(email){
     return result.data;
 }
 
+export function logout(){
+    return http.get(`/logout`)
+}
 
 
-export function getUserObject() {
-    
+
+export function getUserObject() { 
     try{
         return decode(getToken()); 
     }

@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { Link, useHistory } from "react-router-dom"
-import { useAuth } from '../../Context/AuthContext';
 import CenteredContainer from '../CenteredContainer';
 import {createUser} from '../../services/authService'
 
@@ -9,11 +8,9 @@ export default function Signup() {
     const emailRef = useRef()
     const pwdRef = useRef()
     const confirmRef = useRef()
-    // const { createUser } = useAuth()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
     
-
     async function handleSubmit(e){
         e.preventDefault()
         if(pwdRef.current.value !== confirmRef.current.value){
