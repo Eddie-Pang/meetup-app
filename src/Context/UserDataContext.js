@@ -2,10 +2,8 @@ import React, { createContext, useContext, useEffect, useReducer, useCallback, u
 import { useAuth } from './AuthContext'
 import { getUserObject } from '../services/authService'
 import { getCancelToken } from '../services/httpService';
-import { updateUserEvents} from '../services/userService'
+import { getAccount, updateUserEvents} from '../services/userService'
 import { eventsReducer } from './UserDataReducers';
-
-import http from '../services/httpService'
 
 const UserEventsContext = createContext();
 
@@ -40,7 +38,7 @@ const UserDataContextProvider = props => {
         if (!currentUser || typeof currentUser === 'undefined')
           throw new Error('no token'); // setStatus('invalid token');
           else if (isAuth){
-            currentUser = await http.get(`/account`, { cancelToken: source.token })
+            currentUser = await getAccount();
             //   currentUser = await getUser(currentUser, { cancelToken: source.token })
           }
 
@@ -67,14 +65,12 @@ const UserDataContextProvider = props => {
 
   const updateDataBase = useCallback(async (data) => {
     try {
-
       let response
       let currentUser = getUserObject() //user from token
       if (!currentUser || typeof currentUser === 'undefined') throw new Error('Invalid User');
       
       response = await updateUserEvents(currentUser, data)
    
-          
     } catch (err) {
       const error = err?.response?.data ? err?.response?.data : err
       console.log(error);
@@ -92,12 +88,11 @@ const UserDataContextProvider = props => {
         await updateDataBase(newEvents)
       } catch (error) {
         dispatchEvent({ type: 'unsave', payLoad: event })
-        // dispatchFav({ type: 'error', payLoad: error })
+        // dispatchEvent({ type: 'error', payLoad: error })
       }
     },
     [eventsState.events, updateDataBase]
   )
-
 
   const handleUnsaveEvent = useCallback(
     async recipe => {
@@ -123,15 +118,12 @@ const UserDataContextProvider = props => {
     }
   }
   return (
-    
       <UserEventsContext.Provider value={eventsObj}>
       
             {props.children}
             
       </UserEventsContext.Provider>
-    
   )
-
 }
 
 export const useUserEventsContext = () => {

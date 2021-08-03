@@ -10,7 +10,6 @@ function ForgotPassword(){
     const emailRef = useRef();
     const [message, setMessage] = useState();
     
-
     const handleResetPassword = async() => {
         setMessage(false);
         const value = emailRef.current.value;
@@ -54,29 +53,18 @@ function ForgotPassword(){
            
                 <br/><br/>
   
-
             </div>
             
-       
         </CenteredContainer>
         </>
-
-
 
     )
 
 }
 export default ForgotPassword;
 
-
-
-
 const formFields = {
     borderRadius: "6px",
     padding: "10px 30px"
 }
 
-  const welcomeStyle = {
-    fontSize: "30px",
-    color: "green"
-  }

@@ -7,7 +7,6 @@ export default function MyEventsView(props){
 
     const {events} = useUserEventsContext();
     const myEvents = events.events
-    // console.log(events.events)
     const {handleViewEvent} = props;
 
     return(

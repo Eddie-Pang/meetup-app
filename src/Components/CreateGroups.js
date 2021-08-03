@@ -3,6 +3,7 @@ import CenteredContainer from './CenteredContainer';
 import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../Context/AuthContext';
 import NavBar from './NavBar';
+import {createEvent} from '../services/userService'
 
 
 export default function CreateGroups(){
@@ -11,7 +12,7 @@ export default function CreateGroups(){
     const locationRef = useRef()
     const interestRef = useRef()
     const datetimeRef = useRef()
-    const { createEvent, currentUser } = useAuth()
+    const { currentUser } = useAuth()
 
     async function handleOnSubmit(e){
         e.preventDefault()

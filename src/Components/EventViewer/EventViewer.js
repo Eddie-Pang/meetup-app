@@ -7,12 +7,10 @@ import useGetEvent from '../../hooks/useGetEvent';
 
 export default function EventViewer(){
     let location = useLocation();  
-    
-    // const events = location.data
+
     const search = location.search
     const match = search.match(/event=(([^&]+))/);
     const param = match?.[1]
-    // console.log(param)
     const result = useGetEvent(param);
     const events = result.events
     

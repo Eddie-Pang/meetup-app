@@ -8,9 +8,7 @@ export default function SaveEvent(props){
 
     const {event} = props;
     const {events} = useUserEventsContext();
-    // console.log(event)
-    // console.log(events)
-
+   
     const renderSaveBtn = () => {
       
         const save = !events.events?.some(i => i?._id===event?._id);

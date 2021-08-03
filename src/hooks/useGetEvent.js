@@ -4,10 +4,10 @@ import { getEvent } from "../services/userService";
 
 //rsf tab
 
-
 function useGetEvents(props) {
     const [status, setStatus]=useState('init');
     const [events, setEvents] = useState();
+    
   
     const param = props
     

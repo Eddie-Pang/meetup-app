@@ -1,6 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 // import axios from 'axios'
-import http from '../services/httpService'
+
+import {logout} from '../services/authService'
+import { getAccount } from '../services/userService';
 import { Link, useHistory } from "react-router-dom"
 import { getUserObject } from '../services/authService'
 
@@ -14,14 +16,10 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null)
     const [user, setUser]= useState(null)
     const [loading, setLoading] = useState(true)
-    const history = useHistory() 
 
-    // const createUser = user => http.post(`/register`, user)
-    // const login = user => http.post(`/login`, user)
-    const logout = () => http.get(`/logout`)
-    const createEvent = event => http.post(`/new-events`, event)
+    const history = useHistory()
     
-    async function handleLogOut(){
+    const handleLogOut = async()=>{
         let result = await logout()
         localStorage.removeItem("token");
         getUser();
@@ -30,6 +28,11 @@ export function AuthProvider({ children }) {
         }
     }
 
+    // const createUser = user => http.post(`/register`, user)
+    // const login = user => http.post(`/login`, user)
+    // const logout = () => http.get(`/logout`)
+    // const createEvent = event => http.post(`/new-events`, event)
+    
     useEffect(()=>{
         console.log(currentUser)
         setCurrentUser(currentUser);
@@ -43,10 +46,9 @@ export function AuthProvider({ children }) {
     async function getUser(){
         try {
             setLoading(true)
-            const res = await http.get(`/account`)
+            const res = await getAccount();
             console.log(res);
             if (res.status === 200){
-                // setCurrentUser(()=>(res.data))
                 setCurrentUser(res.data)
                 setUser(res.data)
             }
@@ -63,7 +65,6 @@ export function AuthProvider({ children }) {
         currentUser,
         loading,
         handleLogOut,
-        createEvent,
         getUser,
         isAuth,
         user
