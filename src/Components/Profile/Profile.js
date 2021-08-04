@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import CenteredContainer from './CenteredContainer';
-import profile from '../image/default-profile.jpg';
+import React, { useState } from 'react';
+import CenteredContainer from '../CenteredContainer';
+import profile from '../../image/default-profile.jpg';
 import { Link } from "react-router-dom";
-import { Button, Modal, Form } from 'react-bootstrap';
-import { FilePond, registerPlugin } from 'react-filepond'
-import { useAuth } from '../Context/AuthContext';
-import NavBar from './NavBar';
-import { updateProfileImg } from '../services/userService';
-import { loadingIcon } from '../util/imgPicker'
+import { Button } from 'react-bootstrap';
+import { useAuth } from '../../Context/AuthContext';
+import NavBar from '../NavBar';
+import { updateProfileImg } from '../../services/userService';
+import { loadingIcon } from '../../util/imgPicker'
+import PopUp from './PopUp'
 
 
 export default function Profile(){
@@ -113,28 +113,9 @@ export default function Profile(){
                             </div>
                         </div>
                     </CenteredContainer>
-                    
-                    {/* Modal */}
-                    <Modal show={show} onHide={handleClose} animation={false}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Set Your Profile Photo</Modal.Title>
-                        </Modal.Header>
-                        <Form onSubmit={handleUpload}>
-                            <Modal.Body>
-                                <FilePond 
-                                allowMultiple={false} 
-                                files={photo} 
-                                onupdatefiles={(fileItems) => setPhoto(fileItems)} 
-                                instantUpload ={false}
-                                name="photo"/>
-                            </Modal.Body>
 
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                                <Button variant="primary" type="submit">Save Changes</Button>
-                            </Modal.Footer>
-                        </Form>
-                    </Modal>
+                    <PopUp handleClose= {handleClose} show = {show} handleUpload={handleUpload} photo={photo} setPhoto={setPhoto}/>
+                    
                 </>
             }
         </>

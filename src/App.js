@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'filepond/dist/filepond.min.css';
 import Homepage from './Components/Homepage';
 import LoginPage from './Components/login/LoginPage';
-import Profile from './Components/Profile';
+import Profile from './Components/Profile/Profile';
 import Result from './Components/Search/Result';
 import { AuthProvider } from './Context/AuthContext';
 import PrivateRoute from './Components/PrivateRoute';
