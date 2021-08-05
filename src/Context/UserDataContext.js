@@ -6,6 +6,7 @@ import { getAccount, updateUserEvents} from '../services/userService'
 import { eventsReducer } from './UserDataReducers';
 
 const UserEventsContext = createContext();
+const UserImagesContext = createContext();
 
 const UserDataContextProvider = props => {
 
@@ -120,11 +121,37 @@ const UserDataContextProvider = props => {
       unsave: handleUnsaveEvent
     }
   }
+
+  //imagesObj------------------------------------------------------------
+  const [showModal, setShowModal] = useState(false)
+  const [photo, setPhoto] = useState()  
+  const handleShowModal = () => setShowModal(true)
+  const handleCloseModal = () => setShowModal(false)
+
+  const arrayBufferToBase64 = buffer => {
+    var binary = ''
+    var bytes = [].slice.call(new Uint8Array(buffer))
+    bytes.forEach(b => binary += String.fromCharCode(b))
+    return window.btoa(binary)
+}
+
+  //handleClose, photo, setPhoto, show
+  const imagesObj = {
+    images:{
+      handleShow : handleShowModal,
+      handleClose : handleCloseModal,
+      photo : photo,
+      setPhoto : setPhoto,
+      show : showModal,   
+      setShow: setShowModal,
+      arrayBufferToBase64 : arrayBufferToBase64,
+    }
+  }
   return (
       <UserEventsContext.Provider value={eventsObj}>
-      
-            {props.children}
-            
+        <UserImagesContext.Provider value={imagesObj}>
+          {props.children}
+        </UserImagesContext.Provider>
       </UserEventsContext.Provider>
   )
 }
@@ -135,6 +162,14 @@ export const useUserEventsContext = () => {
       throw new Error(`use in tree : ContextProvider`)
     }
     return context
-  }
+}
+export const useUserImagesContext = () => {
+    const context = useContext(UserImagesContext)
+    if (context === undefined) {
+      throw new Error(`use in tree : ContextProvider`)
+    }
+    return context
+
+}
 
 export default UserDataContextProvider;

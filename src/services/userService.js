@@ -25,8 +25,16 @@ export function updateUserEvents(user,events) {
     return http.put(`/events/:${user._id}`, {'events': events});
 };
 
+export function updateEventImg(formData){
+    return http.put(`/upload-eventImage`, formData, {})
+}
+
 export function updateProfileImg(formData){
     return http.put(`/upload`, formData, {})
+}
+
+export function updatePersonalData(id, data){
+    return http.put(`/personal/${id}`, data)
 }
 
 

@@ -1,10 +1,15 @@
 import React from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { FilePond, registerPlugin } from 'react-filepond'
+import 'filepond/dist/filepond.min.css';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+registerPlugin(FilePondPluginImagePreview);
+
 
 export default function PopUp(props){
     
-    const {handleClose, photo, setPhoto, show, handleUpload} = props
+    const {handleClose, photo, setPhoto, show, handleUpload, entry} = props
    
     return(
 
@@ -15,11 +20,17 @@ export default function PopUp(props){
             <Form onSubmit={handleUpload}>
                 <Modal.Body>
                     <FilePond 
-                    allowMultiple={false} 
+                    allowMultiple={entry==='profile'?false:true} 
                     files={photo} 
                     onupdatefiles={(fileItems) => setPhoto(fileItems)} 
                     instantUpload ={false}
-                    name="photo"/>
+                    allowRevert = {false}
+                    name="photo"
+                    allowImagePreview
+                    imagePreviewMaxFileSize = "500KB" 
+                    imagePreviewHeight = '200' 
+                    imagePreviewTransparencyIndicator = 'grid'
+                    />
                 </Modal.Body>
 
                 <Modal.Footer>

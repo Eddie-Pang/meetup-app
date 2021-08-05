@@ -1,34 +1,41 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import CenteredContainer from '../CenteredContainer';
 import profile from '../../image/default-profile.jpg';
 import { Link } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../Context/AuthContext';
 import NavBar from '../NavBar';
-import { updateProfileImg } from '../../services/userService';
+import { updateProfileImg, updatePersonalData } from '../../services/userService';
 import { loadingIcon } from '../../util/imgPicker'
 import PopUp from './PopUp'
+import { useUserImagesContext } from "../../Context/UserDataContext";
 
 
 export default function Profile(){
-    const { getUser, handleLogOut, currentUser, loading } = useAuth()
-    const [show, setShow] = useState(false)
-    const [photo, setPhoto] = useState()
-    
-    const userName = currentUser?.name
+    const { getUser, currentUser, loading } = useAuth()
+    // const [show, setShow] = useState(false)
+    // const [photo, setPhoto] = useState()
+    const bioRef = useRef()
+    const nameRef = useRef()
+    const [location, setLocation] = useState("")
+    const [gender, setGender] = useState("")
+    const [msg, setMsg] = useState("")
+    const [error, setError] = useState("")
     const userEmail = currentUser?.email
+    const entry = 'profile'
+    const {images} = useUserImagesContext();
+    const {handleShow, handleClose, photo, setPhoto, show, setShow, arrayBufferToBase64 } = images;
 
-    const [name, setName] = useState(userName)
     
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
+    // const handleClose = () => setShow(false)
+    // const handleShow = () => setShow(true)
 
-    const arrayBufferToBase64 = buffer => {
-        var binary = ''
-        var bytes = [].slice.call(new Uint8Array(buffer))
-        bytes.forEach(b => binary += String.fromCharCode(b))
-        return window.btoa(binary)
-    }
+    // const arrayBufferToBase64 = buffer => {
+    //     var binary = ''
+    //     var bytes = [].slice.call(new Uint8Array(buffer))
+    //     bytes.forEach(b => binary += String.fromCharCode(b))
+    //     return window.btoa(binary)
+    // }
 
     const imgStr = arrayBufferToBase64(currentUser?.img?.data?.data)
     const userProfile = (`data:${currentUser?.img?.contentType};base64,`+ imgStr ) 
@@ -47,11 +54,36 @@ export default function Profile(){
             await updateProfileImg(formData).then(res =>{
                 console.log(res.data)
                 console.log('upload successfully')
+                setPhoto()
                 handleClose()
             }).catch(err => console.log(err))
 
             getUser();
         }
+    }
+    const handleOnSubmit = async(e) => {
+        e.preventDefault()
+        setMsg('')
+        setError('')
+        const personalInfo = {
+            name : nameRef.current.value,
+            location: location,
+            gender: gender,
+            bio: bioRef.current.value
+        }
+        const id = currentUser?._id
+        console.log(personalInfo)
+        console.log(id)
+        await updatePersonalData(id, personalInfo)
+        .then((res) => {
+            console.log(res.data)
+            setMsg('Data has been completed')
+        }).catch(err => {
+            console.log(err)
+            setError('Failed to complete')
+        })
+        getUser()
+
     }
 
     
@@ -75,27 +107,27 @@ export default function Profile(){
                                 <Button variant="link" onClick={handleShow}>change your photo</Button>
                                 </div>
                     
-                                <form>
+                                <form onSubmit= {handleOnSubmit}>
                                     <div className="form-group">
                                         <label htmlFor="name">Name:</label>
-                                        <input type="text" className="form-control" id="name" name="name" value={currentUser?.name|| ''} onChange={e => setName(e.target.value)} placeholder="Enter your name"  required/>
+                                        <input type="text" className="form-control" id="name" name="name" defaultValue={currentUser?.name|| ''} ref={nameRef} placeholder="Enter your name"  required/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="email">Email:</label>
-                                        <input type="email" className="form-control" id="email" name="email" value={ userEmail || ''} readOnly/>
+                                        <input type="email" className="form-control" id="email" name="email" defaultValue={ userEmail || ''} readOnly />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="location">Location: </label>
-                                        <select className="form-control" id="location" name="location" required>
+                                        <select className="form-control" id="location" name="location"  onChange={() => setLocation(document.getElementById('location').value)} defaultValue={currentUser?.location || location} required>
                                             <option value="">Please select</option>
-                                            <option value="macau">Macau</option>
-                                            <option value="hk">Hong Kong</option>
-                                            <option value="taiwan">Taiwan</option>
+                                            <option value="dublin">Dublin</option>
+                                            <option value="galway">Galway</option>
+                                            <option value="cork">Cork</option>
                                         </select>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="gender">Gender: </label>
-                                        <select className="form-control" id="gender" name="gender" required>
+                                        <select className="form-control" id="gender" name="gender"  onChange={() => setGender(document.getElementById('gender').value)} value={currentUser?.gender || gender} required>
                                             <option value="">Please select</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
@@ -104,17 +136,19 @@ export default function Profile(){
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="bio">Bio:</label>
-                                        <textarea className="form-control" rows="5" id="bio" name="bio"></textarea>
+                                        <textarea className="form-control" rows="5" id="bio" name="bio" ref={bioRef} defaultValue={currentUser?.bio|| ''}></textarea>
                                     </div>
                                     <button type="submit" className="btn btn-primary mt-2">Confirm</button>
                                 </form>
+                                {msg &&  <div className ="alert alert-success">{msg}</div> } 
+                                {error && <div className ="alert alert-danger">{error}</div> }
                                 <Link to="#">Reset password</Link>
-                                <Button variant="secondary" onClick={handleLogOut}>Log out</Button>
+                                
                             </div>
                         </div>
                     </CenteredContainer>
 
-                    <PopUp handleClose= {handleClose} show = {show} handleUpload={handleUpload} photo={photo} setPhoto={setPhoto}/>
+                    <PopUp handleClose= {handleClose} show = {show} handleUpload={handleUpload} photo={photo} setPhoto={setPhoto} entry = {entry}/>
                     
                 </>
             }

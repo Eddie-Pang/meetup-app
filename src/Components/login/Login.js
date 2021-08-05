@@ -28,8 +28,12 @@ export default function Login() {
             let result = await login(user)
             getUser();
             console.log(result)
+
             if (result === 'log in successfully'){
                 history.push('/profile') 
+            }
+            else if (result === 'No User Exists'){
+                setError('Invalid Email or Password')
             }
            
             }catch{

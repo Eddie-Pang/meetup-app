@@ -3,8 +3,10 @@ import CenteredContainer from './CenteredContainer';
 import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../Context/AuthContext';
 import NavBar from './NavBar';
-import {createEvent} from '../services/userService'
+import {createEvent, updateEventImg} from '../services/userService'
 import { loadingIcon } from '../util/imgPicker'
+import PopUp from './Profile/PopUp'
+import { useUserEventsContext, useUserImagesContext } from "../Context/UserDataContext";
 
 
 export default function CreateGroups(){
@@ -14,6 +16,36 @@ export default function CreateGroups(){
     const interestRef = useRef()
     const datetimeRef = useRef()
     const { currentUser, loading } = useAuth()
+
+    const {events} = useUserEventsContext();
+    const {images} = useUserImagesContext();
+    const {handleShow, handleClose, photo, setPhoto, show, setShow, arrayBufferToBase64 } = images;
+    const entry = "create"
+
+
+    const imgStr = arrayBufferToBase64(events?.img?.data?.data)
+    const eventImage = (`data:${events?.img?.contentType};base64,`+ imgStr ) 
+    
+
+
+    const handleUpload = async(e) => {
+        e.preventDefault()
+        if (photo && photo.length > 0){
+            let formData = new FormData()
+            formData.append('photo', photo[0].file)
+            formData.append('eventId', events._id)
+            console.log(photo[0].file)
+            console.log(events._id)
+
+            await updateEventImg(formData).then(res =>{
+                console.log(res.data)
+                console.log('upload successfully')
+                setPhoto()
+                handleClose()
+            }).catch(err => console.log(err))
+
+        }
+    }
 
     async function handleOnSubmit(e){
         e.preventDefault()
@@ -47,6 +79,7 @@ export default function CreateGroups(){
                 <NavBar/>
                 <CenteredContainer>
                 <h2 className="text-center mb-4">Set Up A New Group</h2>
+                <Button variant="link" onClick={handleShow}>Upload Pictures</Button>
                 <Form onSubmit={handleOnSubmit}>
                     <Form.Group className="mb-3" controlId="group-name">
                         <Form.Label>Group name: </Form.Label>
@@ -74,6 +107,7 @@ export default function CreateGroups(){
                 
                 </Form>
                 </CenteredContainer>
+                <PopUp handleClose= {handleClose} show = {show} handleUpload={handleUpload} photo={photo} setPhoto={setPhoto} entry = {entry}/>
                 </>
             }    
         </>
