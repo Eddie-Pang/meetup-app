@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
-import CenteredContainer from './CenteredContainer';
+import CenteredContainer from '../CenteredContainer';
 import { Button, Form } from 'react-bootstrap';
-import { useAuth } from '../Context/AuthContext';
-import NavBar from './NavBar';
-import {createEvent, updateEventImg} from '../services/userService'
-import { loadingIcon } from '../util/imgPicker'
-import PopUp from './Profile/PopUp'
-import { useUserEventsContext, useUserImagesContext } from "../Context/UserDataContext";
+import { useAuth } from '../../Context/AuthContext';
+import NavBar from '../NavBar';
+import {createEvent, updateEventImg} from '../../services/userService'
+import { loadingIcon } from '../../util/imgPicker'
+import PopUp from '../Profile/PopUp'
+import { useUserEventsContext, useUserImagesContext } from "../../Context/UserDataContext";
 
 
 export default function CreateGroups(){

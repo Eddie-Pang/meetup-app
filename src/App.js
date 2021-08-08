@@ -8,7 +8,7 @@ import Profile from './Components/Profile/Profile';
 import Result from './Components/Search/Result';
 import { AuthProvider } from './Context/AuthContext';
 import PrivateRoute from './Components/PrivateRoute';
-import CreateGroups from './Components/CreateGroups';
+import CreateGroups from './Components/CreateGroups/CreateGroups';
 import EventViewer from './Components/EventViewer/EventViewer';
 import GoogleRedirect from './Components/login/GoogleRedirect';
 import MyEventsPage from './Components/MyEvents/MyEventsPage';
