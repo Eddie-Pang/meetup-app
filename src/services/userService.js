@@ -37,6 +37,10 @@ export function updatePersonalData(id, data){
     return http.put(`/personal/${id}`, data)
 }
 
+export function uploadFormData(formData){
+    return http.put(`/uploadFormData`, formData, {})
+}
+
 
 
 

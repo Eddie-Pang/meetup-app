@@ -10,12 +10,13 @@ registerPlugin(FilePondPluginImagePreview);
 export default function PopUp(props){
     
     const {handleClose, photo, setPhoto, show, handleUpload, entry} = props
+
    
     return(
 
         <Modal show={show} onHide={handleClose} animation={false}>
             <Modal.Header closeButton>
-                <Modal.Title>Set Your Profile Photo</Modal.Title>
+            <Modal.Title> {entry==='profile'? 'Set Your Profile Photo' : 'Add picture(s)'} </Modal.Title>
             </Modal.Header>
             <Form onSubmit={handleUpload}>
                 <Modal.Body>

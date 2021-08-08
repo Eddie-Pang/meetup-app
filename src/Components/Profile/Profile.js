@@ -26,6 +26,8 @@ export default function Profile(){
     const {images} = useUserImagesContext();
     const {handleShow, handleClose, photo, setPhoto, show, setShow, arrayBufferToBase64 } = images;
 
+   
+
     
     // const handleClose = () => setShow(false)
     // const handleShow = () => setShow(true)
@@ -36,7 +38,7 @@ export default function Profile(){
     //     bytes.forEach(b => binary += String.fromCharCode(b))
     //     return window.btoa(binary)
     // }
-
+console.log(currentUser?.img?.data?.data);
     const imgStr = arrayBufferToBase64(currentUser?.img?.data?.data)
     const userProfile = (`data:${currentUser?.img?.contentType};base64,`+ imgStr ) 
     
@@ -50,6 +52,7 @@ export default function Profile(){
             formData.append('userId', currentUser._id)
             console.log(photo[0].file)
             console.log(currentUser._id)
+            
 
             await updateProfileImg(formData).then(res =>{
                 console.log(res.data)
