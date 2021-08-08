@@ -4,7 +4,7 @@ import { Switch, Route} from 'react-router-dom';
 import MyPreviousEvents from './MyPreviousEvents';
 import MyEventsView from './MyEventsView';
 
-function MyEventsPage(props) {
+export default function MyEventsPage(props) {
 
     const { history } = props;
   
@@ -15,10 +15,10 @@ function MyEventsPage(props) {
     return (
         <Switch>
            <Route path="/myEvents" render = {(props) => (<MyEventsView {...props} handleViewEvent={handleRenderEventViewer}></MyEventsView>)} />
-           <Route path="/myEvents/previous" component = {MyPreviousEvents}/>
+           {/* <Route path="/myEvents/previous" component = {MyPreviousEvents}/> */}
+           <Route path="/myEvents/previous" component = {props =><MyPreviousEvents {...props}/>}/>
+           
         </Switch>
        
     );
 }
-
-export default MyEventsPage;

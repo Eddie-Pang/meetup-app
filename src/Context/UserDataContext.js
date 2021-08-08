@@ -68,6 +68,7 @@ const UserDataContextProvider = props => {
 
 
   const updateDataBase = useCallback(async (data) => {
+    console.log(data)
     try {
       let response
       let currentUser = getUserObject() //user from token

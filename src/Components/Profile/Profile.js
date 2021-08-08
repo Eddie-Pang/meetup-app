@@ -24,7 +24,7 @@ export default function Profile(){
     const userEmail = currentUser?.email
     const entry = 'profile'
     const {images} = useUserImagesContext();
-    const {handleShow, handleClose, photo, setPhoto, show, setShow, arrayBufferToBase64 } = images;
+    const {handleShow, handleClose, photo, setPhoto, show, arrayBufferToBase64 } = images;
 
    
 
@@ -42,8 +42,6 @@ console.log(currentUser?.img?.data?.data);
     const imgStr = arrayBufferToBase64(currentUser?.img?.data?.data)
     const userProfile = (`data:${currentUser?.img?.contentType};base64,`+ imgStr ) 
     
-
-
     const handleUpload = async(e) => {
         e.preventDefault()
         if (photo && photo.length > 0){
