@@ -13,8 +13,6 @@ import { useUserImagesContext } from "../../Context/UserDataContext";
 
 export default function Profile(){
     const { getUser, currentUser, loading } = useAuth()
-    // const [show, setShow] = useState(false)
-    // const [photo, setPhoto] = useState()
     const bioRef = useRef()
     const nameRef = useRef()
     const [location, setLocation] = useState("")
@@ -28,17 +26,7 @@ export default function Profile(){
     const {images} = useUserImagesContext();
     const {handleShow, handleClose, photo, setPhoto, show, arrayBufferToBase64 } = images;
    
-
-    // const handleClose = () => setShow(false)
-    // const handleShow = () => setShow(true)
-
-    // const arrayBufferToBase64 = buffer => {
-    //     var binary = ''
-    //     var bytes = [].slice.call(new Uint8Array(buffer))
-    //     bytes.forEach(b => binary += String.fromCharCode(b))
-    //     return window.btoa(binary)
-    // }
-console.log(currentUser?.img?.data?.data);
+    console.log(currentUser?.img?.data?.data);
     const imgStr = arrayBufferToBase64(currentUser?.img?.data?.data)
     const userProfile = (`data:${currentUser?.img?.contentType};base64,`+ imgStr ) 
     
@@ -48,10 +36,7 @@ console.log(currentUser?.img?.data?.data);
             let formData = new FormData()
             formData.append('photo', photo[0].file)
             formData.append('userId', currentUser._id)
-            console.log(photo[0].file)
-            console.log(currentUser._id)
             
-
             await updateProfileImg(formData).then(res =>{
                 console.log(res.data)
                 console.log('upload successfully')
@@ -92,14 +77,10 @@ console.log(currentUser?.img?.data?.data);
             return [...prev,{ 
                     id: Date.now(),
                     interest: e.target.innerText
-
             }]
         })
-       
     }
 
-    
-    
     return(
         <>
             {loading

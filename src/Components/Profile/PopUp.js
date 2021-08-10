@@ -11,7 +11,6 @@ export default function PopUp(props){
     
     const {handleClose, photo, setPhoto, show, handleUpload, entry} = props
 
-   
     return(
 
         <Modal show={show} onHide={handleClose} animation={false}>

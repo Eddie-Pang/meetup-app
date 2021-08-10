@@ -12,8 +12,6 @@ export default function MyEventsPage(props) {
         history.push(`/event-viewer/?&method=myEvent&Sevent=${event._id}`)
     };
     
-
-
     return (
         <Switch>
            <Route path="/myEvents" render = {(props) => (<MyEventsView {...props} handleViewEvent={handleRenderEventViewer}></MyEventsView>)} />
