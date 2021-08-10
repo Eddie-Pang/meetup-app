@@ -10,22 +10,39 @@ import {  useUserImagesContext } from "../../Context/UserDataContext";
 
 export default function EventViewer(){
     let location = useLocation();  
-    const { loading } = useAuth()
-
+    const { loading, currentUser } = useAuth()
     const search = location.search
     const match = search.match(/event=(([^&]+))/);
+    const methods = search.match(/method=(([^&]+))/);
     const param = match?.[1]
+    const method = methods?.[1]
+    console.log(method)
+    console.log(param)
     const result = useGetEvent(param);
-    const events = result.events
-
+    const {events, imgs} = result
+    
+    function isOwned(){
+        if (currentUser?.ownEvents)
+            for (var i =0; i<currentUser.ownEvents.length; i++){
+                if (events?._id===currentUser.ownEvents[i]._id)
+                    return true;
+            }
+            return false
+    }
+    
+    const isOwn = isOwned()?true:false
+    
     const {images} = useUserImagesContext();
     const { arrayBufferToBase64 } = images;
     const imgStr=[];
     const eventImage = []
-    for (var i = 0; i<events?.img.length; i++){
-         imgStr.push(arrayBufferToBase64(events?.img[i].data.data))
-         eventImage.push(`data:${events?.img?.contentType};base64,`+ imgStr[i] ) 
+    if (imgs){
+        for (var i = 0; i<imgs.img.length; i++){  
+            imgStr.push(arrayBufferToBase64(imgs?.img[i].data.data))
+            eventImage.push(`data:${imgs?.img[i]?.contentType};base64,`+ imgStr[i] ) 
+       }
     }
+    
     
     return(
         <>
@@ -51,7 +68,7 @@ export default function EventViewer(){
 
                             <div className = 'event-save'></div>
 
-                            <SaveEvent event={events} />
+                            {isOwn?<div className='caption'>Hosted</div>:<SaveEvent event={events} />}
                             
                             <div className = 'event-content'>
                                 

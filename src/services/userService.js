@@ -17,17 +17,25 @@ export function createEvent(event){
     return http.post(`/new-events`, event)
 }
 
+export function uploadImg(formData){
+    return http.post(`/new-image`, formData, {})
+}
+
 export function getEvent(id){
     return http.get(`/getEvent/${id}`)
 }
 
+export function getImg(id){
+    return http.get(`/image/${id}`)
+}
+
+export function updateUserOwnEvents(user,events) { 
+    return http.put(`/ownEvents/:${user._id}`, {'events': events});
+};
+
 export function updateUserEvents(user,events) { 
     return http.put(`/events/:${user._id}`, {'events': events});
 };
-
-export function updateEventImg(formData){
-    return http.put(`/upload-eventImage`, formData, {})
-}
 
 export function updateProfileImg(formData){
     return http.put(`/upload`, formData, {})
@@ -37,9 +45,9 @@ export function updatePersonalData(id, data){
     return http.put(`/personal/${id}`, data)
 }
 
-export function uploadFormData(formData){
-    return http.put(`/uploadFormData`, formData, {})
-}
+
+
+
 
 
 
