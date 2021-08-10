@@ -26,12 +26,9 @@ export default function Profile(){
     const entry = 'profile'
     const lists = ["Travel", "Books", "Game", "Sport", "Language", "Anime", "Career", "Culture", "Art", "Music", "Technology"]
     const {images} = useUserImagesContext();
-    const {handleShow, handleClose, photo, setPhoto, show, setShow, arrayBufferToBase64 } = images;
+    const {handleShow, handleClose, photo, setPhoto, show, arrayBufferToBase64 } = images;
    
 
-   
-
-    
     // const handleClose = () => setShow(false)
     // const handleShow = () => setShow(true)
 

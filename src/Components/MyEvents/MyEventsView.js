@@ -6,7 +6,6 @@ import MyJoinedEvents from './MyJoinedEvents'
 import { useAuth } from '../../Context/AuthContext';
 
 export default function MyEventsView(props){
-
    
     const {currentUser, loading} = useAuth();
 
