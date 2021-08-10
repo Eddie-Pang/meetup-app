@@ -1,22 +1,12 @@
 import React from "react";
-import NavBar from "../NavBar";
-import { useUserEventsContext } from "../../Context/UserDataContext";
 import { Card, Button } from 'react-bootstrap';
-import { loadingIcon } from '../../util/imgPicker'
-import { useAuth } from '../../Context/AuthContext';
 
 export default function MyOwnEventsView(props){
 
-    const {currentUser} = useAuth();
-    const events = currentUser?.ownEvents;
-    console.log(events)
+    const {events, handleViewEvent} = props;
   
-    
-    const {handleViewEvent} = props;
-
     return(
         <>
-            
             {events?.map((event, index) => { 
                 return(
                     <div key = {index}>
@@ -33,9 +23,6 @@ export default function MyOwnEventsView(props){
                     </div>
                 )
             })}
-        
-        
-      
         </>
     )
 }

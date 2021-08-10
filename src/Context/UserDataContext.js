@@ -10,14 +10,15 @@ const UserImagesContext = createContext();
 
 const UserDataContextProvider = props => {
 
-    const [ currentUser, setCurrentUser ] = useState(getUserObject());
-    const { user, isAuth } = useAuth();
-   
     
-    useEffect(()=>{
-      console.log(user);
-        setCurrentUser(user);
-    },[user]);
+    const { currentUser, isAuth } = useAuth();
+   
+    //if something wrong, uncommon 
+    // const [ currentUser, setCurrentUser ] = useState(getUserObject());
+    // useEffect(()=>{
+    //   console.log(user);
+    //     setCurrentUser(user);
+    // },[user]);
 
     const [eventsState, dispatchEvent] = useReducer(eventsReducer, {
         status: 'init',
@@ -34,8 +35,6 @@ const UserDataContextProvider = props => {
 
       try {
       
-      
-
         let currentUser = getUserObject();
         console.log(currentUser)
         if (!isMounted) return

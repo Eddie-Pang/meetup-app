@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-// import axios from 'axios'
 
 import {logout} from '../services/authService'
 import { getAccount } from '../services/userService';
@@ -14,7 +13,6 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null)
-    const [user, setUser]= useState(null)
     const [loading, setLoading] = useState(true)
 
     const history = useHistory()
@@ -28,17 +26,12 @@ export function AuthProvider({ children }) {
         }
     }
 
-    // const createUser = user => http.post(`/register`, user)
-    // const login = user => http.post(`/login`, user)
-    // const logout = () => http.get(`/logout`)
-    // const createEvent = event => http.post(`/new-events`, event)
-    
-    useEffect(()=>{
-        console.log(currentUser)
-        setCurrentUser(currentUser);
+    // useEffect(()=>{
+    //     console.log(currentUser)
+    //     setCurrentUser(currentUser);
         
 
-    },[currentUser])
+    // },[currentUser])
    
     useEffect(() => {
           getUser()
@@ -51,7 +44,7 @@ export function AuthProvider({ children }) {
             console.log(res);
             if (res.status === 200){
                 setCurrentUser(res.data)
-                setUser(res.data)
+                
             }
         }catch(err){
             console.log(err)
@@ -68,7 +61,6 @@ export function AuthProvider({ children }) {
         handleLogOut,
         getUser,
         isAuth,
-        user
     }
 
     return (

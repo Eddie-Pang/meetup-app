@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route} from 'react-router-dom';
-
 import MyPreviousEvents from './MyPreviousEvents';
 import MyEventsView from './MyEventsView';
 // import MyOwnEvents from './MyOwnEvents';

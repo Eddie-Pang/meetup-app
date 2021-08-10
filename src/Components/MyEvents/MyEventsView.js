@@ -1,25 +1,24 @@
 import React from "react";
 import NavBar from "../NavBar";
-import { useUserEventsContext } from "../../Context/UserDataContext";
 import { loadingIcon } from '../../util/imgPicker'
 import MyOwnEvents from './MyOwnEvents'
 import MyJoinedEvents from './MyJoinedEvents'
-
 import { useAuth } from '../../Context/AuthContext';
 
 export default function MyEventsView(props){
 
-    const {events} = useUserEventsContext();
-    const {currentUser} = useAuth();
+   
+    const {currentUser, loading} = useAuth();
+
     const ownEvents = currentUser?.ownEvents;
-    const savedEvents = events.events
-    const totalEvents = ownEvents?.length+savedEvents?.length;
+    const joinedEvents = currentUser?.events
+    const totalEvents = ownEvents?.length+joinedEvents?.length;
     const {handleViewEvent} = props;
 
     return(
         <>
         
-        {events.status==='received'
+        {!loading
             ?  
             <>
                 <NavBar/>
@@ -29,8 +28,8 @@ export default function MyEventsView(props){
                         <>
                             <h3>You currently have {totalEvents} event(s)</h3> 
                             <hr/>
-                            <MyJoinedEvents handleViewEvent={handleViewEvent}/>
-                            <MyOwnEvents handleViewEvent={handleViewEvent}/>
+                            <MyJoinedEvents handleViewEvent={handleViewEvent} events={joinedEvents}/>
+                            <MyOwnEvents handleViewEvent={handleViewEvent} events={ownEvents}/>
                         </>
                     :
                         <div style = {{width: '600px', paddingTop:'20%', margin:'auto', textAlign: 'center'}}>
