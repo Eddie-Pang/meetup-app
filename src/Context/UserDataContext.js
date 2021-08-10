@@ -13,7 +13,7 @@ const UserDataContextProvider = props => {
     
     const { currentUser, isAuth } = useAuth();
    
-    //if something wrong, uncommon 
+    //if something wrong, uncomment 
     // const [ currentUser, setCurrentUser ] = useState(getUserObject());
     // useEffect(()=>{
     //   console.log(user);
