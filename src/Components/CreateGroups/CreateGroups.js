@@ -40,18 +40,8 @@ export default function CreateGroups(){
                     url:URL.createObjectURL(photo[i].file)
                 }
                 imgObjects.push(imgObject)
-<<<<<<< HEAD
             }
             
-=======
-                
-                formData.append('photo[]', photo[i].file)
-                formData.append('eventId[]', events?.events[0]?._id)
-            }
-            // console.log(photo[0])
-            setFormData(formData);
-
->>>>>>> m u
             setImgObjects(imgObjects);
             setPhoto()
             handleClose();
