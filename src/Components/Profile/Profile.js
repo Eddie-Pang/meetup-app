@@ -21,10 +21,13 @@ export default function Profile(){
     const [gender, setGender] = useState("")
     const [msg, setMsg] = useState("")
     const [error, setError] = useState("")
+    const [interest, setInterest] = useState([])
     const userEmail = currentUser?.email
     const entry = 'profile'
+    const lists = ["Travel", "Books", "Game", "Sport", "Language", "Anime", "Career", "Culture", "Art", "Music", "Technology"]
     const {images} = useUserImagesContext();
     const {handleShow, handleClose, photo, setPhoto, show, setShow, arrayBufferToBase64 } = images;
+   
 
    
 
@@ -88,6 +91,17 @@ console.log(currentUser?.img?.data?.data);
         getUser()
 
     }
+    const handleAddInterest = (e) => {
+        console.log(e.target.innerText)
+        setInterest((prev) => {
+            return [...prev,{ 
+                    id: Date.now(),
+                    interest: e.target.innerText
+
+            }]
+        })
+       
+    }
 
     
     
@@ -136,6 +150,17 @@ console.log(currentUser?.img?.data?.data);
                                             <option value="female">Female</option>
                                             <option value="other">Pefer not to say</option>
                                         </select>
+                                    </div>
+                                    <div>
+                                        <label>Interests: </label><br/>
+                                        {lists.map((value, index) => {
+                                            return <button type="button" className="btn btn-light" key={index} id={value} onClick={handleAddInterest}>{value}</button>
+                                        })}
+                                        <br/>
+                                        {interest.map((value, index) => {
+                                            return <li key={index}>{value.interest}</li>
+                                        })}
+                                        
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="bio">Bio:</label>

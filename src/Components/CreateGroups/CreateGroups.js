@@ -48,9 +48,9 @@ export default function CreateGroups(){
                 imgObjects.push(imgObject)
                 
                 formData.append('photo[]', photo[i].file)
-                formData.append('eventId[]', events?.events[0]._id)
+                formData.append('eventId[]', events?.events[0]?._id)
             }
-            
+            // console.log(photo[0])
             setFormData(formData);
 
             setImgObjects(imgObjects);
