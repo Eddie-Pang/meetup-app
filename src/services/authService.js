@@ -10,7 +10,6 @@ export async function createUser(user){
 } 
 
 export async function login(user){
-    await http.post(`/login`, user)
     const result = await http.post(`/login`, user)
     console.log(result)
     const { headers: {'x-auth-token':token} } = result;

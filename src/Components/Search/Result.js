@@ -21,7 +21,7 @@ export default function Result(){
         //     pathname : `/event-viewer/id=${event._id}`,
         //     data: event
         // })
-        history.push(`/event-viewer/?&event=${event._id}`)
+        history.push(`/event-viewer/?&method=search&&event=${event._id}`)
     }
 
     return(

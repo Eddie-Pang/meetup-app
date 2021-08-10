@@ -17,18 +17,24 @@ import {useAuth} from './Context/AuthContext';
 
 function App() {
   const { isAuth } = useAuth();
+  
   return (
     <div className="container-fluid">
     <Router>
       <AuthProvider>
         <Switch>
-          <Route exact path="/" component={Homepage}/>
+          {/* <Route exact path="/" component={Homepage}/> */}
+          {/* <Route path="/result" component={Result} /> */}
+          {/* <Route path="/newgroup" component={CreateGroups}/> */}
+          {/* <Route path="/event-viewer" component={EventViewer}/>   */}
+          {/* <Route path = '/google' component = {GoogleRedirect}/> */}
+          <Route exact path="/" component = {props =><Homepage {...props}/>}/>  
           <Route path={["/signup", "/login","/forgotPassword"]} render={(props) => (<LoginPage {...props}></LoginPage>)}></Route>
-          <Route path="/result" component={Result} />
+          <Route path="/result" component = {props =><Result {...props}/>}/>  
           <PrivateRoute path="/profile" component={Profile} />
-          <Route path="/newgroup" component={CreateGroups}/>
-          <Route path="/event-viewer" component={EventViewer}/>        
-          <Route path = '/google' component = {GoogleRedirect}/>
+          {isAuth ? <Route path="/newGroup" component = {props =><CreateGroups {...props}/>}/> :<Redirect to="/login" />}
+          <Route path="/event-viewer" component = {props =><EventViewer {...props}/>}/>      
+          <Route path="/google" component = {props =><GoogleRedirect {...props}/>}/>
           {isAuth ? <Route path={["/myEvents","/myEvents/previous"]} render={(props) => (<MyEventsPage {...props}></MyEventsPage>)}></Route> : <Redirect to="/login" />}
 
         </Switch>
