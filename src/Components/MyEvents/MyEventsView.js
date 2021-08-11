@@ -4,18 +4,22 @@ import { loadingIcon } from '../../util/imgPicker'
 import MyOwnEvents from './MyOwnEvents'
 import MyJoinedEvents from './MyJoinedEvents'
 import { useAuth } from '../../Context/AuthContext';
+import useGetJoinedEvents from "../../hooks/useGetJoinedEvents"
+import { useUserEventsContext } from "../../Context/UserDataContext";
 
 export default function MyEventsView(props){
    
     const {currentUser, loading} = useAuth();
+    const {events} = useUserEventsContext();
+    const {user} = events
     const ownEvents = currentUser?.ownEvents;
-    const joinedEvents = currentUser?.events
+    const {joinedEvents,status} = useGetJoinedEvents(user?._id)
     const totalEvents = ownEvents?.length+joinedEvents?.length;
     const {handleViewEvent} = props;
 
     return(
         <>
-            {!loading
+            {!loading&&status==='received'
             ?  
                 <>
                     <NavBar/>

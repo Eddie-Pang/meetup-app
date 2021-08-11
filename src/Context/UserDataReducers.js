@@ -1,8 +1,8 @@
 
 
 export const eventsReducer = (state, action) => {
-    // console.log(state);
-    // console.log(action.payLoad);
+    console.log(state);
+    console.log(action.payLoad);
     switch (action.type) {
       case 'init':
         return { ...state, status: 'init' }
@@ -11,18 +11,21 @@ export const eventsReducer = (state, action) => {
         return { ...state, status: 'requesting' }
   
       case 'received':
-        return { status: 'received',errorMsg: null, events: action.payLoad }
+        console.log(action.payLoad)
+        return { status: 'received',errorMsg: null, attendees: action.payLoad }
   
       case 'error':
         return { status: 'error', errorMsg: action.payLoad }
   
       case 'save':
-        if (!state.events.some(i => i._id === action.payLoad._id))
-          state.events.push(action.payLoad)
+        console.log(state?.attendees)
+        console.log(action.payLoad)
+        if (!state?.attendees.some(i => i === action.payLoad))
+          state?.attendees.push(action.payLoad)
         return { ...state }
   
       case 'unsave':
-        return { ...state, events: state.events.filter(i => i._id !== action.payLoad._id) }
+        return { ...state, attendees: state?.attendees.filter(i => i !== action.payLoad) }
   
       case 'dbError':
         return { ...state, dbError: action.payLoad }

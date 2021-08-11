@@ -14,6 +14,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState(null)
 
     const history = useHistory()
     
@@ -44,6 +45,7 @@ export function AuthProvider({ children }) {
             console.log(res);
             if (res.status === 200){
                 setCurrentUser(res.data)
+                setUser(res.data)
                 
             }
         }catch(err){
@@ -61,6 +63,7 @@ export function AuthProvider({ children }) {
         handleLogOut,
         getUser,
         isAuth,
+        user
     }
 
     return (

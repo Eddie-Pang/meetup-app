@@ -2,78 +2,40 @@ import React, { createContext, useContext, useEffect, useReducer, useCallback, u
 import { useAuth } from './AuthContext'
 import { getUserObject } from '../services/authService'
 import { getCancelToken } from '../services/httpService';
-import { getAccount, updateUserEvents} from '../services/userService'
+import {  updateAttendees} from '../services/userService'
 import { eventsReducer } from './UserDataReducers';
+
 
 const UserEventsContext = createContext();
 const UserImagesContext = createContext();
 
-const UserDataContextProvider = props => {
 
-    
-    const { currentUser, isAuth } = useAuth();
+const UserDataContextProvider = props => {
+  
+    const { user } = useAuth();
    
     //if something wrong, uncomment 
-    // const [ currentUser, setCurrentUser ] = useState(getUserObject());
-    // useEffect(()=>{
-    //   console.log(user);
-    //     setCurrentUser(user);
-    // },[user]);
+    const [ currentUser, setCurrentUser ] = useState(getUserObject());
+    console.log(currentUser)
+    useEffect(()=>{
+        setCurrentUser(user);
+    },[user]);
 
     const [eventsState, dispatchEvent] = useReducer(eventsReducer, {
         status: 'init',
-        events: []
+        attendees: []
       });
-
-   useEffect(() => {
-    let isMounted = true
-    const source = getCancelToken() // we need to cancel the request if user the component unmounts.
-
-    dispatchEvent({ type: 'requesting' })
-
-    async function requestUserData () {
-
-      try {
-      
-        let currentUser = getUserObject();
-        console.log(currentUser)
-        if (!isMounted) return
-        if (!currentUser || typeof currentUser === 'undefined')
-          throw new Error('no token'); // setStatus('invalid token');
-          else if (isAuth){
-            currentUser = await getAccount();
-            //   currentUser = await getUser(currentUser, { cancelToken: source.token })
-          }
-
-        if (isMounted) {
-          console.log(currentUser.data);
-          dispatchEvent({ type: 'received', payLoad: currentUser.data.events })
-         
-        }
-      } catch (ex) {
- 
-        dispatchEvent({ type: 'error', payLoad: ex })
-      
-        return
-      }
-    }
-    requestUserData()
-    return () => {
-      isMounted = false
-      source.cancel('canceled')
-    }
-  }, [currentUser])
+    
 
 
-
-  const updateDataBase = useCallback(async (data) => {
+  const updateDataBase = useCallback(async (data, event) => {
     console.log(data)
+    console.log(event)
     try {
       let response
       let currentUser = getUserObject() //user from token
       if (!currentUser || typeof currentUser === 'undefined') throw new Error('Invalid User');
-      
-      response = await updateUserEvents(currentUser, data)
+      response = await updateAttendees(event, data)
    
     } catch (err) {
       const error = err?.response?.data ? err?.response?.data : err
@@ -82,43 +44,55 @@ const UserDataContextProvider = props => {
     }
 
   }, []);
+  
+  function handleEventViewer(event){
+    console.log(event)
+    dispatchEvent({ type: 'received', payLoad: event.attendees}) 
+  };
 
   const handleSaveEvent = useCallback(
     async event => {
-      dispatchEvent({ type: 'save', payLoad: event })
-      console.log(eventsState);
-      const newEvents = !eventsState.events.some(i => i._id === event?._id) ? [...eventsState.events, event] : [...eventsState.events]
+      dispatchEvent({ type: 'save', payLoad: currentUser?._id }) 
+      const newEvent = !event.attendees.some(i => i === currentUser?._id) ? [...event.attendees, currentUser?._id] : [...event.attendees]
+      console.log(newEvent)
       try {
-        await updateDataBase(newEvents)
+        await updateDataBase(newEvent, event)
+        console.log(event.attendees)
       } catch (error) {
         dispatchEvent({ type: 'unsave', payLoad: event })
         // dispatchEvent({ type: 'error', payLoad: error })
       }
     },
-    [eventsState.events, updateDataBase]
+    [eventsState.attendees, updateDataBase]
   )
 
   const handleUnsaveEvent = useCallback(
-    async recipe => {
-      dispatchEvent({ type: 'unsave', payLoad: recipe })
-      const newEvents = eventsState.events.filter(i => i._id !== recipe?._id)
+    async event => {
+      dispatchEvent({ type: 'unsave', payLoad: currentUser._id })
+      console.log(event?.attendees)
+      console.log(eventsState.attendees)
+      const newEvents = event?.attendees.filter(i => {return i === eventsState.attendees})
+      console.log(newEvents)
       try {
-        await updateDataBase(newEvents)
+        await updateDataBase(newEvents, event)
+        console.log(event.attendees)
       } catch (error) {
-        dispatchEvent({ type: 'save', payLoad: recipe })
+        dispatchEvent({ type: 'save', payLoad: currentUser._id })
       }
     },
-    [eventsState.events, updateDataBase]
+    [eventsState.attendees, updateDataBase]
   )
 
 
   const eventsObj = {
     events: {
+      user: currentUser,
       status: eventsState.status,
       errorMsg: eventsState.errorMsg,
-      events: eventsState.events,
+      attendees: eventsState.attendees,
       save: handleSaveEvent,
-      unsave: handleUnsaveEvent
+      unsave: handleUnsaveEvent,
+      handleEventViewer:handleEventViewer
     }
   }
 

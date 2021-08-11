@@ -7,15 +7,17 @@ import '../../styles/resultStyle.css';
 import NavBar from '../NavBar';
 import { useAuth } from '../../Context/AuthContext';
 import { loadingIcon } from '../../util/imgPicker'
+import {useUserEventsContext } from '../../Context/UserDataContext';
 
 export default function Result(){
     let location = useLocation();  
     let history = useHistory();
     const {loading} = useAuth();
-
+    const a = useUserEventsContext().events;
     const events = location.data
 
     function handleClick(event){
+        a.handleEventViewer(event)
 
         // history.push({  
         //     pathname : `/event-viewer/id=${event._id}`,
