@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import SearchArea from './Search/SearchArea';
 import { useAuth } from '../Context/AuthContext';
 import { loadingIcon } from '../util/imgPicker'
+import UpcomingEvents from './UpcomingEvents';
 
 export default function Homepage(){
     const { loading } = useAuth()
@@ -26,6 +27,7 @@ export default function Homepage(){
                 <h2>What do you want to do?</h2>
                 <SearchArea/>
                 </div>
+                <UpcomingEvents/>
                 </>
             }    
         </>        

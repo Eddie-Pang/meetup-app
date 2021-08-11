@@ -45,6 +45,9 @@ export function updatePersonalData(id, data){
     return http.put(`/personal/${id}`, data)
 }
 
+export function getUpcomingEvents(){
+    return http.get(`/upcoming`)
+}
 
 
 

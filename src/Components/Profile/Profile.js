@@ -9,6 +9,7 @@ import { updateProfileImg, updatePersonalData } from '../../services/userService
 import { loadingIcon } from '../../util/imgPicker'
 import PopUp from './PopUp'
 import { useUserImagesContext } from "../../Context/UserDataContext";
+import { BsX } from "react-icons/bs";
 
 
 export default function Profile(){
@@ -55,11 +56,14 @@ export default function Profile(){
             name : nameRef.current.value,
             location: location,
             gender: gender,
+            interest: interest,
             bio: bioRef.current.value
         }
         const id = currentUser?._id
-        console.log(personalInfo)
-        console.log(id)
+        setError("")
+        setMsg("")
+        // console.log(personalInfo)
+        // console.log(id)
         await updatePersonalData(id, personalInfo)
         .then((res) => {
             console.log(res.data)
@@ -68,7 +72,7 @@ export default function Profile(){
             console.log(err)
             setError('Failed to complete')
         })
-        getUser()
+        // getUser()
 
     }
     const handleAddInterest = (e) => {
@@ -79,6 +83,11 @@ export default function Profile(){
                     interest: e.target.innerText
             }]
         })
+    }
+    const handleOnDelete = (id) => {
+        setInterest(interest.filter(value => {
+            return value.id !== id
+        }))
     }
 
     return(
@@ -134,7 +143,11 @@ export default function Profile(){
                                         })}
                                         <br/>
                                         {interest.map((value, index) => {
-                                            return <li key={index}>{value.interest}</li>
+                                            return (
+                                                <li key={index}>{value.interest}
+                                                     <button type="button" className="btn btn-link" id={value.id} onClick={() => handleOnDelete(value.id)}><BsX/></button>
+                                                </li> 
+                                            )
                                         })}
                                         
                                     </div>

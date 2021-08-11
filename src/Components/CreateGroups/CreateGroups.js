@@ -7,7 +7,7 @@ import {createEvent, uploadImg, updateUserOwnEvents} from '../../services/userSe
 import { loadingIcon } from '../../util/imgPicker'
 import PopUp from '../Profile/PopUp'
 import { useUserEventsContext, useUserImagesContext } from "../../Context/UserDataContext";
-
+import { BsX } from "react-icons/bs";
 
 export default function CreateGroups(){
     const groupNameRef = useRef()
@@ -138,7 +138,7 @@ export default function CreateGroups(){
                                     <ul key = {index}>
                                         <img src={img.url} className="rounded-circle" alt="default" style={{width: '40px', height: '40px'}}/>
                                         {img.photos?.name}
-                                        <button type = 'button' onClick = {()=>{handleDelete(index)}}>delete</button>
+                                        <button type ='button' className="btn btn-link" onClick = {()=>{handleDelete(index)}}><BsX/></button>
                                     </ul>
                                 )}
                             )}</>
