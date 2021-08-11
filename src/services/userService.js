@@ -1,6 +1,7 @@
 import http from './httpService';
 
 
+
 export function getAccount(){
     return http.get(`/account`)
 }
@@ -33,9 +34,9 @@ export function updateUserOwnEvents(user,events) {
     return http.put(`/ownEvents/:${user._id}`, {'events': events});
 };
 
-export function updateUserEvents(user,events) { 
-    return http.put(`/events/:${user._id}`, {'events': events});
-};
+// export function updateUserEvents(user,events) { 
+//     return http.put(`/events/:${user._id}`, {'events': events});
+// };
 
 export function updateProfileImg(formData){
     return http.put(`/upload`, formData, {})
@@ -45,6 +46,16 @@ export function updatePersonalData(id, data){
     return http.put(`/personal/${id}`, data)
 }
 
+export function getJoinedEvents(id){
+    console.log(id)
+    return http.get(`/getJoinedEvents/${id}`)
+}
+
+export function updateAttendees(event,attendees) { 
+    console.log(attendees)
+    console.log(event)
+    return http.put(`/attendees/${event._id}`, {'attendees': attendees});
+};
 
 
 

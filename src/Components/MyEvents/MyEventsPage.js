@@ -3,12 +3,17 @@ import { Switch, Route} from 'react-router-dom';
 import MyPreviousEvents from './MyPreviousEvents';
 import MyEventsView from './MyEventsView';
 // import MyOwnEvents from './MyOwnEvents';
+import {useUserEventsContext } from '../../Context/UserDataContext';
 
 export default function MyEventsPage(props) {
 
     const { history } = props;
+    const {events} = useUserEventsContext();
   
     function handleRenderEventViewer(event){
+        console.log(event)
+        events.handleEventViewer(event)
+
         history.push(`/event-viewer/?&method=myEvent&Sevent=${event._id}`)
     };
     
