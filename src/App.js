@@ -2,7 +2,7 @@ import { BrowserRouter as Router , Route, Switch, Redirect} from 'react-router-d
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'filepond/dist/filepond.min.css';
-import Homepage from './Components/Homepage';
+import HomepagePages from './Components/Home/HomepagePages';
 import LoginPage from './Components/login/LoginPage';
 import Profile from './Components/Profile/Profile';
 import Result from './Components/Search/Result';
@@ -28,7 +28,7 @@ function App() {
           {/* <Route path="/newgroup" component={CreateGroups}/> */}
           {/* <Route path="/event-viewer" component={EventViewer}/>   */}
           <Route path = '/google' component = {GoogleRedirect}/>
-          <Route exact path="/" component = {props =><Homepage {...props}/>}/>  
+          <Route exact path={["/", '/upcomingEvents']} component = {props =><HomepagePages {...props}/>}/>  
           <Route path={["/signup", "/login","/forgotPassword"]} render={(props) => (<LoginPage {...props}></LoginPage>)}></Route>
           <Route path="/result" component = {props =><Result {...props}/>}/>  
           <PrivateRoute path="/profile" component={Profile} />
@@ -36,6 +36,8 @@ function App() {
           <Route path="/event-viewer" component = {props =><EventViewer {...props}/>}/>      
           {/* <Route path="/google" component = {props =><GoogleRedirect {...props}/>}/> */}
           {isAuth ? <Route path={["/myEvents","/myEvents/previous"]} render={(props) => (<MyEventsPage {...props}></MyEventsPage>)}></Route> : <Redirect to="/login" />}
+          
+
 
         </Switch>
       </AuthProvider>

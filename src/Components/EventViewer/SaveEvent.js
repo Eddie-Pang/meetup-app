@@ -3,16 +3,20 @@ import React from "react";
 import {useUserEventsContext } from '../../Context/UserDataContext';
 import {saveIcon, unsaveIcon} from '../../util/imgPicker';
 import '../../styles/eventViewerStyle.css';
+import {useAuth} from '../../Context/AuthContext'
 
 export default function SaveEvent(props){
 
     const {event} = props;
     const {events} = useUserEventsContext();
+    const {currentUser} = useAuth();
+    console.log(events.attendees)
+    
     
    
     const renderSaveBtn = () => {
       
-        const save = !events.events?.some(i => i?._id===event?._id);
+        const save = !events.attendees?.some(i => i===currentUser?._id);
         
         return ( 
             <div>

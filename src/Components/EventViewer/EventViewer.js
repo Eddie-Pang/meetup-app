@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import '../../styles/eventViewerStyle.css';
 import NavBar from '../NavBar';
 import SaveEvent from "./SaveEvent";
-import SaveEvents from "./SaveEvents";
 import useGetEvent from '../../hooks/useGetEvent';
 import { loadingIcon } from '../../util/imgPicker'
 import { useAuth } from '../../Context/AuthContext';
@@ -69,7 +68,7 @@ export default function EventViewer(){
 
                             <div className = 'event-save'></div>
 
-                            {isOwn?<div className='caption'>Hosted</div>:<SaveEvents event={events} />}
+                            {isOwn?<div className='caption'>Hosted</div>:<SaveEvent event={events} />}
                             
                             <div className = 'event-content'>
                                 

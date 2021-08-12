@@ -4,14 +4,14 @@ import { Card, Button } from 'react-bootstrap';
 
 export default function MyJoinedEvents(props){
 
-    const {events, handleViewEvent} = props;
+    const {handleRenderEventViewer, history, events, method, joinedEvents} = props;
     
     return(
         <>
-            {events?.map((event, index) => { 
+            {joinedEvents?.map((event, index) => { 
                 return(
                     <div key = {index}>
-                        <Card className = 'result-card' key = {index} type="submit" onClick = {()=>handleViewEvent(event)}>
+                        <Card className = 'result-card' key = {index} type="submit" onClick = {()=>handleRenderEventViewer(event, events, method, history)}>
                             <Card.Body key = {index}>
                                 <ul><Card.Title>{event.groupName}</Card.Title></ul>
                                 <ul><Card.Text>{event.description}</Card.Text></ul>

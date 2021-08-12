@@ -46,11 +46,9 @@ export function updatePersonalData(id, data){
     return http.put(`/personal/${id}`, data)
 }
 
-<<<<<<< HEAD
 export function getUpcomingEvents(){
     return http.get(`/upcoming`)
 }
-=======
 export function getJoinedEvents(id){
     console.log(id)
     return http.get(`/getJoinedEvents/${id}`)
@@ -61,7 +59,27 @@ export function updateAttendees(event,attendees) {
     console.log(event)
     return http.put(`/attendees/${event._id}`, {'attendees': attendees});
 };
->>>>>>> 4fa9e5f9bbcfca3243e4f2444137a64b51cd1651
+
+
+
+
+
+
+
+
+export function handleRenderEventViewer(event, events, method, history){
+    events.handleEventViewer(event)
+    history.push(`/event-viewer/?&method=${method}&&event=${event._id}`)
+    
+}
+
+export function isOwned(event, currentUser) {
+    const isHosted = (event) => currentUser.ownEvents?.some(i => i._id ===event._id)
+    const isJoined =(event)=> event.attendees?.some(i => i===currentUser?._id);
+    if (isHosted(event)) return 'Hosted'
+    else if (isJoined(event)) return 'Joined'
+    else return   
+}
 
 
 

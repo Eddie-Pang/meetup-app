@@ -34,13 +34,13 @@ export default function SearchArea(){
     return(
       
         
-        <form>
-            <div className="form-row">
-                <div className="col">
-                    <input type="texct" name="keyword" className="form-control" placeholder="Search for ..." ref={keywordRef}/>
+        <form style={{'width':'600px'}}>
+            <div className="form-row" >
+                <div className="col" >
+                    <input style={{'width':'100%'}} type="text" name="keyword" className="form-control" placeholder="Search for ..." ref={keywordRef}/>
                 </div>
-                <div className="col">
-                    <input type="text" name="location" className="form-control" placeholder="Location" ref={locationRef}/>
+                <div className="col-4">
+                    <input  style={{'width':'100%', 'float':'right'}} type="text" name="location" className="form-control" placeholder="Location" ref={locationRef}/>
                 </div>
             </div>
             <button type="submit" className="btn btn-success mt-2 btn-block" onClick={handleSearch}>Search</button>

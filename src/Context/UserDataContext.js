@@ -83,6 +83,10 @@ const UserDataContextProvider = props => {
     [eventsState.attendees, updateDataBase]
   )
 
+  
+
+
+
 
   const eventsObj = {
     events: {
@@ -92,7 +96,7 @@ const UserDataContextProvider = props => {
       attendees: eventsState.attendees,
       save: handleSaveEvent,
       unsave: handleUnsaveEvent,
-      handleEventViewer:handleEventViewer
+      handleEventViewer:handleEventViewer,
     }
   }
 

@@ -3,14 +3,14 @@ import { Card, Button } from 'react-bootstrap';
 
 export default function MyOwnEventsView(props){
 
-    const {events, handleViewEvent} = props;
+    const {handleRenderEventViewer, history, events, method, ownEvents} = props;
   
     return(
         <>
-            {events?.map((event, index) => { 
+            {ownEvents?.map((event, index) => { 
                 return(
                     <div key = {index}>
-                        <Card className = 'result-card' key = {index} type="submit" onClick = {()=>handleViewEvent(event)}>
+                        <Card className = 'result-card' key = {index} type="submit" onClick = {()=>handleRenderEventViewer(event, events, method, history)}>
                             <Card.Body key = {index}>
                                 <div className = 'caption'>hosted</div>
                                 <ul><Card.Title>{event.groupName}</Card.Title></ul>

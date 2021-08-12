@@ -10,12 +10,12 @@ import { useUserEventsContext } from "../../Context/UserDataContext";
 export default function MyEventsView(props){
    
     const {currentUser, loading} = useAuth();
-    const {events} = useUserEventsContext();
+    const {handleRenderEventViewer, history, events, method} = props;
     const {user} = events
     const ownEvents = currentUser?.ownEvents;
     const {joinedEvents,status} = useGetJoinedEvents(user?._id)
     const totalEvents = ownEvents?.length+joinedEvents?.length;
-    const {handleViewEvent} = props;
+    
 
     return(
         <>
@@ -29,8 +29,8 @@ export default function MyEventsView(props){
                             <>
                                 <h3>You currently have {totalEvents} event(s)</h3> 
                                 <hr/>
-                                <MyJoinedEvents handleViewEvent={handleViewEvent} events={joinedEvents}/>
-                                <MyOwnEvents handleViewEvent={handleViewEvent} events={ownEvents}/>
+                                <MyJoinedEvents handleRenderEventViewer={handleRenderEventViewer} history = {history} events = {events} method={method} joinedEvents={joinedEvents}/>
+                                <MyOwnEvents handleRenderEventViewer={handleRenderEventViewer} history = {history} events = {events} method={method} ownEvents={ownEvents}/>
                             </>
                         :
                             <div style = {{width: '600px', paddingTop:'20%', margin:'auto', textAlign: 'center'}}>
