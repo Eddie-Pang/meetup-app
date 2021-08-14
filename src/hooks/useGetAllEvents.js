@@ -1,13 +1,14 @@
 
 import React, { useEffect, useState } from "react";
-import { getJoinedEvents } from "../services/userService";
+import { getAllEvents } from "../services/userService";
 // import { useAuth } from '../Context/AuthContext';
 
 //rsf tab
 
-function useGetJoinedEvents(props) {
+function useGetAllEvents(props) {
     const [status, setStatus]=useState('init');
     const [joinedEvents, setJoinedEvents] = useState();
+    const [hostedEvents, setHostedEvents] = useState();
     // const {currentUser} = useAuth()
    
   
@@ -22,8 +23,10 @@ function useGetJoinedEvents(props) {
                 setStatus('requesting');
     
                 if (isMounted){
-                    const events = await getJoinedEvents(param) 
-                    setJoinedEvents(events.data);
+                    const events = await getAllEvents(param) 
+                    console.log(events.data)
+                    setJoinedEvents(events.data.joinedEvents);
+                    setHostedEvents(events.data.hostedEvents)
                     setStatus('received');
                 }  
             }catch(error){
@@ -39,9 +42,10 @@ function useGetJoinedEvents(props) {
     return {
         status, 
         joinedEvents,
+        hostedEvents,
     }
     
     
 }
 
-export default useGetJoinedEvents;
+export default useGetAllEvents;

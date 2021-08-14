@@ -1,20 +1,21 @@
 import React from "react";
 import NavBar from "../NavBar";
 import { loadingIcon } from '../../util/imgPicker'
-import MyOwnEvents from './MyOwnEvents'
+import MyHostedEvents from './MyHostedEvents'
 import MyJoinedEvents from './MyJoinedEvents'
 import { useAuth } from '../../Context/AuthContext';
-import useGetJoinedEvents from "../../hooks/useGetJoinedEvents"
-import { useUserEventsContext } from "../../Context/UserDataContext";
+import useGetAllEvents from "../../hooks/useGetAllEvents"
+
 
 export default function MyEventsView(props){
    
     const {currentUser, loading} = useAuth();
     const {handleRenderEventViewer, history, events, method} = props;
     const {user} = events
-    const ownEvents = currentUser?.ownEvents;
-    const {joinedEvents,status} = useGetJoinedEvents(user?._id)
-    const totalEvents = ownEvents?.length+joinedEvents?.length;
+   
+    const {joinedEvents, hostedEvents, status} = useGetAllEvents(user?._id)
+    
+    const totalEvents = hostedEvents?.length+joinedEvents?.length;
     
 
     return(
@@ -30,7 +31,7 @@ export default function MyEventsView(props){
                                 <h3>You currently have {totalEvents} event(s)</h3> 
                                 <hr/>
                                 <MyJoinedEvents handleRenderEventViewer={handleRenderEventViewer} history = {history} events = {events} method={method} joinedEvents={joinedEvents}/>
-                                <MyOwnEvents handleRenderEventViewer={handleRenderEventViewer} history = {history} events = {events} method={method} ownEvents={ownEvents}/>
+                                <MyHostedEvents handleRenderEventViewer={handleRenderEventViewer} history = {history} events = {events} method={method} hostedEvents={hostedEvents}/>
                             </>
                         :
                             <div style = {{width: '600px', paddingTop:'20%', margin:'auto', textAlign: 'center'}}>

@@ -20,17 +20,13 @@ export default function EventViewer(){
     console.log(param)
     const result = useGetEvent(param);
     const {events, imgs} = result
+    console.log(events)
     
-    function isOwned(){
-        if (currentUser?.ownEvents)
-            for (var i =0; i<currentUser.ownEvents.length; i++){
-                if (events?._id===currentUser.ownEvents[i]._id)
-                    return true;
-            }
-            return false
-    }
+    const isHosted = events?.host.id===currentUser._id
+        
+             
     
-    const isOwn = isOwned()?true:false
+    // const isOwn = isOwned()?true:false
     
     const {images} = useUserImagesContext();
     const { arrayBufferToBase64 } = images;
@@ -68,7 +64,7 @@ export default function EventViewer(){
 
                             <div className = 'event-save'></div>
 
-                            {isOwn?<div className='caption'>Hosted</div>:<SaveEvent event={events} />}
+                            {isHosted?<div className='caption'>Hosted</div>:<SaveEvent event={events} />}
                             
                             <div className = 'event-content'>
                                 
@@ -99,7 +95,7 @@ export default function EventViewer(){
                                 <br/>
 
                                 <b>Host: </b>
-                                {events?.host}
+                                {events?.host.name}
                                 <br/>
 
                             </div>

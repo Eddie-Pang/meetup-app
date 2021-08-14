@@ -32,7 +32,7 @@ export default function SeeAllUpcomingEvents(props){
                                             <ul><Card.Title>{event.groupName}</Card.Title></ul>
                                             <ul><Card.Text>{event.description}</Card.Text></ul>
                                             <ul><b>Location: </b>{event.location}</ul>
-                                            <ul><b>Host: </b>{event.host}</ul>      
+                                            <ul><b>Host: </b>{event.host.name}</ul>      
                                             <ul><b>Date: </b>{event.date}, {event.time}</ul>          
                                         </Card.Body>
                                     </Card><br/>

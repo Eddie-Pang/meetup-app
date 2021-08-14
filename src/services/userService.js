@@ -30,14 +30,6 @@ export function getImg(id){
     return http.get(`/image/${id}`)
 }
 
-export function updateUserOwnEvents(user,events) { 
-    return http.put(`/ownEvents/:${user._id}`, {'events': events});
-};
-
-// export function updateUserEvents(user,events) { 
-//     return http.put(`/events/:${user._id}`, {'events': events});
-// };
-
 export function updateProfileImg(formData){
     return http.put(`/upload`, formData, {})
 }
@@ -49,9 +41,10 @@ export function updatePersonalData(id, data){
 export function getUpcomingEvents(){
     return http.get(`/upcoming`)
 }
-export function getJoinedEvents(id){
+
+export function getAllEvents(id){
     console.log(id)
-    return http.get(`/getJoinedEvents/${id}`)
+    return http.get(`/getAllEvents/${id}`)
 }
 
 export function updateAttendees(event,attendees) { 
@@ -59,6 +52,14 @@ export function updateAttendees(event,attendees) {
     console.log(event)
     return http.put(`/attendees/${event._id}`, {'attendees': attendees});
 };
+
+// export function updateUserOwnEvents(user,events) { 
+//     return http.put(`/ownEvents/:${user._id}`, {'events': events});
+// };
+
+// export function updateUserEvents(user,events) { 
+//     return http.put(`/events/:${user._id}`, {'events': events});
+// };
 
 
 
@@ -74,7 +75,7 @@ export function handleRenderEventViewer(event, events, method, history){
 }
 
 export function isOwned(event, currentUser) {
-    const isHosted = (event) => currentUser.ownEvents?.some(i => i._id ===event._id)
+    const isHosted = (event) => event.host.id===currentUser._id
     const isJoined =(event)=> event.attendees?.some(i => i===currentUser?._id);
     if (isHosted(event)) return 'Hosted'
     else if (isJoined(event)) return 'Joined'

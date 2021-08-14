@@ -61,13 +61,16 @@ export default function CreateGroups(){
                 description: descriptionRef.current.value,
                 location: locationRef.current.value,
                 interest: interestRef.current.value,
-                host: currentUser.name,
+                host: {
+                    id:currentUser._id, 
+                    name: currentUser.name
+                },    
                 date: date,
                 time: time,
             }
             let res = await createEvent(event)
             console.log(res.data)
-            await updateUserOwnEvents(currentUser, res.data)
+            // await updateUserOwnEvents(currentUser, res.data)
             console.log(imgObjects)
             if (imgObjects&&imgObjects.length>0){
                 let formData = new FormData()
