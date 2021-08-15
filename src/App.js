@@ -13,6 +13,7 @@ import EventViewer from './Components/EventViewer/EventViewer';
 import GoogleRedirect from './Components/login/GoogleRedirect';
 import MyEventsPage from './Components/MyEvents/MyEventsPage';
 import {useAuth} from './Context/AuthContext';
+import EventFinder from './Components/Home/EventFinder';
 
 
 function App() {
@@ -30,7 +31,9 @@ function App() {
           <Route path = '/google' component = {GoogleRedirect}/>
           <Route exact path={["/", '/upcomingEvents']} component = {props =><HomepagePages {...props}/>}/>  
           <Route path={["/signup", "/login","/forgotPassword"]} render={(props) => (<LoginPage {...props}></LoginPage>)}></Route>
-          <Route path="/result" component = {props =><Result {...props}/>}/>  
+          <Route path="/result" component = {props =><Result {...props}/>}/>
+          <Route path="/find" component = {props =><EventFinder {...props}/>}/>
+          {/* <Route path="/find" component={EventFinder}/> */}
           <PrivateRoute path="/profile" component={Profile} />
           {isAuth ? <Route path="/newGroup" component = {props =><CreateGroups {...props}/>}/> :<Redirect to="/login" />}
           <Route path="/event-viewer" component = {props =><EventViewer {...props}/>}/>      

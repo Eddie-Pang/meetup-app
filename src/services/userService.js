@@ -84,6 +84,13 @@ export function isOwned(event, currentUser) {
 
 
 
+//find events based on the category
+export function findEvents(keyword){
+    return http.get(`/find`, {params: {keyword}})
+}
+
+
+
 
 
 
