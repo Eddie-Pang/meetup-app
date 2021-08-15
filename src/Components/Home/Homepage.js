@@ -4,6 +4,7 @@ import NavBar from '../NavBar';
 import SearchArea from '../Search/SearchArea';
 import { loadingIcon } from '../../util/imgPicker'
 import UpcomingEvents from './UpcomingEvents';
+import EventsCategory from './EventsCategory';
 
 
 
@@ -27,6 +28,10 @@ export default function Homepage(props){
                         </div>
                         <div className="col"><img src={homepage} alt="together" style={{width:'600px', height:'500px'}}></img></div>
                     </div>
+
+                    <br/><br/>
+
+                    <EventsCategory />
 
                     <br/><br/>
                     

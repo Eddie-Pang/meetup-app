@@ -13,6 +13,7 @@ import EventViewer from './Components/EventViewer/EventViewer';
 import GoogleRedirect from './Components/login/GoogleRedirect';
 import MyEventsPage from './Components/MyEvents/MyEventsPage';
 import {useAuth} from './Context/AuthContext';
+import EventFinder from './Components/Home/EventFinder';
 
 
 function App() {
@@ -29,9 +30,16 @@ function App() {
           {/* <Route path="/event-viewer" component={EventViewer}/>   */}
           <Route path = '/google' component = {GoogleRedirect}/>
           <Route exact path={["/", '/upcomingEvents']} component = {props =><HomepagePages {...props}/>}/>  
+<<<<<<< HEAD
           <Route path={["/signup", "/login", "/forgotPassword"]} render={(props) => (<LoginPage {...props}></LoginPage>)}></Route>
           <Route path="/result" component = {props =><Result {...props}/>}/>  
           <Route path="/event-viewer" component = {props =><EventViewer {...props}/>}/>    
+=======
+          <Route path={["/signup", "/login","/forgotPassword"]} render={(props) => (<LoginPage {...props}></LoginPage>)}></Route>
+          <Route path="/result" component = {props =><Result {...props}/>}/>
+          <Route path="/find" component = {props =><EventFinder {...props}/>}/>
+          {/* <Route path="/find" component={EventFinder}/> */}
+>>>>>>> eb4d074a0cabf0e52117972e54d1b6af6f53838d
           <PrivateRoute path="/profile" component={Profile} />
           {isAuth ? <Route path="/newGroup" component = {props =><CreateGroups {...props}/>}/> :<Redirect to="/login" />}
           {isAuth ? <Route path={["/myEvents","/myEvents/previous"]} render={(props) => (<MyEventsPage {...props}></MyEventsPage>)}></Route> : <Redirect to="/login" />}

@@ -68,6 +68,7 @@ export default function CreateGroups(){
                 date: date,
                 time: time,
             }
+            // console.log(event)
             let res = await createEvent(event)
             console.log(res.data)
             // await updateUserOwnEvents(currentUser, res.data)
@@ -122,15 +123,23 @@ export default function CreateGroups(){
                             <Form.Control type="text" name="location" ref={locationRef} required/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="interest">
-                        <Form.Label>Interest: </Form.Label>
-                            <Form.Control type="text" name="interest" placeholder="make new friends.." ref={interestRef} required/>
+                        <Form.Label >Interest: </Form.Label>
+                            <Form.Control as="select" name="interest" placeholder="make new friends.." ref={interestRef} required>
+                                <option>--Please select--</option>
+                                <option>Learn culture & language</option>
+                                <option>Explore the outdoors</option>
+                                <option>Reading</option>
+                                <option>Career boost</option>
+                                <option>Hone your craft</option>
+                                <option>Find your zen</option>
+                            </Form.Control>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="interest">
+                    <Form.Group className="mb-3" controlId="date">
                         <Form.Label>Date and time: </Form.Label>
                             <Form.Control type="datetime-local" name="datetime" ref={datetimeRef} required/>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="interest">
+                    <Form.Group className="mb-3">
                         <Button variant="link" onClick={handleShow}>Upload Pictures</Button>
                     </Form.Group>
                     {imgObjects

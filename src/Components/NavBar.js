@@ -19,15 +19,39 @@ export default function NavBar(){
 
                 <>
                     
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <a className="nav-link" href="/newGroup">Start a new group</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/myEvents">My events</a>
+                    </li> */}
+                       <li className="nav-item">
+                        <div className="dropdown">
+                            <button type="button" className="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+                            Events
+                            </button>
+                            <div className="dropdown-menu">
+                                <a className="dropdown-item" href="/newGroup">Start new events</a>
+                                <a className="dropdown-item" href="/myEvents">Manage my events </a>
+                                
+                            </div>
+                        </div>
                     </li>
+
+            
                     <li className="nav-item">
-                        <a className="nav-link" href="/profile">Profile</a>
+                        <div className="dropdown">
+                            <button type="button" className="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+                            {currentUser?.name}
+                            </button>
+                            <div className="dropdown-menu">
+                                <a className="dropdown-item" href="#">Reset password</a>
+                                <a className="dropdown-item" href="/profile">Profile</a>
+                                
+                            </div>
+                        </div>
                     </li>
+                    
                     <li className="nav-item">
                         <button type="button" className="btn btn-dark" onClick={handleLogOut}>Log out</button>
                     </li>

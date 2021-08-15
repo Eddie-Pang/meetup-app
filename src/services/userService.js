@@ -72,6 +72,33 @@ export function deleteEvent(eventId){
 
 
 
+<<<<<<< HEAD
+=======
+export function handleRenderEventViewer(event, events, method, history){
+    events.handleEventViewer(event)
+    history.push(`/event-viewer/?&method=${method}&&event=${event._id}`)
+    
+}
+
+export function isOwned(event, currentUser) {
+    const isHosted = (event) => event.host.id===currentUser._id
+    const isJoined =(event)=> event.attendees?.some(i => i===currentUser?._id);
+    if (isHosted(event)) return 'Hosted'
+    else if (isJoined(event)) return 'Joined'
+    else return   
+}
+
+
+
+//find events based on the category
+export function findEvents(keyword){
+    return http.get(`/find`, {params: {keyword}})
+}
+
+
+
+
+>>>>>>> eb4d074a0cabf0e52117972e54d1b6af6f53838d
 
 
 

@@ -159,7 +159,7 @@ export default function Profile(){
                                 </form>
                                 {msg &&  <div className ="alert alert-success">{msg}</div> } 
                                 {error && <div className ="alert alert-danger">{error}</div> }
-                                <Link to="#">Reset password</Link>
+                                {/* <Link to="#">Reset password</Link> */}
                                 
                             </div>
                         </div>
