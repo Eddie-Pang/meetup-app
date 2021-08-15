@@ -35,7 +35,7 @@ export default function EventsCategory(){
 
             <div className="col" style={{textAlign: 'center'}}>
                 <img src={outdoor} className="rounded" alt="outdoor"  width="300" height="300" />
-                <button type="button" class="btn btn-link" onClick={handleClick}>Explore the outdoors</button>
+                <button type="button" className="btn btn-link" onClick={handleClick}>Explore the outdoors</button>
             </div>
             
             <div style={{margin: 'auto'}}>

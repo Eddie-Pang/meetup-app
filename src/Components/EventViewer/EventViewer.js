@@ -43,7 +43,10 @@ export default function EventViewer(){
             case 'search':
                 return history.push('/result')   
             case 'upcoming':  
-                return history.push('/upcomingEvents')     
+                return history.push('/')    
+            case 'upcoming-all':  
+                return history.push('/upcomingEvents')   
+
             default:
                 return history.push('/')   
         }

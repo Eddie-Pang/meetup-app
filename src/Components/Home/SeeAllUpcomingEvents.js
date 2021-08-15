@@ -6,7 +6,8 @@ import NavBar from '../NavBar';
 import {isOwned} from '../../util/functionStore'
 
 export default function SeeAllUpcomingEvents(props){
-    const {currentUser, events, history, method, upcomingEvents, status, handleRenderEventViewer} = props
+    const {currentUser, events, history, upcomingEvents, status, handleRenderEventViewer} = props
+    const method = 'upcoming-all'
     
     
     return(
