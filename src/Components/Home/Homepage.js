@@ -2,7 +2,6 @@ import React from 'react';
 import homepage from '../../image/homepage.png';
 import NavBar from '../NavBar';
 import SearchArea from '../Search/SearchArea';
-import { useAuth } from '../../Context/AuthContext';
 import { loadingIcon } from '../../util/imgPicker'
 import UpcomingEvents from './UpcomingEvents';
 

@@ -1,0 +1,35 @@
+.caption {
+  text-align: right;
+}
+.caption svg {
+  pointer-events: none;
+}
+
+.eventCard-button:hover {
+  border-width: unset;
+  pointer-events: painted;
+}
+
+ul#menu-list {
+  margin-block-start: 0.1em;
+  margin-bottom: 0.5rem;
+  max-width: fit-content;
+  display: inline-flex;
+  flex-flow: row;
+  list-style: none;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.act {
+  background: #ddd;
+  /* text-decoration: underline; */
+}
+
+.myEvents-links {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+.myEvents-links:hover {
+  text-decoration: unset;
+}

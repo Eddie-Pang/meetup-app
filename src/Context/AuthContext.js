@@ -15,6 +15,7 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState(null)
+    const [update, setUpdate] = useState();
 
     const history = useHistory()
     
@@ -37,6 +38,10 @@ export function AuthProvider({ children }) {
     useEffect(() => {
           getUser()
     }, [])
+
+    function updateData(eventId){
+        setUpdate(eventId)
+    }
 
     async function getUser(){
         try {
@@ -63,7 +68,9 @@ export function AuthProvider({ children }) {
         handleLogOut,
         getUser,
         isAuth,
-        user
+        user,
+        updateData,
+        update
     }
 
     return (

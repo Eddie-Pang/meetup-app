@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
-import {isOwned} from '../../services/userService'
+
 
 // Import css files
 import "slick-carousel/slick/slick.css";
@@ -10,14 +10,18 @@ import '../../styles/carouselStyle.css'
 
 
 export default function UpcomingEvents(props){
-    const {currentUser, events, history, method, upcomingEvents, handleRenderEventViewer} = props;
+    const {events, history, method, upcomingEvents, handleRenderEventViewer} = props;
+    console.log(upcomingEvents)
+    console.log(events)
+    
 
     const config = {
         dots: true,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1
+        
     };
    
 
@@ -27,7 +31,7 @@ export default function UpcomingEvents(props){
              <ul><a style={{'float':'right'}} href={'/upcomingEvents'}>See All</a></ul>
              <br/>
             <Slider {...config}>
-                {upcomingEvents.map((event, index) => {
+                {upcomingEvents?.map((event, index) => {
                     return( 
                         <div key={index} className="img-card" onClick = {()=>handleRenderEventViewer(event, events, method, history)} >
                             <div className="card-body">

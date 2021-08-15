@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import '../../styles/eventViewerStyle.css';
 import NavBar from '../NavBar';
 import SaveEvent from "./SaveEvent";
@@ -7,26 +7,49 @@ import useGetEvent from '../../hooks/useGetEvent';
 import { loadingIcon } from '../../util/imgPicker'
 import { useAuth } from '../../Context/AuthContext';
 import {  useUserImagesContext } from "../../Context/UserDataContext";
+import {deleteEvent} from '../../services/userService'
+import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
+
 
 export default function EventViewer(){
     let location = useLocation();  
-    const { loading, currentUser } = useAuth()
+    const { loading, currentUser, isAuth } = useAuth()
     const search = location.search
     const match = search.match(/event=(([^&]+))/);
     const methods = search.match(/method=(([^&]+))/);
     const param = match?.[1]
     const method = methods?.[1]
-    console.log(method)
-    console.log(param)
     const result = useGetEvent(param);
     const {events, imgs} = result
-    console.log(events)
+    console.log(isAuth)
+   
+    const history = useHistory();
     
-    const isHosted = events?.host.id===currentUser._id
+    const isHosted = events?.host.id===currentUser?._id
+
+    async function handleEdit(eventId){
+        console.log('edit: ', eventId)
+     
+
+    }
+    
+    async function handleDelete(eventId){
+    
+        await deleteEvent(eventId)
+
+        switch (method){
+            case 'myEvent':
+                return history.push('/myEvents')
+            case 'search':
+                return history.push('/result')   
+            case 'upcoming':  
+                return history.push('/upcomingEvents')     
+            default:
+                return history.push('/')   
+        }
+    }
         
-             
-    
-    // const isOwn = isOwned()?true:false
+          
     
     const {images} = useUserImagesContext();
     const { arrayBufferToBase64 } = images;
@@ -64,7 +87,23 @@ export default function EventViewer(){
 
                             <div className = 'event-save'></div>
 
-                            {isHosted?<div className='caption'>Hosted</div>:<SaveEvent event={events} />}
+                            {isAuth
+                            ?
+                                <>
+                                    {isHosted
+                                    ?
+                                    <div className='caption'>
+                                        <span class="badge badge-primary">Hosted</span><>&nbsp;</>
+                                        <button type = 'button' className="eventCard-button"  onClick ={()=>handleEdit(events._id)}>{BsPencilSquare()}</button> <>&nbsp;</>
+                                        <button type = 'button' className="eventCard-button"  onClick ={()=>handleDelete(events._id)}>{BsFillTrashFill()}</button> 
+                                    </div>
+                                    :
+                                    <SaveEvent event={events} />
+                                    }
+                                </>
+                            :
+                                <></>
+                            }
                             
                             <div className = 'event-content'>
                                 
@@ -113,3 +152,4 @@ export default function EventViewer(){
 
 
 }
+

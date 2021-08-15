@@ -3,7 +3,7 @@ import { Card, Button } from 'react-bootstrap';
 import { loadingIcon } from '../../util/imgPicker'
 import '../../styles/resultStyle.css';
 import NavBar from '../NavBar';
-import {isOwned} from '../../services/userService'
+import {isOwned} from '../../util/functionStore'
 
 export default function SeeAllUpcomingEvents(props){
     const {currentUser, events, history, method, upcomingEvents, status, handleRenderEventViewer} = props

@@ -6,7 +6,7 @@ import { getUpcomingEvents } from "../services/userService";
 
 function useGetUpcomingEvents() {
     const [status, setStatus]=useState('init');
-    const [upcomingEvents, setUpcomingEvents] = useState([]);
+    const [upcomingEvents, setUpcomingEvents] = useState();
     
     
     useEffect (() =>{
@@ -17,9 +17,8 @@ function useGetUpcomingEvents() {
     
                 if (isMounted){
                     let events = await getUpcomingEvents()
-                    setUpcomingEvents(events.data);
                     console.log(events.data)
-        
+                    setUpcomingEvents(events.data);
                     setStatus('received');
                  
                 }  

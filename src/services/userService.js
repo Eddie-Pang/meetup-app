@@ -42,9 +42,8 @@ export function getUpcomingEvents(){
     return http.get(`/upcoming`)
 }
 
-export function getAllEvents(id){
-    console.log(id)
-    return http.get(`/getAllEvents/${id}`)
+export function getAllEvents(userId){
+    return http.get(`/getAllEvents/${userId}`)
 }
 
 export function updateAttendees(event,attendees) { 
@@ -52,6 +51,11 @@ export function updateAttendees(event,attendees) {
     console.log(event)
     return http.put(`/attendees/${event._id}`, {'attendees': attendees});
 };
+
+export function deleteEvent(eventId){
+    return http.delete(`/deleteEvent/${eventId}`)
+
+}
 
 // export function updateUserOwnEvents(user,events) { 
 //     return http.put(`/ownEvents/:${user._id}`, {'events': events});
@@ -64,23 +68,6 @@ export function updateAttendees(event,attendees) {
 
 
 
-
-
-
-
-export function handleRenderEventViewer(event, events, method, history){
-    events.handleEventViewer(event)
-    history.push(`/event-viewer/?&method=${method}&&event=${event._id}`)
-    
-}
-
-export function isOwned(event, currentUser) {
-    const isHosted = (event) => event.host.id===currentUser._id
-    const isJoined =(event)=> event.attendees?.some(i => i===currentUser?._id);
-    if (isHosted(event)) return 'Hosted'
-    else if (isJoined(event)) return 'Joined'
-    else return   
-}
 
 
 
