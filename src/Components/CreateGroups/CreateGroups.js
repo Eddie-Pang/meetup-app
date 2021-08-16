@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import CenteredContainer from '../CenteredContainer';
 import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../../Context/AuthContext';
+import { useCategory } from '../../Context/CategoryContext';
 import NavBar from '../NavBar';
 import {createEvent, uploadImg, updateUserOwnEvents} from '../../services/userService'
 import { loadingIcon } from '../../util/imgPicker'
@@ -16,6 +17,9 @@ export default function CreateGroups(){
     const interestRef = useRef()
     const datetimeRef = useRef()
     const { currentUser, loading } = useAuth()
+    const { category } = useCategory()
+    // console.log(category)
+
 
     const {events} = useUserEventsContext();
     const {images} = useUserImagesContext();
@@ -126,12 +130,11 @@ export default function CreateGroups(){
                         <Form.Label >Interest: </Form.Label>
                             <Form.Control as="select" name="interest" placeholder="make new friends.." ref={interestRef} required>
                                 <option>--Please select--</option>
-                                <option>Learn culture & language</option>
-                                <option>Explore the outdoors</option>
-                                <option>Reading</option>
-                                <option>Career boost</option>
-                                <option>Hone your craft</option>
-                                <option>Find your zen</option>
+                                {category.map((value, index) => {
+                                    return(
+                                        <option key={index}>{value}</option>
+                                    )
+                                })}
                             </Form.Control>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="date">
