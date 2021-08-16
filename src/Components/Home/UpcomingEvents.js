@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
 import {Link} from 'react-router-dom'
-
 import thumbnail from '../../image/thumbnail.png'
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import '../../styles/carouselStyle.css'
-import { useUserImagesContext } from '../../Context/UserDataContext';
-
+import { useUserImagesContext, useUserEventsContext } from '../../Context/UserDataContext';
+import useGetUpcomingEvents from '../../hooks/useGetUpcomingEvents'
 
 
 export default function UpcomingEvents(props){
-    const {events, history, method, upcomingEvents, handleRenderEventViewer} = props;
-    console.log(upcomingEvents)
-    console.log(events)
+    const {upcomingEvents} = useGetUpcomingEvents();
+    const {events} = useUserEventsContext();
+    const {history, method, handleRenderEventViewer} = props;
+    // console.log(events)
     const {images} = useUserImagesContext()
     const {arrayBufferToBase64} = images;
-
-   
-    
 
     const config = {
         dots: true,

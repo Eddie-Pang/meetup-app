@@ -5,12 +5,14 @@ import SearchArea from '../Search/SearchArea';
 import { loadingIcon } from '../../util/imgPicker'
 import UpcomingEvents from './UpcomingEvents';
 import EventsCategory from './EventsCategory';
+import { useAuth } from '../../Context/AuthContext';
+
 
 
 
 export default function Homepage(props){
-    
-    const { currentUser, events, history, method, upcomingEvents, handleRenderEventViewer, loading, eventWithImg} = props
+    const { loading} = useAuth()
+    const { history, method, handleRenderEventViewer} = props
     
     return(
        
@@ -43,7 +45,7 @@ export default function Homepage(props){
                     <br/><br/><br/>
                     <hr/>
 
-                    <UpcomingEvents currentUser={currentUser} events = {events} method = {method} history = {history} upcomingEvents={upcomingEvents} handleRenderEventViewer={handleRenderEventViewer} />
+                    <UpcomingEvents  method = {method} history = {history} handleRenderEventViewer={handleRenderEventViewer} />
                     </>
             }    
         </>        

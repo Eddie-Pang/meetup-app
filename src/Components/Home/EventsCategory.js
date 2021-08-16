@@ -12,18 +12,24 @@ export default function EventsCategory(){
     const cover = [friends, connection, outdoor]
     // console.log(category)
 
-    function handleClick(e){
-        console.log(e.target.innerText)
-        findEvents(e.target.innerText).then(res => {
-            console.log(res.data)
-            history.push({
-                pathname : '/find',
-                data: res.data
-            });
-        })
+    // function handleClick(e){
+    //     console.log(e.target.innerText)
+    //     findEvents(e.target.innerText).then(res => {
+    //         console.log(res.data)
+    //         history.push({
+    //             pathname : '/find',
+    //             data: res.data
+    //         });
+            
+    //     })
 
 
+    // }
+
+    function handleClick(value){
+        history.push(`/find/?&category=${value}`)
     }
+
     return(
         <>
         <div className="row">
@@ -52,14 +58,14 @@ export default function EventsCategory(){
                 return (
                     <div className="col" style={{textAlign: 'center'}} key={index}>
                         <img src={cover[index]} className="rounded" alt="default"  width="300" height="300"/>
-                        <button type="button" className="btn btn-link" onClick={handleClick} key={index}>{value}</button>
+                        <button type="button" className="btn btn-link" onClick={()=>handleClick(value)} key={index}>{value}</button>
                     </div>
                 )
             })}
             <div style={{margin: 'auto'}}>
                 {category.slice(3).map((value,index) => {
                     return (
-                        <button className="btn btn-info" type="button" onClick={handleClick} key={index}>{value}</button>
+                        <button className="btn btn-info" type="button" onClick={()=>handleClick(value)} key={index}>{value}</button>
                     )
                 })}
             </div>

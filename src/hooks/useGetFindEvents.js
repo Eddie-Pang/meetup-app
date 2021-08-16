@@ -1,15 +1,13 @@
 
 import React, { useEffect, useState } from "react";
-import { getEvent } from "../services/userService";
+import { findEvents } from "../services/userService";
 
 //rsf tab
 
-function useGetEvents(props) {
+function useGetFindEvents(props) {
     const [status, setStatus]=useState('init');
     const [events, setEvents] = useState();
-
     
-  
     const param = props
     
     useEffect (() =>{
@@ -18,9 +16,11 @@ function useGetEvents(props) {
 
             try{
                 setStatus('requesting');
+
+                if (!isMounted) return
     
                 if (isMounted){
-                    const events = await getEvent(param)
+                    const events = await findEvents(param)
                   
                     console.log(events.data)
                     setEvents(events.data);
@@ -47,4 +47,4 @@ function useGetEvents(props) {
     
 }
 
-export default useGetEvents;
+export default useGetFindEvents;

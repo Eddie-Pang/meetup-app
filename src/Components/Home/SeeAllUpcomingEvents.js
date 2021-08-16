@@ -4,9 +4,15 @@ import { loadingIcon } from '../../util/imgPicker'
 import '../../styles/resultStyle.css';
 import NavBar from '../NavBar';
 import {isOwned} from '../../util/functionStore'
+import useGetUpcomingEvents from '../../hooks/useGetUpcomingEvents'
+import {  useUserEventsContext } from '../../Context/UserDataContext';
+import { useAuth } from '../../Context/AuthContext';
 
 export default function SeeAllUpcomingEvents(props){
-    const {currentUser, events, history, upcomingEvents, status, handleRenderEventViewer} = props
+    const {upcomingEvents, status} = useGetUpcomingEvents();
+    const {events} = useUserEventsContext();
+    const { history, handleRenderEventViewer} = props
+    const { currentUser } = useAuth()
     const method = 'upcoming-all'
     
     
