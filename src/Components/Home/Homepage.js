@@ -2,7 +2,6 @@ import React from 'react';
 import homepage from '../../image/homepage.png';
 import NavBar from '../NavBar';
 import SearchArea from '../Search/SearchArea';
-import { useAuth } from '../../Context/AuthContext';
 import { loadingIcon } from '../../util/imgPicker'
 import UpcomingEvents from './UpcomingEvents';
 import EventsCategory from './EventsCategory';
@@ -11,7 +10,7 @@ import EventsCategory from './EventsCategory';
 
 export default function Homepage(props){
     
-    const { currentUser, events, history, method, upcomingEvents, handleRenderEventViewer, loading} = props
+    const { currentUser, events, history, method, upcomingEvents, handleRenderEventViewer, loading, eventWithImg} = props
     
     return(
        
@@ -44,7 +43,7 @@ export default function Homepage(props){
                     <br/><br/><br/>
                     <hr/>
 
-                    <UpcomingEvents currentUser={currentUser} events = {events} method = {method} history = {history} upcomingEvents={upcomingEvents} handleRenderEventViewer={handleRenderEventViewer}/>
+                    <UpcomingEvents currentUser={currentUser} events = {events} method = {method} history = {history} upcomingEvents={upcomingEvents} handleRenderEventViewer={handleRenderEventViewer} />
                     </>
             }    
         </>        

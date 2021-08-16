@@ -1,7 +1,8 @@
 
 import React, { useEffect, useState } from "react";
 import { getAllEvents } from "../services/userService";
-// import { useAuth } from '../Context/AuthContext';
+
+import {useAuth} from '../Context/AuthContext'
 
 //rsf tab
 
@@ -9,11 +10,9 @@ function useGetAllEvents(props) {
     const [status, setStatus]=useState('init');
     const [joinedEvents, setJoinedEvents] = useState();
     const [hostedEvents, setHostedEvents] = useState();
-    // const {currentUser} = useAuth()
-   
-  
+ 
+    const {update} = useAuth();
     const param = props
-    console.log(param)
     
     useEffect (() =>{
         let isMounted = true; 
@@ -24,7 +23,7 @@ function useGetAllEvents(props) {
     
                 if (isMounted){
                     const events = await getAllEvents(param) 
-                    console.log(events.data)
+                    console.log(events)
                     setJoinedEvents(events.data.joinedEvents);
                     setHostedEvents(events.data.hostedEvents)
                     setStatus('received');
@@ -38,7 +37,7 @@ function useGetAllEvents(props) {
             setStatus('idle');
             isMounted=false;
         }
-    },[]);
+    },[update]);
     return {
         status, 
         joinedEvents,

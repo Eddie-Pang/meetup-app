@@ -7,8 +7,8 @@ import NavBar from '../NavBar';
 import { useAuth } from '../../Context/AuthContext';
 import { loadingIcon } from '../../util/imgPicker'
 import {useUserEventsContext } from '../../Context/UserDataContext';
-import {handleRenderEventViewer} from '../../services/userService'
-import {isOwned} from '../../services/userService'
+import {isOwned, handleRenderEventViewer} from '../../util/functionStore'
+
 
 export default function Result(){
     let location = useLocation();  

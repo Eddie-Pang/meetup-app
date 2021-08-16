@@ -4,10 +4,10 @@ import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../../Context/AuthContext';
 import { useCategory } from '../../Context/CategoryContext';
 import NavBar from '../NavBar';
-import {createEvent, uploadImg, updateUserOwnEvents} from '../../services/userService'
+import {createEvent, uploadImg} from '../../services/userService'
 import { loadingIcon } from '../../util/imgPicker'
 import PopUp from '../Profile/PopUp'
-import { useUserEventsContext, useUserImagesContext } from "../../Context/UserDataContext";
+import { useUserImagesContext } from "../../Context/UserDataContext";
 import { BsX } from "react-icons/bs";
 
 export default function CreateGroups(){
@@ -21,18 +21,12 @@ export default function CreateGroups(){
     // console.log(category)
 
 
-    const {events} = useUserEventsContext();
     const {images} = useUserImagesContext();
-    const {handleShow, handleClose, photo, setPhoto, show, setShow, arrayBufferToBase64 } = images;
+    const {handleShow, handleClose, photo, setPhoto, show } = images;
     const entry = "create"
     const [imgObjects, setImgObjects] = useState();
 
 
-    // const imgStr = arrayBufferToBase64(events?.img?.data?.data)
-    // console.log(photo)
-    // const eventImage = (`data:${events?.img?.contentType};base64,`+ imgStr ) 
-    
-   
 
     const handleUpload = async(e) => {
         e.preventDefault()
@@ -72,11 +66,7 @@ export default function CreateGroups(){
                 date: date,
                 time: time,
             }
-            // console.log(event)
             let res = await createEvent(event)
-            console.log(res.data)
-            // await updateUserOwnEvents(currentUser, res.data)
-            console.log(imgObjects)
             if (imgObjects&&imgObjects.length>0){
                 let formData = new FormData()
                 for (var i = 0; i<imgObjects.length; i++){ 

@@ -32,13 +32,14 @@ function App() {
           <Route exact path={["/", '/upcomingEvents']} component = {props =><HomepagePages {...props}/>}/>  
           <Route path={["/signup", "/login","/forgotPassword"]} render={(props) => (<LoginPage {...props}></LoginPage>)}></Route>
           <Route path="/result" component = {props =><Result {...props}/>}/>
+          <Route path="/event-viewer" component = {props =><EventViewer {...props}/>}/>   
           <Route path="/find" component = {props =><EventFinder {...props}/>}/>
           {/* <Route path="/find" component={EventFinder}/> */}
           <PrivateRoute path="/profile" component={Profile} />
           {isAuth ? <Route path="/newGroup" component = {props =><CreateGroups {...props}/>}/> :<Redirect to="/login" />}
-          <Route path="/event-viewer" component = {props =><EventViewer {...props}/>}/>      
-          {/* <Route path="/google" component = {props =><GoogleRedirect {...props}/>}/> */}
           {isAuth ? <Route path={["/myEvents","/myEvents/previous"]} render={(props) => (<MyEventsPage {...props}></MyEventsPage>)}></Route> : <Redirect to="/login" />}
+          {/* <Route path="/google" component = {props =><GoogleRedirect {...props}/>}/> */}
+          
           
 
 

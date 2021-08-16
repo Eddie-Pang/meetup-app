@@ -16,7 +16,7 @@ const UserDataContextProvider = props => {
    
     //if something wrong, uncomment 
     const [ currentUser, setCurrentUser ] = useState(getUserObject());
-    console.log(currentUser)
+    // console.log(currentUser)
     useEffect(()=>{
         setCurrentUser(user);
     },[user]);
