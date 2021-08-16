@@ -20,12 +20,13 @@ export default function EventViewer(){
     const param = match?.[1]
     const method = methods?.[1]
     const result = useGetEvent(param);
-    const {events, imgs} = result
+    const {events} = result
     console.log(isAuth)
+    console.log(events?.img)
    
     const history = useHistory();
     
-    const isHosted = events?.host.id===currentUser?._id
+    const isHosted = events?.host?.id===currentUser?._id
 
     async function handleEdit(eventId){
         console.log('edit: ', eventId)
@@ -58,12 +59,18 @@ export default function EventViewer(){
     const { arrayBufferToBase64 } = images;
     const imgStr=[];
     const eventImage = []
-    if (imgs){
-        for (var i = 0; i<imgs.img.length; i++){  
-            imgStr.push(arrayBufferToBase64(imgs?.img[i].data.data))
-            eventImage.push(`data:${imgs?.img[i]?.contentType};base64,`+ imgStr[i] ) 
+    if (events?.img){
+        for (var i = 0; i<events?.img?.length; i++){  
+            imgStr.push(arrayBufferToBase64(events?.img[i].data.data))
+            eventImage.push(`data:${events?.img[i]?.contentType};base64,`+ imgStr[i] ) 
        }
     }
+    // if (imgs){
+    //     for (var i = 0; i<imgs?.img?.length; i++){  
+    //         imgStr.push(arrayBufferToBase64(imgs?.img[i].data.data))
+    //         eventImage.push(`data:${imgs?.img[i]?.contentType};base64,`+ imgStr[i] ) 
+    //    }
+    // }
     
     
     return(
@@ -96,7 +103,7 @@ export default function EventViewer(){
                                     {isHosted
                                     ?
                                     <div className='caption'>
-                                        <span class="badge badge-primary">Hosted</span><>&nbsp;</>
+                                        <span className="badge badge-primary">Hosted</span><>&nbsp;</>
                                         <button type = 'button' className="eventCard-button"  onClick ={()=>handleEdit(events._id)}>{BsPencilSquare()}</button> <>&nbsp;</>
                                         <button type = 'button' className="eventCard-button"  onClick ={()=>handleDelete(events._id)}>{BsFillTrashFill()}</button> 
                                     </div>
@@ -137,7 +144,7 @@ export default function EventViewer(){
                                 <br/>
 
                                 <b>Host: </b>
-                                {events?.host.name}
+                                {events?.host?.name}
                                 <br/>
 
                             </div>

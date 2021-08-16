@@ -48,4 +48,43 @@ export default function SeeAllUpcomingEvents(props){
     </>
     )
 
+
+    // return(
+    //     <>
+    //     {status==='received'
+    //     ?
+    //         <>
+    //             <NavBar/>
+                
+    //             <div className = 'results'>
+            
+    //                 <br/>
+                
+    //                         {upcomingEvents?.map((event, index) => {
+    //                             return(
+    //                                 <div key = {index}>
+    //                                 <Card className = 'result-card' key = {index} type="submit" 
+    //                                     style={isOwned(event.upcomingEvents, currentUser)?{borderColor:'blue'}:null}
+    //                                     onClick = {()=>handleRenderEventViewer(event.upcomingEvents, events, method, history)}
+    //                                 >
+    //                                     <Card.Body key = {index}>
+    //                                         <span className="badge badge-primary">{isOwned(event.upcomingEvents, currentUser)}</span>
+    //                                         <ul><Card.Title>{event.upcomingEvents.groupName}</Card.Title></ul>
+    //                                         <ul><Card.Text>{event.upcomingEvents.description}</Card.Text></ul>
+    //                                         <ul><b>Location: </b>{event.upcomingEvents.location}</ul>
+    //                                         <ul><b>Host: </b>{event.upcomingEvents.host.name}</ul>      
+    //                                         <ul><b>Date: </b>{event.upcomingEvents.date}, {event.upcomingEvents.time}</ul>          
+    //                                     </Card.Body>
+    //                                 </Card><br/>
+    //                                 </div>
+    //                             )   
+    //                         })}    
+    //             </div>
+    //         </>
+    //     :
+    //         <div style = {{width: '600px', margin:'auto', textAlign: 'center'}}>{loadingIcon()}</div>
+    //     }    
+    // </>
+    // )
+
 }

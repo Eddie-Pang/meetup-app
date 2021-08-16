@@ -15,19 +15,16 @@ export function resetUserPassword(email) {
 }
 
 export function createEvent(event){
+    console.log(event)
     return http.post(`/new-events`, event)
 }
-
+//follow create event
 export function uploadImg(formData){
-    return http.post(`/new-image`, formData, {})
+    return http.put(`/new-images`, formData, {})
 }
-
+//get event (used in viewer)
 export function getEvent(id){
     return http.get(`/getEvent/${id}`)
-}
-
-export function getImg(id){
-    return http.get(`/image/${id}`)
 }
 
 export function updateProfileImg(formData){
@@ -42,10 +39,12 @@ export function getUpcomingEvents(){
     return http.get(`/upcoming`)
 }
 
+//get all the events (joined, hosted) (used in myEvent)
 export function getAllEvents(userId){
     return http.get(`/getAllEvents/${userId}`)
 }
 
+//when somebody join or canel event
 export function updateAttendees(event,attendees) { 
     console.log(attendees)
     console.log(event)
@@ -54,12 +53,13 @@ export function updateAttendees(event,attendees) {
 
 export function deleteEvent(eventId){
     return http.delete(`/deleteEvent/${eventId}`)
-
 }
 
-export function getFirstImg(id){
-    return http.get(`/firstImage/${id}`)
+//find events based on the category
+export function findEvents(keyword){
+    return http.get(`/find`, {params: {keyword}})
 }
+
 
 // export function updateUserOwnEvents(user,events) { 
 //     return http.put(`/ownEvents/:${user._id}`, {'events': events});
@@ -69,6 +69,13 @@ export function getFirstImg(id){
 //     return http.put(`/events/:${user._id}`, {'events': events});
 // };
 
+// export function getImg(id){
+//     return http.get(`/image/${id}`)
+// }
+
+// export function uploadImg(formData){
+//     return http.post(`/new-image`, formData, {})
+// }
 
 
 
@@ -79,10 +86,7 @@ export function getFirstImg(id){
 
 
 
-//find events based on the category
-export function findEvents(keyword){
-    return http.get(`/find`, {params: {keyword}})
-}
+
 
 
 

@@ -8,7 +8,7 @@ import {handleRenderEventViewer} from '../../util/functionStore'
 import { useAuth } from '../../Context/AuthContext';
 
 export default function HomePagePages(props) {
-    const {upcomingEvents, status} = useGetUpcomingEvents(); 
+    const {upcomingEvents, status} = useGetUpcomingEvents();
     const { history } = props;
     const {events } = useUserEventsContext();
    
