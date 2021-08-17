@@ -121,7 +121,7 @@ export default function EventViewer(){
                                     {eventImage.map((img, index) => {
                                         return(
                                             <ul key = {index}>
-                                                <img src={img} className="rounded-circle" alt="default" style={{width: '120px', height: '120px'}}/>
+                                                <img src={img} className="rounded" alt="default" style={{width: '80%'}}/>
                                             </ul>
                                         )
                                     })}

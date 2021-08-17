@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { useAuth } from '../Context/AuthContext';
-
+import { BsFillPersonFill } from "react-icons/bs";
+import { BsFillCalendarFill } from "react-icons/bs";
 
 
 export default function NavBar(){
@@ -28,7 +29,8 @@ export default function NavBar(){
                        <li className="nav-item">
                         <div className="dropdown">
                             <button type="button" className="btn btn-dark dropdown-toggle" data-toggle="dropdown">
-                            Events
+                                <BsFillCalendarFill/>&nbsp;
+                                Events
                             </button>
                             <div className="dropdown-menu">
                                 <a className="dropdown-item" href="/newGroup">Start new events</a>
@@ -42,7 +44,8 @@ export default function NavBar(){
                     <li className="nav-item">
                         <div className="dropdown">
                             <button type="button" className="btn btn-dark dropdown-toggle" data-toggle="dropdown">
-                            {currentUser?.name}
+                             <BsFillPersonFill/>&nbsp;
+                             {currentUser?.name}
                             </button>
                             <div className="dropdown-menu">
                                 <a className="dropdown-item" href="#">Reset password</a>

@@ -4,6 +4,8 @@ import NavBar from '../NavBar';
 import SearchArea from '../Search/SearchArea';
 import useGetFindEvents from '../../hooks/useGetFindEvents';
 import { loadingIcon } from '../../util/imgPicker'
+import thumbnail from '../../image/thumbnail.png'
+import { useUserImagesContext } from '../../Context/UserDataContext';
 
 export default function EventFinder(props){
     const {location} = props
@@ -14,6 +16,8 @@ export default function EventFinder(props){
     console.log(param)
    
     const {events, status} = useGetFindEvents(param)
+    const {images} = useUserImagesContext()
+    const {arrayBufferToBase64} = images
    
 
     
@@ -31,15 +35,22 @@ export default function EventFinder(props){
                     <div className="d-flex flex-column align-items-center justify-content-center" >
                         <div className="w-100" style={{ maxWidth: "500px" }}>
                             <SearchArea/><br/>
-                            <h5 style={{color: '#006699'}}>Events</h5><br/><br/>
+                            <h5 style={{color: '#006699'}}>Events</h5><br/><hr/><br/>
                             <ul className="list-group list-group-flush">
                                 {events?.map((value, index) => {
                                     return (
                                         <li className="list-group-item" key={index}>
-                                            <h6 style={{color: '#ffcccc'}}>{value.date}@{value.time}</h6>
-                                            <h6>{value.groupName}</h6>
-                                            <p>{value.location}</p>
-                                            <p>{value.attendee?.length}</p>
+                                            <div className="row">
+                                                <div className="col">
+                                                    <h5 style={{color: '#ffcccc'}}>{value.date}@{value.time}</h5>
+                                                    <h5>{value.groupName}</h5>
+                                                    <p className="text-muted">{value.location}</p>
+                                                    <p className="text-muted">attendee: {value.attendee? value.attendee.length : 0}</p>
+                                                </div>  
+                                                <div className="col">
+                                                    <img src={value.img? `data:${value.img[0].contentType};base64,`+ arrayBufferToBase64(value.img[0].data.data)  : thumbnail} className="rounded" alt="default"  width="150" height="150"/>
+                                                </div>
+                                            </div>
                                         </li>
                                     )
                                 })}
@@ -48,13 +59,7 @@ export default function EventFinder(props){
                         </div>
                     </div>
                     
-                    {/* <h5 style={{color: '#006699'}}>Events</h5>
-                    {events.map((value, index) => {
-                        return (<div key={index}>
-                            <p>{value.groupName}</p>
-                        </div>)
-                    })}
-                    */}
+                   
                 </>
             :   
                 <div style = {{width: '600px', margin:'auto', textAlign: 'center'}}>{loadingIcon()}</div>
