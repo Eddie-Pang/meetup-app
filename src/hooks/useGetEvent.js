@@ -8,8 +8,6 @@ function useGetEvents(props) {
     const [status, setStatus]=useState('init');
     const [events, setEvents] = useState();
 
-    
-  
     const param = props
     
     useEffect (() =>{
@@ -20,6 +18,11 @@ function useGetEvents(props) {
                 setStatus('requesting');
     
                 if (isMounted){
+                    if (!param){
+                        setStatus('idle')
+                        isMounted=false
+                        return
+                    }
                     const events = await getEvent(param)
                   
                     console.log(events.data)

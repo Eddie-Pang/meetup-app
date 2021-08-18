@@ -21,17 +21,15 @@ export default function EventViewer(){
     const method = methods?.[1]
     const result = useGetEvent(param);
     const {events} = result
-    console.log(isAuth)
-    console.log(events?.img)
+    // console.log(isAuth)
+    // console.log(events?.img)
    
     const history = useHistory();
     
     const isHosted = events?.host?.id===currentUser?._id
 
     async function handleEdit(eventId){
-        console.log('edit: ', eventId)
-     
-
+        history.push(`/newGroup/?&event=${eventId}`)
     }
     
     async function handleDelete(eventId){
@@ -61,7 +59,7 @@ export default function EventViewer(){
     const eventImage = []
     if (events?.img){
         for (var i = 0; i<events?.img?.length; i++){  
-            imgStr.push(arrayBufferToBase64(events?.img[i].data.data))
+            imgStr.push(arrayBufferToBase64(events?.img[i]?.data?.data))
             eventImage.push(`data:${events?.img[i]?.contentType};base64,`+ imgStr[i] ) 
        }
     }

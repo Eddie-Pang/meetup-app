@@ -60,6 +60,10 @@ export function findEvents(keyword){
     return http.get(`/find`, {params: {keyword}})
 }
 
+export function editEvent(event, id){
+    return http.put(`/edit-events/${id}`, event)
+}
+
 
 // export function updateUserOwnEvents(user,events) { 
 //     return http.put(`/ownEvents/:${user._id}`, {'events': events});

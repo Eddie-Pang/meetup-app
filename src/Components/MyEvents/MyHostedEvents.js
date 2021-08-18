@@ -18,8 +18,7 @@ export default function MyHostedEventsView(props){
     async function handleEdit(e){
         console.log('edit: ', e.target.id)
         e.stopPropagation();
-
-        // await updateData(e.target.id);
+        history.push(`/newGroup/?&event=${e.target.id}`)
     }
 
     async function handleDelete(e){
