@@ -12,9 +12,8 @@ import CreateGroups from './Components/CreateGroups/CreateGroups';
 import EventViewer from './Components/EventViewer/EventViewer';
 import GoogleRedirect from './Components/login/GoogleRedirect';
 import MyEventsPage from './Components/MyEvents/MyEventsPage';
+import SeeAllSimilarEvents from './Components/EventViewer/SeeAllSimilarEvents';
 import {useAuth} from './Context/AuthContext';
-import EventFinder from './Components/Home/EventFinder';
-
 
 function App() {
   const { isAuth } = useAuth();
@@ -33,6 +32,7 @@ function App() {
           <Route path={["/signup", "/login","/forgotPassword"]} render={(props) => (<LoginPage {...props}></LoginPage>)}></Route>
           <Route path="/result" component = {props =><Result {...props}/>}/>
           <Route path="/event-viewer" component = {props =><EventViewer {...props}/>}/>   
+          <Route path="/similarEvents" component = {props =><SeeAllSimilarEvents {...props}/>}/>   
           {/* <Route path="/find" component = {props =><EventFinder {...props}/>}/> */}
           {/* <Route path="/find" component={EventFinder}/> */}
           <PrivateRoute path="/profile" component={Profile} />

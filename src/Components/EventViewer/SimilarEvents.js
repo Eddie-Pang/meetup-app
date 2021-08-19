@@ -31,7 +31,7 @@ export default function SimilarEvents(props){
         <div className='row' style={{width:'800px'}}>
             <div className="col"><h5 style={{color: '#33cccc', textAlign:'left'}}>Similar Events Nearby</h5></div>
         
-            <div className='col'><Link style={{float:'right'}} to={'/upcomingEvents'}>See All</Link></div>
+            <div className='col'><Link style={{float:'right'}} to={`/similarEvents/?&event=${param}`}>See All</Link></div>
         
         </div><br/>
         <ul className="list-group list-group-horizontal">

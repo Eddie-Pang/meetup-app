@@ -17,18 +17,19 @@ export default function EventViewer(){
     console.log(location)
     const { loading, currentUser, isAuth } = useAuth()
     const search = location.search
-    const match = search.match(/event=(([^&]+))/);
-    const methods = search.match(/method=(([^&]+))/);
-    const interests = search.match(/interest=(([^&]+))/);
-    // console.log(match)
-    const param = match?.[1]
-    const method = methods?.[1]
-    const interest = interests?.[1]
-    console.log(param)
+    const param = search.match(/event=(([^&]+))/)?.[1];
+    const method = search.match(/method=(([^&]+))/)?.[1]
+    const interest = search.match(/interest=(([^&]+))/)?.[1]
+    const origin = search.match(/origin=(([^&]+))/)?.[1]
+    
+    console.log('param:', param)
+    console.log('method:', method)
+    console.log('interest:', interest)
+    console.log('origin:', origin)
+    
     const result = useGetEvent(param);
     const {events} = result
-    // console.log(isAuth)
-    // console.log(events?.img)
+  
    
     const history = useHistory();
     
@@ -54,6 +55,8 @@ export default function EventViewer(){
                 return history.push('/upcomingEvents')  
             case 'finder':
                 return history.push(`/find/?&category=${interest}`)
+            case 'similar-all':
+                return history.push(`/similarEvents/?&event=${origin}`)     
                
 
             default:

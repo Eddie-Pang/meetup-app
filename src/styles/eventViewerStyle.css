@@ -20,6 +20,7 @@
   position: relative;
   word-wrap: break-word;
   text-align: left;
+  padding-bottom: 5ch;
 }
 
 .icon {
