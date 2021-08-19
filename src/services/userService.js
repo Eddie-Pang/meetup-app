@@ -60,9 +60,14 @@ export function findEvents(keyword){
     return http.get(`/find`, {params: {keyword}})
 }
 
+<<<<<<< HEAD
 //get events based on the location and category
 export function getSimilarEvents(keyword){
     return http.get(`/similar`, {params: {keyword}})
+=======
+export function editEvent(event, id){
+    return http.put(`/edit-events/${id}`, event)
+>>>>>>> 5ef0d33c74a331064cb283ebb20bbb8ff0d20097
 }
 
 
