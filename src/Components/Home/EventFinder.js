@@ -5,19 +5,27 @@ import SearchArea from '../Search/SearchArea';
 import useGetFindEvents from '../../hooks/useGetFindEvents';
 import { loadingIcon } from '../../util/imgPicker'
 import thumbnail from '../../image/thumbnail.png'
-import { useUserImagesContext } from '../../Context/UserDataContext';
+import { useUserImagesContext, useUserEventsContext } from '../../Context/UserDataContext';
+import { handleRenderEventViewer } from '../../util/functionStore';
+
 
 export default function EventFinder(props){
     const {location} = props
+    const history = useHistory()
   
     const match = location.search.match(/category=(([^&]+))/);
     var param = match?.[1].replaceAll('%20', ' ')
-
+    console.log(match)
     console.log(param)
    
     const {events, status} = useGetFindEvents(param)
     const {images} = useUserImagesContext()
     const {arrayBufferToBase64} = images
+
+    const result = useUserEventsContext().events
+    const source = 'finder&interest='+param
+
+    
    
 
     
@@ -33,13 +41,13 @@ export default function EventFinder(props){
                     <NavBar/>
                     <br/>
                     <div className="d-flex flex-column align-items-center justify-content-center" >
-                        <div className="w-100" style={{ maxWidth: "500px" }}>
+                        <div className="w-100" style={{ maxWidth: "600px" }}>
                             <SearchArea/><br/>
                             <h5 style={{color: '#006699'}}>Events</h5><br/><hr/><br/>
                             <ul className="list-group list-group-flush">
                                 {events?.map((value, index) => {
                                     return (
-                                        <li className="list-group-item" key={index}>
+                                        <li className="list-group-item" key={index} onClick={() => handleRenderEventViewer(value, result, source, history)}>
                                             <div className="row">
                                                 <div className="col">
                                                     <h5 style={{color: '#ffcccc'}}>{value.date}@{value.time}</h5>
@@ -48,13 +56,14 @@ export default function EventFinder(props){
                                                     <p className="text-muted">attendee: {value.attendee? value.attendee.length : 0}</p>
                                                 </div>  
                                                 <div className="col">
-                                                    <img src={value.img? `data:${value.img[0].contentType};base64,`+ arrayBufferToBase64(value.img[0].data.data)  : thumbnail} className="rounded" alt="default"  width="150" height="150"/>
+                                                    <img src={value.img[0]? `data:${value?.img[0]?.contentType};base64,`+ arrayBufferToBase64(value?.img[0]?.data?.data)  : thumbnail} className="rounded" alt="default"  width="150" height="150"/>
                                                 </div>
                                             </div>
                                         </li>
                                     )
                                 })}
                             </ul>
+                            
 
                         </div>
                     </div>

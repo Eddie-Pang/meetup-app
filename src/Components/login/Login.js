@@ -5,7 +5,8 @@ import { useAuth } from '../../Context/AuthContext.js';
 import CenteredContainer from '../CenteredContainer';
 import NavBar from '../NavBar';
 import {login} from '../../services/authService'
-import { loadingIcon } from '../../util/imgPicker'
+import { loadingIcon, googleIcon } from '../../util/imgPicker'
+
 
 
 export default function Login() {
@@ -87,7 +88,7 @@ export default function Login() {
                             <h5 className="text-center mb-4">Or</h5>
                             <Button variant="success" type="button" block>Log In with Facebook</Button>
                             <a href="http://localhost:8000/google">
-                                <Button variant="secondary" type="button" block>Log In with Google</Button>
+                                <Button variant="outline-secondary" type="button" block>{googleIcon()} Log In with Google</Button>
                             </a>
                         </Card.Body>
                     </Card>

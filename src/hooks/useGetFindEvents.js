@@ -7,7 +7,7 @@ import { findEvents } from "../services/userService";
 function useGetFindEvents(props) {
     const [status, setStatus]=useState('init');
     const [events, setEvents] = useState();
-    
+
     const param = props
     
     useEffect (() =>{

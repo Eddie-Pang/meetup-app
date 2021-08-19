@@ -9,16 +9,22 @@ import { useAuth } from '../../Context/AuthContext';
 import {  useUserImagesContext } from "../../Context/UserDataContext";
 import {deleteEvent} from '../../services/userService'
 import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
+import SimilarEvents from "./SimilarEvents";
 
 
 export default function EventViewer(){
     let location = useLocation();  
+    console.log(location)
     const { loading, currentUser, isAuth } = useAuth()
     const search = location.search
     const match = search.match(/event=(([^&]+))/);
     const methods = search.match(/method=(([^&]+))/);
+    const interests = search.match(/interest=(([^&]+))/);
+    // console.log(match)
     const param = match?.[1]
     const method = methods?.[1]
+    const interest = interests?.[1]
+    console.log(param)
     const result = useGetEvent(param);
     const {events} = result
     console.log(isAuth)
@@ -37,6 +43,7 @@ export default function EventViewer(){
     async function handleDelete(eventId){
     
         await deleteEvent(eventId)
+     
 
         switch (method){
             case 'myEvent':
@@ -46,7 +53,10 @@ export default function EventViewer(){
             case 'upcoming':  
                 return history.push('/')    
             case 'upcoming-all':  
-                return history.push('/upcomingEvents')   
+                return history.push('/upcomingEvents')  
+            case 'finder':
+                return history.push(`/find/?&category=${interest}`)
+               
 
             default:
                 return history.push('/')   
@@ -88,14 +98,13 @@ export default function EventViewer(){
                     ?
                         <div style = {{width: '600px', margin:'auto', textAlign: 'center'}}>{loadingIcon()}</div>
                     :
-                    
                         <div className = 'event-container'>
 
                             <strong className='groupname'> {events?.groupName}</strong>
 
                             <hr/>
 
-                            <div className = 'event-save'></div>
+                            {/* <div className = 'event-save'></div> */}
 
                             {isAuth
                             ?
@@ -112,7 +121,11 @@ export default function EventViewer(){
                                     }
                                 </>
                             :
-                                <></>
+                                <div className="caption">
+                                    <button type="button" className="btn btn-outline-primary" onClick={()=>history.push('/login')} >
+                                        Attend
+                                    </button>
+                                </div>
                             }
                             
                             <div className = 'event-content'>
@@ -121,7 +134,7 @@ export default function EventViewer(){
                                     {eventImage.map((img, index) => {
                                         return(
                                             <ul key = {index}>
-                                                <img src={img} className="rounded" alt="default" style={{width: '80%'}}/>
+                                                <img src={img} className="rounded" alt="default" style={{width: '50%'}}/>
                                             </ul>
                                         )
                                     })}
@@ -148,11 +161,18 @@ export default function EventViewer(){
                                 <br/>
 
                             </div>
+                            <p/>
+                            
                             <hr/>
+                            <div style = {{width: '800px', margin: 'auto'}}>
+                                <SimilarEvents param={param}/> 
+                                {/* <SimilarEvents/> */}
+                            </div>
                         </div>
                         
-
-                    }  
+                    } 
+                    
+                    
                 </>
         }          
         </>

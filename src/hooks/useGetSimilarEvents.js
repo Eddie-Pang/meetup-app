@@ -1,32 +1,27 @@
-
 import React, { useEffect, useState } from "react";
-import { getEvent } from "../services/userService";
+import { getSimilarEvents } from "../services/userService";
 import {useAuth} from '../Context/AuthContext'
 
 //rsf tab
 
-function useGetEvents(props) {
+function useGetSimilarEvents(params) {
     const [status, setStatus]=useState('init');
-    const [events, setEvents] = useState();
-    const {update} = useAuth();
+    const [similarEvents, setSimilarEvents] = useState([]);
+    console.log('hook:', params)
+    const {update} = useAuth()
+    // const params = props 
 
-    
-  
-    const param = props
-    
     useEffect (() =>{
         let isMounted = true;
-        async function requestUserEvents(){
-
+        async function fetchEvents(){
             try{
                 setStatus('requesting');
     
                 if (isMounted){
-                    const events = await getEvent(param)
-                  
+                    let events = await getSimilarEvents(params)
+                    setSimilarEvents(events.data);
                     console.log(events.data)
-                    setEvents(events.data);
-              
+        
                     setStatus('received');
                  
                 }  
@@ -35,7 +30,7 @@ function useGetEvents(props) {
                 setStatus('error');
             }
         }
-       requestUserEvents();
+        fetchEvents();
         return()=>{
             setStatus('idle');
             isMounted=false;
@@ -43,10 +38,11 @@ function useGetEvents(props) {
     },[update]);
     return {
         status, 
-        events,
+        similarEvents,
+   
     }
     
     
 }
 
-export default useGetEvents;
+export default useGetSimilarEvents;

@@ -1,6 +1,6 @@
 .event-container {
   padding: 20px;
-  width: 600px;
+  width: 800px;
   text-align: center;
   margin: auto;
 }
@@ -22,10 +22,14 @@
   text-align: left;
 }
 
-.event-save {
-  width: 100%;
-  text-align: right;
+.icon {
+  width: 2rem;
+  height: 2rem;
 }
+.icon img {
+  width: 100%;
+  height: 100%;
+} 
 
 #toogle-save {
   cursor: pointer;
@@ -33,12 +37,27 @@
   border-radius: 1px;
   width: var(--width);
 }
-.icon {
-  width: fit-content;
-  display: flex;
-  float: right;
+
+
+.caption {
+  text-align: right;
+}
+.event-pic {
+  text-align: center;
 }
 
+.save-container{
+  width: 100%;
+  text-align: right;
+}
+
+.save-container div{  
+  display: inline-block;
+  font-size: 0.8rem;
+}
+
+
+/* 
 .rnd-btn {
   background-color: transparent;
   width: 2rem;
@@ -59,11 +78,4 @@
 .rnd-btn img {
   width: 100%;
   height: 100%;
-}
-
-.caption {
-  text-align: right;
-}
-.event-pic {
-  text-align: center;
-}
+} */

@@ -19,16 +19,18 @@ export default function SaveEvent(props){
         const save = !events.attendees?.some(i => i===currentUser?._id);
         
         return ( 
-            <div>
+            <div className='save-container'>
 
-                <div className="icon">
+                {/* <div className="icon">
 
                     <div id = "toogle-save" className = 'rnd-btn' onClick = {()=>{save ? events.save(event) :  events.unsave(event)}}>{save? saveIcon():unsaveIcon()}</div>
                         
+                </div> */}
+                <div className = 'icon'>
+                    <div  title= {save ?'Join':'cancel'} onClick = {()=>{save ? events.save(event) :  events.unsave(event)}}>{save? saveIcon():unsaveIcon()}</div>
+                    <div>{save ? <span className="badge badge-primary">Join</span>:<span class="badge badge-danger">Cancel</span>}</div>
+                    {/* <div>{save ? 'Join':'Cancel'}</div> */}
                 </div>
-                
-                <div className='caption'>{save ? 'join':'cancel'}</div>
-
             </div>
           
         ) 

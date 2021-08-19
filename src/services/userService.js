@@ -60,6 +60,11 @@ export function findEvents(keyword){
     return http.get(`/find`, {params: {keyword}})
 }
 
+//get events based on the location and category
+export function getSimilarEvents(keyword){
+    return http.get(`/similar`, {params: {keyword}})
+}
+
 
 // export function updateUserOwnEvents(user,events) { 
 //     return http.put(`/ownEvents/:${user._id}`, {'events': events});

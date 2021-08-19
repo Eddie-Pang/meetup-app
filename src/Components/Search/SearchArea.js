@@ -2,6 +2,7 @@ import React, { useRef, useState, Component } from 'react';
 import {searching} from '../../services/userService';
 import { Link, useHistory } from "react-router-dom"
 import Result from './Result';
+import { searchIcon } from '../../util/imgPicker';
 
 export default function SearchArea(){
 
@@ -43,7 +44,7 @@ export default function SearchArea(){
                     <input  style={{'width':'100%', 'float':'right'}} type="text" name="location" className="form-control" placeholder="Location" ref={locationRef}/>
                 </div>
             </div>
-            <button type="submit" className="btn btn-success mt-2 btn-block" onClick={handleSearch}>Search</button>
+            <button type="submit" className="btn btn-success mt-2 btn-block" onClick={handleSearch}>{searchIcon()}Search</button>
         </form>
     
         
