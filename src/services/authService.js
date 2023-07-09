@@ -2,12 +2,11 @@ import http from "./httpService";
 import decode from "jwt-decode";
 
 export async function createUser(user) {
-  console.log(user);
   const result = await http.post(`/register`, user);
-  const {
-    headers: { "x-auth-token": token },
-  } = result;
-  localStorage.setItem("token", token);
+  // const {
+  //   headers: { "x-auth-token": token },
+  // } = result;
+  // localStorage.setItem("token", token);
   return result.data;
 }
 

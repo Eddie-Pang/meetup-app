@@ -3,7 +3,7 @@ import { useAuth } from "../Context/AuthContext";
 
 export default function NavBar() {
   const { currentUser, handleLogOut } = useAuth();
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <>

@@ -47,7 +47,7 @@ export default function Profile() {
     arrayBufferToBase64,
   } = images;
 
-  console.log(currentUser);
+  // console.log(currentUser);
   const imgStr = arrayBufferToBase64(currentUser?.img?.data?.data);
   const userProfile = `data:${currentUser?.img?.contentType};base64,` + imgStr;
 
@@ -60,7 +60,7 @@ export default function Profile() {
 
       await updateProfileImg(formData)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           console.log("upload successfully");
           setPhoto();
           handleClose();
@@ -81,21 +81,21 @@ export default function Profile() {
       bio: bioRef.current.value,
     };
     const id = currentUser?._id;
-    console.log(personalInfo);
-    console.log(id);
+    // console.log(personalInfo);
+    // console.log(id);
     await updatePersonalData(id, personalInfo)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setMsg("Data has been completed");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setError("Failed to complete");
       });
     getUser();
   };
   const handleAddInterest = (e) => {
-    console.log(e.target.innerText);
+    // console.log(e.target.innerText);
     setInterest((prev) => {
       return [
         ...prev,

@@ -5,7 +5,7 @@ import "filepond/dist/filepond.min.css";
 import Homepage from "./Components/Homepage";
 import LoginPage from "./Components/login/LoginPage";
 import Profile from "./Components/Profile/Profile";
-import Result from "./Components/Search/ResultPage";
+import ResultPage from "./Components/Search/ResultPage";
 import { AuthProvider } from "./Context/AuthContext";
 import PrivateRoute from "./Components/PrivateRoute";
 import CreateGroups from "./Components/CreateGroups/CreateGroups";
@@ -32,7 +32,7 @@ function App() {
             <Route key={index} path={path} element={<LoginPage />} />
           ))}
 
-          <Route path="/result" element={<Result />} />
+          <Route path="/result" element={<ResultPage />} />
 
           <Route
             path="/profile"

@@ -1,7 +1,7 @@
 import http from "./httpService";
 
-export function getAccount(user) {
-  return http.get(`/account`, { params: user });
+export function getAccount() {
+  return http.get(`/account`);
 }
 
 export function searching(query) {

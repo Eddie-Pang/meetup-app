@@ -39,7 +39,7 @@ const UserDataContextProvider = (props) => {
     async function requestUserData() {
       try {
         let currentUser = getUserObject();
-        console.log(currentUser);
+        // console.log(currentUser);
         if (!isMounted) return;
         if (!currentUser || typeof currentUser === "undefined")
           throw new Error("no token"); // setStatus('invalid token');
@@ -49,7 +49,7 @@ const UserDataContextProvider = (props) => {
         }
 
         if (isMounted) {
-          console.log(currentUser.data);
+          // console.log(currentUser.data);
           dispatchEvent({ type: "received", payLoad: currentUser.data.events });
         }
       } catch (ex) {
@@ -66,7 +66,7 @@ const UserDataContextProvider = (props) => {
   }, [currentUser]);
 
   const updateDataBase = useCallback(async (data) => {
-    console.log(data);
+    // console.log(data);
     try {
       let response;
       let currentUser = getUserObject(); //user from token
@@ -76,7 +76,7 @@ const UserDataContextProvider = (props) => {
       response = await updateUserEvents(currentUser, data);
     } catch (err) {
       const error = err?.response?.data ? err?.response?.data : err;
-      console.log(error);
+      // console.log(error);
       throw new Error(error);
     }
   }, []);
@@ -84,7 +84,7 @@ const UserDataContextProvider = (props) => {
   const handleSaveEvent = useCallback(
     async (event) => {
       dispatchEvent({ type: "save", payLoad: event });
-      console.log(eventsState);
+      // console.log(eventsState);
       const newEvents = !eventsState.events.some((i) => i._id === event?._id)
         ? [...eventsState.events, event]
         : [...eventsState.events];

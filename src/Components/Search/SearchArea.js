@@ -16,11 +16,12 @@ export default function SearchArea() {
         keyword: keywordRef.current.value,
         location: locationRef.current.value,
       };
-      let result = await searching(query);
 
-      navigate({
-        pathname: "/result",
-        data: result.data,
+      let result = await searching(query);
+      console.log(result.data);
+
+      navigate("/result", {
+        state: result.data,
       });
     } catch {
       setError("failed to search");

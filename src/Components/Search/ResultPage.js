@@ -12,9 +12,10 @@ export default function ResultPage() {
   let location = useLocation();
 
   const { loading } = useAuth();
+  console.log(location.state);
+  const events = location.state;
 
-  const events = location.data;
-  console.log(events);
+  // console.log(events);
 
   const renderResult = (events) => {
     if (!events) return <>not</>;

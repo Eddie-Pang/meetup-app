@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CenteredContainer from "../CenteredContainer";
 import { createUser } from "../../services/authService";
-import { useAuth } from "../../Context/AuthContext.js";
 
 export default function Signup() {
   const nameRef = useRef();
@@ -11,9 +10,8 @@ export default function Signup() {
   const confirmRef = useRef();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { getUser } = useAuth();
   const navigate = useNavigate();
-  console.log("signup");
+  // console.log("signup");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -29,10 +27,10 @@ export default function Signup() {
         password: pwdRef.current.value,
       };
       let result = await createUser(user);
-      console.log(result);
-      getUser();
+      // console.log(result);
+
       if (result === "Create users successfully") {
-        navigate("/profile");
+        navigate("/login");
       }
     } catch {
       setError("Failed to register");

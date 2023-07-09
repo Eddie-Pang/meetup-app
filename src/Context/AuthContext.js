@@ -34,12 +34,18 @@ export function AuthProvider({ children }) {
   // },[currentUser])
 
   useEffect(() => {
-    getUser();
+    let isMounted = true;
+    if (isMounted) {
+      getUser();
+    }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   async function getUser() {
     let userObject = getUserObject();
-    console.log(userObject);
+
     let isMounted = true;
     try {
       if (!userObject) {
@@ -48,8 +54,8 @@ export function AuthProvider({ children }) {
       }
       if (isMounted) {
         setLoading(true);
-        const res = await getAccount(userObject._id);
-        console.log(res);
+        const res = await getAccount();
+        // console.log(res);
         if (res.status === 200) {
           setCurrentUser(res.data);
         }

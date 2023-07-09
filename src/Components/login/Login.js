@@ -24,8 +24,7 @@ export default function Login() {
         password: passwordRef.current.value,
       };
       let result = await login(user);
-      getUser();
-      console.log(result);
+      await getUser();
 
       if (result === "log in successfully") {
         navigate("/profile");
@@ -99,7 +98,7 @@ export default function Login() {
                 <Button variant="success" type="button" block>
                   Log In with Facebook
                 </Button>
-                <a href="http://localhost:8000/google">
+                <a href="https://meetup-server-5xd6.onrender.com/google">
                   <Button variant="secondary" type="button" block>
                     Log In with Google
                   </Button>

@@ -2,11 +2,12 @@ import { Card } from "react-bootstrap";
 
 import { useNavigate } from "react-router-dom";
 
-const Result = (event) => {
+const Result = ({ event }) => {
   const navigate = useNavigate();
   function handleClick(event) {
     navigate(`/event-viewer/?&method=search&&event=${event._id}`);
   }
+
   return (
     <Card
       className="result-card"
