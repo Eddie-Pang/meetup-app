@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: `http://localhost:8000`,
+  baseURL: `https://meetup-server-5xd6.onrender.com`,
   withCredentials: true,
   headers: {
     "Access-Control-Allow-Origin": "*",
