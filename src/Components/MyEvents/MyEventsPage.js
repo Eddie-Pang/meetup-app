@@ -1,24 +1,31 @@
-import React from 'react';
-import { Switch, Route} from 'react-router-dom';
-import MyPreviousEvents from './MyPreviousEvents';
-import MyEventsView from './MyEventsView';
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import MyPreviousEvents from "./MyPreviousEvents";
+import MyEventsView from "./MyEventsView";
 // import MyOwnEvents from './MyOwnEvents';
 
 export default function MyEventsPage(props) {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-    const { history } = props;
-  
-    function handleRenderEventViewer(event){
-        history.push(`/event-viewer/?&method=myEvent&Sevent=${event._id}`)
-    };
-    
-    return (
-        <Switch>
-           <Route path="/myEvents" render = {(props) => (<MyEventsView {...props} handleViewEvent={handleRenderEventViewer}></MyEventsView>)} />
-           <Route path="/myEvents/previous" component = {props =><MyPreviousEvents {...props}/>}/>
-           {/* <Route path="/myOwnEvents" render = {(props) => (<MyOwnEvents {...props} handleViewEvent={handleRenderEventViewer}></MyOwnEvents>)} /> */}
-           
-        </Switch>
-       
-    );
+  function handleRenderEventViewer(event) {
+    navigate(`/event-viewer/?&method=myEvent&event=${event._id}`);
+  }
+
+  const renderPage = (pathname) => {
+    switch (pathname) {
+      case "/myEvents":
+        return (
+          <MyEventsView
+            handleViewEvent={handleRenderEventViewer}
+          ></MyEventsView>
+        );
+      case "/myEvents/previous":
+        return <MyPreviousEvents {...props} />;
+      default:
+        return <MyPreviousEvents {...props} />;
+    }
+  };
+
+  return renderPage(pathname);
 }

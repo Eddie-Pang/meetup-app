@@ -1,119 +1,115 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import '../../styles/eventViewerStyle.css';
-import NavBar from '../NavBar';
+import "../../styles/eventViewerStyle.css";
+import NavBar from "../NavBar";
 import SaveEvent from "./SaveEvent";
-import useGetEvent from '../../hooks/useGetEvent';
-import { loadingIcon } from '../../util/imgPicker'
-import { useAuth } from '../../Context/AuthContext';
-import {  useUserImagesContext } from "../../Context/UserDataContext";
+import useGetEvent from "../../hooks/useGetEvent";
+import { loadingIcon } from "../../util/imgPicker";
+import { useAuth } from "../../Context/AuthContext";
+import { useUserImagesContext } from "../../Context/UserDataContext";
 
-export default function EventViewer(){
-    let location = useLocation();  
-    const { loading, currentUser } = useAuth()
-    const search = location.search
-    const match = search.match(/event=(([^&]+))/);
-    const methods = search.match(/method=(([^&]+))/);
-    const param = match?.[1]
-    const method = methods?.[1]
-    console.log(method)
-    console.log(param)
-    const result = useGetEvent(param);
-    const {events, imgs} = result
-    
-    function isOwned(){
-        if (currentUser?.ownEvents)
-            for (var i =0; i<currentUser.ownEvents.length; i++){
-                if (events?._id===currentUser.ownEvents[i]._id)
-                    return true;
-            }
-            return false
+export default function EventViewer() {
+  let location = useLocation();
+  const { loading, currentUser } = useAuth();
+  const search = location.search;
+  const match = search.match(/event=(([^&]+))/);
+  const methods = search.match(/method=(([^&]+))/);
+  const param = match?.[1];
+  const method = methods?.[1];
+  console.log(method);
+  console.log(param);
+  const result = useGetEvent(param);
+  const { events, imgs } = result;
+
+  function isOwned() {
+    if (currentUser?.ownEvents)
+      for (var i = 0; i < currentUser.ownEvents.length; i++) {
+        if (events?._id === currentUser.ownEvents[i]._id) return true;
+      }
+    return false;
+  }
+
+  const isOwn = isOwned() ? true : false;
+
+  const { images } = useUserImagesContext();
+  const { arrayBufferToBase64 } = images;
+  const imgStr = [];
+  const eventImage = [];
+  if (imgs) {
+    for (var i = 0; i < imgs.img.length; i++) {
+      imgStr.push(arrayBufferToBase64(imgs?.img[i].data.data));
+      eventImage.push(`data:${imgs?.img[i]?.contentType};base64,` + imgStr[i]);
     }
-    
-    const isOwn = isOwned()?true:false
-    
-    const {images} = useUserImagesContext();
-    const { arrayBufferToBase64 } = images;
-    const imgStr=[];
-    const eventImage = []
-    if (imgs){
-        for (var i = 0; i<imgs.img.length; i++){  
-            imgStr.push(arrayBufferToBase64(imgs?.img[i].data.data))
-            eventImage.push(`data:${imgs?.img[i]?.contentType};base64,`+ imgStr[i] ) 
-       }
-    }
-    
-    
-    return(
+  }
+
+  return (
+    <>
+      {loading ? (
+        <div style={{ width: "600px", margin: "auto", textAlign: "center" }}>
+          {loadingIcon()}
+        </div>
+      ) : (
         <>
+          <NavBar />
 
-        {loading
-            ?
+          {result.status !== "received" ? (
+            <div
+              style={{ width: "600px", margin: "auto", textAlign: "center" }}
+            >
+              {loadingIcon()}
+            </div>
+          ) : (
+            <div className="event-container">
+              <strong className="groupname"> {events?.groupName}</strong>
 
-                <div style = {{width: '600px', margin:'auto', textAlign: 'center'}}>{loadingIcon()}</div>
-            :
-                <>
-                    <NavBar/>
+              <hr />
 
-                    {result.status!=='received'
-                    ?
-                        <div style = {{width: '600px', margin:'auto', textAlign: 'center'}}>{loadingIcon()}</div>
-                    :
-                    
-                        <div className = 'event-container'>
+              <div className="event-save"></div>
 
-                            <strong className='groupname'> {events?.groupName}</strong>
+              {isOwn ? (
+                <div className="caption">Hosted</div>
+              ) : (
+                <SaveEvent event={events} />
+              )}
 
-                            <hr/>
-
-                            <div className = 'event-save'></div>
-
-                            {isOwn?<div className='caption'>Hosted</div>:<SaveEvent event={events} />}
-                            
-                            <div className = 'event-content'>
-                                
-                                <div className = 'event-pic'>
-                                    {eventImage.map((img, index) => {
-                                        return(
-                                            <ul key = {index}>
-                                                <img src={img} className="rounded-circle" alt="default" style={{width: '120px', height: '120px'}}/>
-                                            </ul>
-                                        )
-                                    })}
-                                </div>
-
-                                <h5>Details</h5>
-                                {events?.description}
-                                <br/><br/>
-
-                                <h5>Interest</h5>
-                                {events?.interest}
-                                <br/><br/>
-
-                                <b>Date: </b>
-                                {events?.date}, {events?.time} 
-                                <br/>
-
-                                <b>Location: </b>
-                                {events?.location}
-                                <br/>
-
-                                <b>Host: </b>
-                                {events?.host}
-                                <br/>
-
-                            </div>
-                            <hr/>
-                        </div>
-                        
-
-                    }  
-                </>
-        }          
+              <div className="event-content">
+                <div className="event-pic">
+                  {eventImage.map((img, index) => {
+                    return (
+                      <ul key={index}>
+                        <img
+                          src={img}
+                          className="rounded-circle"
+                          alt="default"
+                          style={{ width: "120px", height: "120px" }}
+                        />
+                      </ul>
+                    );
+                  })}
+                </div>
+                <h5>Details</h5>
+                {events?.description}
+                <br />
+                <br />
+                <h5>Interest</h5>
+                {events?.interest}
+                <br />
+                <br />
+                <b>Date: </b>
+                {events?.date}, {events?.time}
+                <br />
+                <b>Location: </b>
+                {events?.location}
+                <br />
+                <b>Host: </b>
+                {events?.host}
+                <br />
+              </div>
+              <hr />
+            </div>
+          )}
         </>
-    )
-
-
-
-
+      )}
+    </>
+  );
 }
